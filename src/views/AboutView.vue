@@ -5,15 +5,15 @@
       <div class="page-hero-overlay"></div>
       <div class="container page-hero-inner">
         <h1 class="page-hero-title">关于我们</h1>
-        <p class="page-hero-lead">专注大气环保与有色金属冶炼，以技术驱动全链条服务</p>
+        <p class="page-hero-lead">专注有色金属冶炼与大气环保治理，以技术驱动全链条服务</p>
       </div>
     </section>
     <section class="page-body">
       <div class="container container--wide">
         <p class="page-eyebrow">公司简介</p>
-        <h2 class="section-title">专注大气环保与有色金属冶炼</h2>
+        <h2 class="section-title">专注有色金属冶炼与大气环保治理</h2>
         <p class="section-lead page-intro">
-          我们深耕工业大气治理与有色金属冶炼环保领域，以技术为驱动，为客户提供从咨询、工程设计、设备供应到运营维护的全链条服务。
+          我们深耕有色金属冶炼与工业大气治理环保领域，以技术为驱动，为客户提供从咨询、工程设计、设备供应到运营维护的全链条服务。
         </p>
         <ul class="about-features">
           <li v-for="item in features" :key="item.title" class="about-feature">

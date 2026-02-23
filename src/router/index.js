@@ -14,6 +14,13 @@ const routes = [
     meta: { title: '关于我们' },
   },
   {
+    path: '/about-test',
+    name: 'about-test',
+    component: () => import('../views/AboutTestView_backup.vue'),
+    meta: { title: '关于我们(测试)' },
+  },
+
+  {
     path: '/services',
     name: 'services',
     component: () => import('../views/ServicesView.vue'),

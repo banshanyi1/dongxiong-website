@@ -51,7 +51,7 @@
             <span class="section-eyebrow">关于我们</span>
             <h2 class="section-title">专注大气环保与有色金属冶炼</h2>
             <p class="section-description">
-              鹏飞环保致力于提供全产业链的环保解决方案，从技术研发到工程实施，
+              东雄环保致力于提供全产业链的环保解决方案，从技术研发到工程实施，
               为客户提供专业的大气污染治理和有色金属冶炼环保服务。
             </p>
             <ul class="features-list">
@@ -87,20 +87,45 @@
             覆盖大气治理、冶炼环保、工程咨询、设备运维等全方位服务
           </p>
         </div>
-        <div class="services-grid">
-          <div 
-            v-for="(service, index) in services" 
-            :key="index"
-            class="service-card"
-            :class="`card-${index + 1}`"
-          >
-            <div class="service-icon">{{ service.icon }}</div>
-            <h3 class="service-title">{{ service.title }}</h3>
-            <p class="service-description">{{ service.description }}</p>
+        <div class="services-wrapper">
+          <div class="services-grid">
+            <!-- 左侧大模块 -->
+            <div class="service-item large">
+              <div class="service-card first">
+                <div class="service-card-icon">{{ services[0].icon }}</div>
+                <h3 class="service-card-title">{{ services[0].title }}</h3>
+                <p class="service-card-desc">{{ services[0].description }}</p>
+              </div>
+            </div>
+            
+            <!-- 右侧上方模块 -->
+            <div class="service-item small top">
+              <div class="service-card second">
+                <div class="service-card-icon">{{ services[1].icon }}</div>
+                <h3 class="service-card-title">{{ services[1].title }}</h3>
+                <p class="service-card-desc">{{ services[1].description }}</p>
+              </div>
+            </div>
+            
+            <!-- 右侧下方模块 -->
+            <div class="service-item small bottom">
+              <div class="service-card third">
+                <div class="service-card-icon">{{ services[2].icon }}</div>
+                <h3 class="service-card-title">{{ services[2].title }}</h3>
+                <p class="service-card-desc">{{ services[2].description }}</p>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="text-center">
-          <RouterLink to="/services" class="btn btn-primary">查看详情</RouterLink>
+        <div class="services-cta">
+          <div class="cta-buttons">
+            <RouterLink to="/services" class="btn btn-primary">查看详情</RouterLink>
+            <RouterLink to="/about-test" class="btn btn-test-globe">
+              <span class="btn-icon">🌍</span>
+              <span class="btn-text">3D地球展示</span>
+              <span class="btn-badge">NEW</span>
+            </RouterLink>
+          </div>
         </div>
       </div>
     </section>
@@ -182,34 +207,37 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
+import heroSlide1 from '../assets/images/hero-slide-1.png'
+import heroSlide2 from '../assets/images/hero-slide-2.jpg'
+import heroSlide3 from '../../public/hero-slide-3.jpg'
 
 // 轮播图数据
 const heroSlides = [
   {
-    image: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=1920&q=80',
+    image: heroSlide1,
     eyebrow: '东雄环保',
-    title: '专业的大气环保解决方案',
-    description: '专注于大气污染治理与有色金属冶炼环保技术研发',
+    title: '东雄环保-安徽',
+    description: '专注于有色金属冶炼与大气污染治理的技术研发',
     primaryLink: '/services',
     primaryText: '了解业务',
     secondaryLink: '/contact',
     secondaryText: '联系我们'
   },
   {
-    image: 'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=1920&q=80',
+    image: heroSlide2,
     eyebrow: '技术创新',
-    title: '领先的环保技术',
-    description: '自主研发的脱硫脱硝除尘一体化技术，效果显著',
+    title: '顶尖氧化锌工艺技术',
+    description: '自主研发的氧化锌高纯度生产工艺技术，效果显著',
     primaryLink: '/solutions',
     primaryText: '技术优势',
     secondaryLink: '/cases',
     secondaryText: '成功案例'
   },
   {
-    image: 'https://images.unsplash.com/photo-1567767292278-a4f21aa2d36e?w=1920&q=80',
+    image: heroSlide3,
     eyebrow: '品质保证',
     title: '全流程服务保障',
-    description: '从方案设计到施工运维，提供一站式环保服务',
+    description: '从方案设计到施工运维，提供全流程一站式服务',
     primaryLink: '/about',
     primaryText: '公司介绍',
     secondaryLink: '/contact',
@@ -223,25 +251,20 @@ const casesImage = 'https://images.unsplash.com/photo-1567767292278-a4f21aa2d36e
 
 // 业务范围数据
 const services = [
-  {
-    icon: '🏭',
-    title: '大气污染治理',
-    description: '脱硫脱硝、除尘、VOCs治理等全方位大气污染防治'
+  { 
+    icon: '🏭', 
+    title: '技术工程', 
+    description: '冶金固、危废处理的技术咨询、设计、工程建设'
   },
-  {
-    icon: '🔥',
-    title: '有色金属冶炼环保',
-    description: '冶炼环节环保技术，实现清洁生产'
+  { 
+    icon: '🌫️', 
+    title: '环保设备', 
+    description: '除尘、脱硫脱硝设备及滤料配件系统解决方案'
   },
-  {
-    icon: '📐',
-    title: '工程设计咨询',
-    description: '可行性研究、工艺设计、工程咨询等专业服务'
-  },
-  {
-    icon: '⚙️',
-    title: '设备与运维',
-    description: '环保设备供应及长期运维保障服务'
+  { 
+    icon: '📦', 
+    title: '输送装备', 
+    description: '气力输送装置、刮板输送机及配套系统集成'
   }
 ]
 
@@ -319,7 +342,7 @@ onUnmounted(() => {
   width: 100%;
   height: 100%;
   background-size: cover;
-  background-position: center;
+  background-position: center 65%;
   opacity: 0;
   transition: opacity 1s ease-in-out;
 }
@@ -334,7 +357,7 @@ onUnmounted(() => {
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, rgba(10, 126, 164, 0.7) 0%, rgba(29, 29, 31, 0.5) 100%);
+  background: linear-gradient(135deg, rgba(10, 126, 164, 0.4) 0%, rgba(29, 29, 31, 0.3) 100%);
 }
 
 .hero-content {
@@ -543,7 +566,7 @@ onUnmounted(() => {
 
 /* 关于我们区域 */
 .about-section {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  background: rgb(245, 245, 247);
 }
 
 .features-list {
@@ -567,56 +590,204 @@ onUnmounted(() => {
 
 /* 业务范围区域 */
 .services-section {
-  background: white;
+  background: rgb(250, 250, 252);
+}
+
+.services-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 3rem 0;
 }
 
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-  margin: 3rem 0;
+  grid-template-columns: 1.5fr 1.5fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 1.5rem;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.service-item {
+  position: relative;
+}
+
+.service-item.large {
+  grid-row: 1 / 3;
+}
+
+.service-item.small.top {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.service-item.small.bottom {
+  grid-column: 2;
+  grid-row: 2;
 }
 
 .service-card {
+  background: white;
+  border-radius: 16px;
   padding: 2rem;
-  border-radius: 12px;
-  text-align: center;
+  border: 1px solid #e0e0e0;
   transition: all 0.3s ease;
-  background: #f8f9fa;
-  border: 1px solid #e9ecef;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.service-card.first {
+  background: white url('/service-bg-new.png');
+  background-size: 120%;
+  background-position: 30% bottom;
+  background-repeat: no-repeat;
+  border: 1px solid #e0e0e0;
+  backdrop-filter: blur(0.5px);
+}
+
+.service-card.second {
+  background: white url('/service-bg-metals-new.png');
+  background-size: 55%;
+  background-position: right center;
+  background-repeat: no-repeat;
+  border: 1px solid #e0e0e0;
+}
+
+.service-card.third {
+  background: white url('/service-bg-equipment.png');
+  background-size: 55%;
+  background-position: right center;
+  background-repeat: no-repeat;
+  border: 1px solid #e0e0e0;
 }
 
 .service-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px);
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.12);
   border-color: var(--color-industry);
 }
 
-.card-1:hover { border-top: 4px solid #0a7ea4; }
-.card-2:hover { border-top: 4px solid #ff6b35; }
-.card-3:hover { border-top: 4px solid #2ecc71; }
-.card-4:hover { border-top: 4px solid #9b59b6; }
-
-.service-icon {
-  font-size: 3rem;
-  margin-bottom: 1.5rem;
+.service-card-icon { 
+  font-size: 2rem; 
+  margin-bottom: 1rem; 
 }
 
-.service-title {
-  font-size: 1.25rem;
+.service-card-title {
+  font-size: 1.75rem;
   font-weight: 600;
-  margin-bottom: 1rem;
-  color: var(--color-text);
+  margin-bottom: 0.5rem;
+  flex-grow: 1;
 }
 
-.service-description {
+.service-card-desc {
+  font-size: 1rem;
   color: var(--color-text-secondary);
   line-height: 1.6;
+  margin-bottom: 1rem;
+  flex-grow: 1;
+}
+
+/* 业务范围CTA按钮区域 */
+.services-cta {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.cta-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.btn-test-globe {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 25px rgba(106, 17, 203, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-test-globe:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 35px rgba(106, 17, 203, 0.4);
+  background: linear-gradient(135deg, #2575fc 0%, #6a11cb 100%);
+}
+
+.btn-test-globe::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.btn-test-globe:hover::before {
+  left: 100%;
+}
+
+.btn-icon {
+  font-size: 1.5rem;
+  animation: rotate 3s linear infinite;
+}
+
+.btn-text {
+  letter-spacing: 1px;
+}
+
+.btn-badge {
+  background: #ff4757;
+  color: white;
+  font-size: 0.7rem;
+  font-weight: bold;
+  padding: 0.2rem 0.5rem;
+  border-radius: 10px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .cta-buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .btn-test-globe {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+  }
 }
 
 /* 工程案例区域 */
 .cases-section {
-  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+  background: rgb(245, 245, 247);
 }
 
 .stats {

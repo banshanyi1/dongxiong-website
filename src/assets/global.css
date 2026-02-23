@@ -1,4 +1,16 @@
 /* 苹果风 + B2B 专业感：设计变量与全局样式 */
+
+/* 长城共享体字体引入 */
+@font-face {
+  font-family: '长城共享体';
+  src: url('./fonts/长城共享体.woff2') format('woff2'),
+       url('./fonts/长城共享体.woff') format('woff'),
+       url('./fonts/长城共享体.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   /* 色彩 - 中性、克制、高端 */
   --color-bg: #fbfbfd;
@@ -16,8 +28,8 @@
   --color-industry: #0a7ea4;
   --color-environment: #34c759;
 
-  /* 字体 - 类似苹果的清晰无衬线 */
-  --font-sans: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  /* 字体 - 长城共享体 */
+  --font-sans: '长城共享体', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-weight-light: 300;
   --font-weight-normal: 400;
   --font-weight-medium: 500;

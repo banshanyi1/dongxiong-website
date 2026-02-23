@@ -122,9 +122,9 @@ const navItems = [
     label: '业务范围',
     path: '/services',
     children: [
-      { path: '/services', label: '大气污染治理', desc: '脱硫脱硝、除尘、VOCs' },
-      { path: '/services#smelting', label: '有色金属冶炼环保', desc: '冶炼环节环保' },
       { path: '/services#design', label: '工程设计咨询', desc: '可研与设计' },
+      { path: '/services#smelting', label: '有色金属冶炼', desc: '先进系统工艺技术' },
+      { path: '/services', label: '大气污染治理', desc: '脱硫脱硝、除尘、VOCs' },
       { path: '/services#equipment', label: '设备与运维', desc: '设备与运维服务' },
     ],
   },

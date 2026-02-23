@@ -16,27 +16,59 @@
           为客户提供合规、高效、可持续的解决方案。
         </p>
         <div class="services-grid">
-          <article 
-            v-for="(card, index) in cards" 
-            :key="card.title" 
-            class="service-card"
-            :class="{ 'active': activeCardIndex === index }"
-            @click="openDetail(index)"
-          >
-            <div class="service-card-icon">{{ card.icon }}</div>
-            <h3 class="service-card-title">{{ card.title }}</h3>
-            <p class="service-card-desc">{{ card.desc }}</p>
-            <span class="service-card-link">点击查看详情 →</span>
-          </article>
+          <!-- 顶部大模块 -->
+          <div class="services-grid top-card">
+            <article 
+              :key="cards[0].title" 
+              class="service-card first"
+              :class="{ 'active': activeCardIndex === 0 }"
+              @click="openDetail(0)"
+            >
+              <div class="service-card-icon">{{ cards[0].icon }}</div>
+              <h3 class="service-card-title">{{ cards[0].title }}</h3>
+              <p class="service-card-desc">{{ cards[0].desc }}</p>
+              <span class="service-card-link">点击查看详情 →</span>
+            </article>
+          </div>
+          
+          <!-- 底部两个小模块 -->
+          <div class="services-grid bottom-cards">
+            <article 
+              v-for="(card, index) in cards.slice(1)" 
+              :key="card.title" 
+              :class="[
+                'service-card',
+                index === 0 ? 'second' : 'third',
+                { 'active': activeCardIndex === index + 1 }
+              ]"
+              @click="openDetail(index + 1)"
+            >
+              <div class="service-card-icon">{{ card.icon }}</div>
+              <h3 class="service-card-title">{{ card.title }}</h3>
+              <p class="service-card-desc">{{ card.desc }}</p>
+              <span class="service-card-link">点击查看详情 →</span>
+            </article>
+          </div>
         </div>
       </div>
     </section>
     
     <!-- 侧滑详情面板 -->
-    <div v-if="activeCardIndex !== null" class="service-detail-wrapper">
-      <Transition name="slide">
-        <div class="service-detail-overlay" @click="closeDetail">
-          <div class="service-detail-panel" @click.stop>
+    <Teleport to="body">
+      <div class="service-detail-container" v-if="activeCardIndex !== null">
+        <Transition name="slide-fade">
+          <div class="service-detail-backdrop" @click="closeDetail"></div>
+        </Transition>
+        <Transition name="slide-panel">
+          <div 
+            v-if="activeCardIndex !== null"
+            :class="[
+              'service-detail-panel',
+              activeCardIndex === 1 ? 'metals' : '',
+              activeCardIndex === 2 ? 'equipment' : ''
+            ]" 
+            @click.stop
+          >
             <button class="detail-close-btn" @click="closeDetail">×</button>
             <div class="detail-content">
               <div class="detail-header">
@@ -67,9 +99,9 @@
               </div>
             </div>
           </div>
-        </div>
-      </Transition>
-    </div>
+        </Transition>
+      </div>
+    </Teleport>
   </div>
 </template>
 
@@ -78,83 +110,68 @@ import { ref } from 'vue'
 
 const activeCardIndex = ref(null)
 
+
 const cards = [
   { 
-    icon: '🌫️', 
-    title: '大气污染治理', 
-    desc: '烟气脱硫脱硝、除尘、VOCs 治理等工程设计、设备与运维服务。',
-    fullDesc: '我们专注于工业大气污染治理领域，提供从技术咨询、工程设计到设备制造、安装调试及运维服务的全链条解决方案。',
+    icon: '🏭', 
+    title: '技术工程', 
+    desc: '冶金固、危废处理的技术咨询、设计、工程建设',
+    fullDesc: '我们专注于冶金行业固废与危废资源化利用领域，提供从技术咨询、工艺设计到工程总包、运营支持的全流程专业化服务。',
+    background: '/service-bg-new.png',
     features: [
-      '先进的脱硫脱硝一体化技术',
-      '高效的除尘设备与工艺',
-      'VOCs综合治理方案',
-      '24小时远程运维监控'
+      '冶金尘泥资源化利用技术',
+      '危废无害化处置与稳定化工艺',
+      '固废高值化转化解决方案',
+      '全流程环境风险控制体系'
     ],
     process: [
-      '现场勘查与需求分析',
-      '技术方案设计与评审',
-      '设备采购与制造',
-      '施工安装与调试',
-      '验收交付与运维'
+      '物料成分检测与可行性分析',
+      '工艺路线设计与优化',
+      '工程总包与施工管理',
+      '系统调试与投产支持',
+      '运行维护与技改服务'
     ]
   },
   { 
-    icon: '⚙️', 
-    title: '有色金属冶炼环保', 
-    desc: '铜、铝、铅、锌等冶炼环节的环保工艺设计、装备与技术改造。',
-    fullDesc: '针对有色金属冶炼行业的特殊环保需求，我们提供定制化的环保解决方案，涵盖冶炼烟气治理、固废处理、水资源循环利用等关键环节。',
-    features: [
-      '冶炼烟气深度净化技术',
-      '重金属污染物控制',
-      '余热回收与能源利用',
-      '智能化控制系统'
-    ],
-    process: [
-      '工艺诊断与评估',
-      '环保技术方案制定',
-      '核心设备集成',
-      '系统优化调试',
-      '达标运行保障'
-    ]
-  },
+  icon: '🌫️', 
+  title: '环保设备', 
+  desc: '除尘、脱硫脱硝设备及滤料配件系统解决方案',
+  fullDesc: '我们提供覆盖烟气治理全过程的环保设备与耗材，从核心过滤材料到成套净化装备，满足各类工业场景的排放控制需求。',
+  background: '/service-bg-equipment.png',
+  features: [
+    '高效除尘设备（袋式/电袋复合）',
+    '脱硫脱硝一体化装置',
+    '耐高温滤料（P84、美塔斯、氟美斯）',
+    '滤筒、PPS、亚克力等全系配件'
+  ],
+  process: [
+    '工况参数采集与分析',
+    '滤料选型与匹配设计',
+    '设备制造与集成',
+    '现场安装与调试',
+    '耗材更换与运维支持'
+  ]
+},
   { 
-    icon: '📐', 
-    title: '工程设计咨询', 
-    desc: '可研、环评配合、初步设计与施工图设计，确保合规与可落地。',
-    fullDesc: '我们的工程设计咨询团队拥有丰富的行业经验，为各类环保项目提供从前期可研到施工图设计的全过程技术服务。',
-    features: [
-      '专业的技术咨询团队',
-      '完整的资质认证体系',
-      '标准化设计流程',
-      '项目全生命周期服务'
-    ],
-    process: [
-      '项目可行性研究',
-      '环境影响评价配合',
-      '初步设计方案',
-      '详细施工图设计',
-      '设计交底与服务'
-    ]
-  },
-  { 
-    icon: '🔧', 
-    title: '设备与运维', 
-    desc: '核心环保设备供应、安装调试及长期运营维护与优化。',
-    fullDesc: '我们不仅提供优质的核心环保设备，更注重设备的长期稳定运行，通过专业的运维服务确保系统持续高效运转。',
-    features: [
-      '高品质核心设备制造',
-      '专业技术安装团队',
-      '预防性维护保养',
-      '远程智能监控系统'
-    ],
-    process: [
-      '设备选型与采购',
-      '专业安装与调试',
-      '操作培训与交接',
-      '定期巡检维护',
-      '持续优化升级'
-    ]
-  },
+  icon: '📦', 
+  title: '输送装备', 
+  desc: '气力输送装置、刮板输送机及配套系统集成',
+  fullDesc: '我们提供高效可靠的散料输送装备与系统解决方案，专注于冶金、环保等行业粉粒状物料的密闭输送、转运与储存。',
+  background: '/service-bg-conveying.png',
+  features: [
+    '气力输送系统（正压/负压）',
+    '刮板输送机系列产品',
+    '斗式提升机与皮带输送机',
+    '自动化控制与配套附件'
+  ],
+  process: [
+    '物料特性分析',
+    '输送工艺方案设计',
+    '设备选型与制造',
+    '现场安装调试',
+    '运行维护与升级'
+  ]
+},
 ]
 
 function openDetail(index) {
@@ -217,7 +234,10 @@ onUnmounted(() => {
 
 .page-hero-lead { font-size: var(--text-body); opacity: 0.95; }
 
-.page-body { padding: var(--space-section) 0; }
+.page-body { 
+  padding: var(--space-section) 0; 
+  background: rgb(250, 250, 252);
+}
 
 .page-eyebrow {
   font-size: var(--text-small);
@@ -233,28 +253,70 @@ onUnmounted(() => {
 .services-grid {
   display: grid;
   gap: 1.5rem;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  grid-template-columns: 1fr;
+  grid-template-areas: 
+    "top"
+    "bottom";
+}
+
+.services-grid.top-card {
+  grid-area: top;
+  grid-column: 1;
+}
+
+.services-grid.bottom-cards {
+  grid-area: bottom;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
 }
 
 .service-card {
-  background: var(--color-bg-alt);
+  background: white;
   border-radius: 16px;
   padding: 2rem;
-  border: 1px solid var(--color-border);
+  border: 1px solid #e0e0e0;
   transition: all var(--duration-normal) var(--ease-out);
   cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.service-card.first {
+  padding: 3rem;
+  min-height: 200px;
+  background: rgb(245, 245, 247) url('/service-bg-new.png');
+  background-size: 60%;
+  background-position: right center;
+  background-repeat: no-repeat;
+  border: 1px solid #d0d0d0;
+}
+
+.service-card.second {
+  background: white url('/service-bg-metals-new.png');
+  background-size: 50%;
+  background-position: right center;
+  background-repeat: no-repeat;
+  border: 1px solid #e0e0e0;
+}
+
+.service-card.third {
+  background: white url('/service-bg-equipment.png');
+  background-size: 50%;
+  background-position: right center;
+  background-repeat: no-repeat;
+  border: 1px solid #e0e0e0;
 }
 
 .service-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.12);
   border-color: var(--color-industry);
 }
 
 .service-card-icon { font-size: 2rem; margin-bottom: 1rem; }
 
 .service-card-title {
-  font-size: var(--text-h3);
+  font-size: 1.75rem;
   font-weight: var(--font-weight-semibold);
   margin-bottom: 0.5rem;
 }
@@ -281,49 +343,72 @@ onUnmounted(() => {
   border-color: var(--color-industry);
 }
 
-/* 侧滑详情面板包装器 */
-.service-detail-wrapper {
+/* 侧滑详情面板容器 */
+.service-detail-container {
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
+  width: 100vw;
+  height: 100vh;
   z-index: 1000;
-  pointer-events: none;
 }
 
-.service-detail-wrapper > * {
-  pointer-events: auto;
-}
-
-/* 侧滑详情面板样式 */
-.service-detail-overlay {
+/* 背景遮罩 */
+.service-detail-backdrop {
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
+  width: 100%;
+  height: 100%;
   background: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
-  display: flex;
-  justify-content: flex-start;
-  padding: 20px;
 }
 
+/* 侧滑详情面板样式 */
 .service-detail-panel {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 60%;
-  height: calc(100vh - 40px);
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-radius: 16px;
-  box-shadow: 15px 20px 60px rgba(0, 0, 0, 0.25);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  height: 100vh;
+  background: 
+    linear-gradient(
+      to right, 
+      rgba(255, 255, 255, 0.95) 0%, 
+      rgba(255, 255, 255, 0.85) 15%, 
+      rgba(255, 255, 255, 0.7) 30%, 
+      rgba(255, 255, 255, 0.4) 50%, 
+      rgba(255, 255, 255, 0.15) 70%, 
+      transparent 85%
+    ), 
+    url('/service-bg-new.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 0 16px 16px 0;
+  box-shadow: 15px 0 60px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  margin-right: 20px;
+  padding: 20px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.service-detail-panel.metals {
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.2) 30%, rgba(255, 255, 255, 0.05) 60%, transparent 80%), url('/service-bg-metals-new.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.service-detail-panel.equipment {
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.2) 30%, rgba(255, 255, 255, 0.05) 60%, transparent 80%), url('/service-bg-equipment.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .detail-close-btn {
@@ -350,8 +435,11 @@ onUnmounted(() => {
 }
 
 .detail-content {
-  padding: 60px 30px 30px;
+  padding: 30px 30px 30px;
   flex: 1;
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
 }
 
 .detail-header {
@@ -359,6 +447,12 @@ onUnmounted(() => {
   margin-bottom: 30px;
   padding-bottom: 20px;
   border-bottom: 1px solid #eee;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  padding: 20px;
+  margin: -20px -20px 30px -20px;
+  backdrop-filter: blur(0.2px);
+  -webkit-backdrop-filter: blur(0.2px);
 }
 
 .detail-icon {
@@ -434,26 +528,40 @@ onUnmounted(() => {
   box-shadow: 0 10px 25px rgba(10, 126, 164, 0.3);
 }
 
-/* 侧滑动画 */
-.slide-enter-active,
-.slide-leave-active {
+/* 重新设计的双层动画 */
+
+/* 背景遮罩动画 */
+.slide-fade-enter-active,
+.slide-fade-leave-active {
+  transition: all 0.3s ease;
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  opacity: 0;
+}
+
+.slide-fade-enter-to,
+.slide-fade-leave-from {
+  opacity: 1;
+}
+
+/* 侧滑面板动画 */
+.slide-panel-enter-active,
+.slide-panel-leave-active {
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.slide-enter-from {
+.slide-panel-enter-from,
+.slide-panel-leave-to {
+  transform: translateX(-100%);
   opacity: 0;
 }
 
-.slide-enter-from .service-detail-panel {
-  transform: translateX(100%);
-}
-
-.slide-leave-to {
-  opacity: 0;
-}
-
-.slide-leave-to .service-detail-panel {
-  transform: translateX(100%);
+.slide-panel-enter-to,
+.slide-panel-leave-from {
+  transform: translateX(0);
+  opacity: 1;
 }
 
 /* 响应式设计 */
