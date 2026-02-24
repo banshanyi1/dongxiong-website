@@ -106,10 +106,9 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, nextTick } from 'vue'
 
 const activeCardIndex = ref(null)
-
 
 const cards = [
   { 
@@ -174,7 +173,11 @@ const cards = [
 },
 ]
 
-function openDetail(index) {
+async function openDetail(index) {
+  // 先清空当前状态，确保动画能正确触发
+  activeCardIndex.value = null
+  await nextTick()
+  // 设置新状态
   activeCardIndex.value = index
   // 防止页面滚动
   document.body.style.overflow = 'hidden'
@@ -343,7 +346,7 @@ onUnmounted(() => {
   border-color: var(--color-primary);
 }
 
-/* 侧滑详情面板容器 */
+/* 弹出详情面板容器 */
 .service-detail-container {
   position: fixed;
   top: 0;
@@ -351,6 +354,9 @@ onUnmounted(() => {
   width: 100vw;
   height: 100vh;
   z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* 背景遮罩 */
@@ -365,16 +371,15 @@ onUnmounted(() => {
   -webkit-backdrop-filter: blur(15px);
 }
 
-/* 侧滑详情面板样式 */
+/* 弹出详情面板样式 */
 .service-detail-panel {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 60%;
-  height: 100vh;
+  position: relative;
+  width: 80%;
+  max-width: 1000px;
+  max-height: 90vh;
   background: 
     linear-gradient(
-      to right, 
+      to bottom, 
       rgba(255, 255, 255, 0.95) 0%, 
       rgba(255, 255, 255, 0.85) 15%, 
       rgba(255, 255, 255, 0.7) 30%, 
@@ -386,8 +391,8 @@ onUnmounted(() => {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  border-radius: 0 16px 16px 0;
-  box-shadow: 15px 0 60px rgba(0, 0, 0, 0.25);
+  border-radius: 16px;
+  box-shadow: 0 25px 100px rgba(0, 0, 0, 0.3);
   border: 1px solid rgba(255, 255, 255, 0.3);
   display: flex;
   flex-direction: column;
@@ -395,6 +400,9 @@ onUnmounted(() => {
   padding: 20px;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  margin: 0 auto;
+  /* 确保动画初始状态 */
+  will-change: transform, opacity;
 }
 
 .service-detail-panel.metals {
@@ -546,21 +554,22 @@ onUnmounted(() => {
   opacity: 1;
 }
 
-/* 侧滑面板动画 */
+/* 弹出面板动画 - 标准实现 */
 .slide-panel-enter-active,
 .slide-panel-leave-active {
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform-origin: bottom center;
 }
 
 .slide-panel-enter-from,
 .slide-panel-leave-to {
-  transform: translateX(-100%);
+  transform: translateY(100%) scale(0.8);
   opacity: 0;
 }
 
 .slide-panel-enter-to,
 .slide-panel-leave-from {
-  transform: translateX(0);
+  transform: translateY(0) scale(1);
   opacity: 1;
 }
 
@@ -571,9 +580,9 @@ onUnmounted(() => {
   }
   
   .service-detail-panel {
-    width: 100%;
-    height: calc(100vh - 20px);
-    margin-right: 0;
+    width: 95%;
+    max-height: 95vh;
+    margin: 0 auto;
   }
   
   .detail-content {

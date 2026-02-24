@@ -1,6 +1,11 @@
 <template>
   <div class="app">
-    <SiteHeader />
+    <SiteHeader @blur-change="handleBlurChange" />
+    <!-- 全屏模糊遮罩 -->
+    <div 
+      class="fullscreen-blur-overlay" 
+      :class="{ 'active': isFullscreenBlur }"
+    ></div>
     <main class="main">
       <RouterView v-slot="{ Component, route }">
         <Transition name="page" mode="out-in">
@@ -13,8 +18,17 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import SiteHeader from './components/SiteHeader.vue'
 import SiteFooter from './components/SiteFooter.vue'
+
+// 全屏模糊状态
+const isFullscreenBlur = ref(false)
+
+// 处理来自SiteHeader的模糊状态变化
+const handleBlurChange = (blurState) => {
+  isFullscreenBlur.value = blurState
+}
 </script>
 
 <style scoped>

@@ -1,457 +1,640 @@
 <template>
-  <div class="page-view">
-    <section class="page-hero">
-      <div class="page-hero-bg" :style="{ backgroundImage: `url(${caseDetail?.image || defaultImage})` }"></div>
-      <div class="page-hero-overlay"></div>
-      <div class="container page-hero-inner">
-        <span class="case-tag">{{ caseDetail?.tag || '项目案例' }}</span>
-        <h1 class="page-hero-title">{{ caseDetail?.title || '项目详情' }}</h1>
-        <p class="page-hero-lead">{{ caseDetail?.subtitle || '专业环保解决方案' }}</p>
-      </div>
-    </section>
+  <div class="case-detail-page">
+    <!-- 背景微动颗粒 + 光晕 -->
+    <div class="background-effects"></div>
     
-    <section class="page-body">
-      <div class="container">
-        <div class="case-detail-content">
-          <!-- 项目概览 -->
-          <div class="case-overview">
-            <h2 class="section-title">项目概览</h2>
-            <div class="overview-grid">
-              <div class="overview-item">
-                <h3>项目类型</h3>
-                <p>{{ caseDetail?.type || '未指定' }}</p>
-              </div>
-              <div class="overview-item">
-                <h3>项目规模</h3>
-                <p>{{ caseDetail?.scale || '未指定' }}</p>
-              </div>
-              <div class="overview-item">
-                <h3>完成时间</h3>
-                <p>{{ caseDetail?.completionDate || '未指定' }}</p>
-              </div>
-              <div class="overview-item">
-                <h3>项目地点</h3>
-                <p>{{ caseDetail?.location || '未指定' }}</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- 项目描述 -->
-          <div class="case-description">
-            <h2 class="section-title">项目描述</h2>
-            <p class="description-text">{{ caseDetail?.description || '暂无详细描述' }}</p>
-          </div>
-
-          <!-- 技术方案 -->
-          <div class="case-solution">
-            <h2 class="section-title">技术方案</h2>
-            <div class="solution-content">
-              <p>{{ caseDetail?.solution || '采用先进的环保技术解决方案' }}</p>
-              <ul class="tech-list" v-if="caseDetail?.technologies">
-                <li v-for="tech in caseDetail.technologies" :key="tech">{{ tech }}</li>
-              </ul>
-            </div>
-          </div>
-
-          <!-- 项目成果 -->
-          <div class="case-results">
-            <h2 class="section-title">项目成果</h2>
-            <div class="results-grid">
-              <div v-for="result in caseDetail?.results || defaultResults" :key="result.metric" class="result-item">
-                <span class="result-value">{{ result.value }}</span>
-                <span class="result-metric">{{ result.metric }}</span>
-                <span class="result-desc">{{ result.description }}</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- 项目图片 -->
-          <div class="case-gallery" v-if="caseDetail?.gallery?.length">
-            <h2 class="section-title">项目现场</h2>
-            <div class="gallery-grid">
-              <div 
-                v-for="(image, index) in caseDetail.gallery" 
-                :key="index" 
-                class="gallery-item"
-                :style="{ backgroundImage: `url(${image})` }"
-              ></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 返回按钮 -->
-        <div class="back-section">
-          <RouterLink to="/cases" class="btn btn-outline">← 返回案例列表</RouterLink>
-        </div>
+    <!-- 主要内容 -->
+    <div class="content">
+      <!-- 面包屑导航 -->
+      <div class="breadcrumb">
+        <router-link to="/">首页</router-link> / 
+        <router-link to="/cases">工程案例</router-link> / 山东日照
       </div>
-    </section>
+
+      <!-- 顶部标题区 -->
+      <section class="section hero-section">
+        <h1 class="hero-title">山东日照钢铁烟尘资源化项目</h1>
+        <p class="hero-sub">国内首套逆流漂洗脱氯工艺标杆项目</p>
+      </section>
+
+      <!-- 核心数据展示区 -->
+      <section class="section stats-section">
+        <h2 class="section-title">项目核心数据</h2>
+        <div class="card-grid">
+          <div 
+            v-for="(stat, index) in statsData" 
+            :key="index" 
+            class="stat-card"
+            :style="{ animationDelay: `${index * 0.1}s` }"
+          >
+            <div class="stat-number">
+              <span ref="numberRefs" :data-target="stat.number.replace(/,/g, '')">
+                {{ stat.number }}
+              </span>
+            </div>
+            <div class="stat-label">{{ stat.label }}</div>
+            <div class="stat-desc">{{ stat.desc }}</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 项目照片展示区 -->
+      <section class="section photos-section">
+        <h2 class="section-title">项目实拍</h2>
+        <div class="photo-grid">
+          <div 
+            v-for="(photo, index) in photoData" 
+            :key="index" 
+            class="photo-item"
+            :style="{ animationDelay: `${index * 0.15}s` }"
+          >
+            <div 
+              class="photo-frame" 
+              :class="`photo-frame${index + 1}`"
+            ></div>
+            <div class="photo-caption">{{ photo.caption }}</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 技术亮点展示区 -->
+      <section class="section tech-section">
+        <div class="split-layout">
+          <div class="split-left">
+            <div class="eyebrow">技术突破</div>
+            <h2 class="tech-title">攻克高氯原料难题</h2>
+            <p class="tech-description">采用自主研发的逆流漂洗脱氯工艺，在有限空间内实现高效脱氯，解决了传统工艺无法处理高氯原料的行业难题。</p>
+          </div>
+          <div class="split-right">
+            <div class="tech-icon">
+              <i class="fas fa-recycle"></i>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 客户评价区 -->
+      <section class="section testimonial-section">
+        <div class="testimonial">
+          <p class="testimonial-quote">"解决了我们多年积存的危废难题。"</p>
+          <p class="testimonial-author">—— 日照钢铁集团</p>
+        </div>
+      </section>
+
+      <!-- 底部导航 -->
+      <section class="section navigation-section">
+        <div class="bottom-nav">
+          <router-link to="/cases/rizhao-previous" class="btn btn-outline">
+            <i class="fas fa-arrow-left"></i>
+            上一个项目
+          </router-link>
+          <router-link to="/cases" class="btn btn-primary">
+            <i class="fas fa-th-large"></i>
+            返回所有案例
+          </router-link>
+          <router-link to="/cases/rizhao-next" class="btn btn-outline">
+            下一个项目
+            <i class="fas fa-arrow-right"></i>
+          </router-link>
+        </div>
+      </section>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-import { useRoute } from 'vue-router'
+import { ref, onMounted, nextTick } from 'vue'
 
-const route = useRoute()
-const caseId = computed(() => route.params.id)
+// 核心数据
+const statsData = ref([
+  { number: '50,000', label: '年处理量', desc: '年处理钢铁烟尘5万吨' },
+  { number: '99.5%', label: '氧化锌品位', desc: '产品纯度达99.5%以上' },
+  { number: '35', label: 'SO₂排放', desc: '优于国家超低排放标准 (mg/m³)' }
+])
 
-// 默认图片
-const defaultImage = 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=1920&q=80'
+// 照片数据
+const photoData = ref([
+  { caption: '回转窑主体' },
+  { caption: '中央控制室' },
+  { caption: '成品氧化锌堆场' }
+])
 
-// 默认成果数据
-const defaultResults = [
-  { value: '95%', metric: '减排效率', description: '污染物减排效果显著' },
-  { value: '24h', metric: '稳定运行', description: '系统全年稳定运行' },
-  { value: '0', metric: '故障率', description: '零故障稳定运行' }
-]
+// 数字动画相关
+const numberRefs = ref([])
 
-// 案例数据（实际项目中应该从API获取）
-const caseData = {
-  '1': {
-    id: '1',
-    tag: '冶金行业',
-    title: '某铜冶炼企业烟气脱硫脱硝项目',
-    subtitle: '年产XX万吨铜冶炼配套烟气综合治理',
-    image: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=1920&q=80',
-    type: '烟气综合治理',
-    scale: '年产XX万吨',
-    completionDate: '2023年6月',
-    location: '江苏省苏州市',
-    description: '该项目针对铜冶炼过程中产生的SO₂、NOₓ等污染物，采用先进的氨法脱硫和SCR脱硝技术，实现了烟气的超低排放。项目包含一套完整的烟气处理系统，日处理烟气量达50万立方米。',
-    solution: '采用氨法脱硫+SCR脱硝一体化技术，配套布袋除尘器，实现SO₂、NOₓ、粉尘的协同治理。',
-    technologies: ['氨法脱硫技术', 'SCR选择性催化还原', '布袋除尘', 'DCS自动化控制'],
-    results: [
-      { value: '98%', metric: '脱硫效率', description: 'SO₂排放浓度<35mg/m³' },
-      { value: '90%', metric: '脱硝效率', description: 'NOₓ排放浓度<50mg/m³' },
-      { value: '99%', metric: '除尘效率', description: '粉尘排放浓度<10mg/m³' }
-    ],
-    gallery: [
-      'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&q=80',
-      'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=800&q=80',
-      'https://images.unsplash.com/photo-1567767292278-a4f21aa2d36e?w=800&q=80'
-    ]
-  },
-  '2': {
-    id: '2',
-    tag: '工业大气',
-    title: '某工业园区集中供热脱硝除尘项目',
-    subtitle: '多台锅炉烟气脱硝、除尘改造与运维',
-    image: 'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=1920&q=80',
-    type: '锅炉烟气治理',
-    scale: '3台75t/h锅炉',
-    completionDate: '2023年3月',
-    location: '山东省青岛市',
-    description: '为园区内3台75吨/小时燃煤锅炉实施烟气脱硝和除尘改造，采用SNCR+SCR联合脱硝工艺和电袋复合除尘技术，满足超低排放要求。',
-    solution: 'SNCR+SCR联合脱硝工艺，出口NOₓ浓度控制在50mg/m³以下；电袋复合除尘器，出口粉尘浓度控制在5mg/m³以下。',
-    technologies: ['SNCR脱硝技术', 'SCR选择性催化还原', '电袋复合除尘', '在线监控系统'],
-    results: [
-      { value: '85%', metric: '脱硝效率', description: 'NOₓ排放浓度<50mg/m³' },
-      { value: '99.5%', metric: '除尘效率', description: '粉尘排放浓度<5mg/m³' },
-      { value: '99%', metric: '运行稳定性', description: '系统运行稳定可靠' }
-    ],
-    gallery: [
-      'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=800&q=80',
-      'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&q=80'
-    ]
-  },
-  '3': {
-    id: '3',
-    tag: '冶金行业',
-    title: '某铝业环保升级改造项目',
-    subtitle: '电解铝烟气净化与无组织排放治理',
-    image: 'https://images.unsplash.com/photo-1567767292278-a4f21aa2d36e?w=1920&q=80',
-    type: '电解铝环保改造',
-    scale: '年产30万吨电解铝',
-    completionDate: '2022年12月',
-    location: '河南省郑州市',
-    description: '针对电解铝生产过程中的氟化物、沥青烟、粉尘等污染物，实施全面的环保升级改造，包括烟气净化系统、无组织排放控制等。',
-    solution: '采用氧化铝吸附+布袋除尘+活性炭吸附组合工艺，有效去除氟化物、沥青烟等有害物质。',
-    technologies: ['氧化铝吸附', '布袋除尘', '活性炭吸附', '负压收集系统'],
-    results: [
-      { value: '99%', metric: '氟化物去除率', description: '氟化物排放浓度达标' },
-      { value: '95%', metric: '沥青烟去除率', description: '沥青烟得到有效治理' },
-      { value: '99.9%', metric: '粉尘捕集率', description: '车间环境明显改善' }
-    ],
-    gallery: [
-      'https://images.unsplash.com/photo-1567767292278-a4f21aa2d36e?w=800&q=80',
-      'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=800&q=80'
-    ]
-  }
+// 数字计数动画函数
+const animateNumbers = () => {
+  numberRefs.value.forEach(el => {
+    const target = parseInt(el.dataset.target)
+    const duration = 2000
+    const startTime = Date.now()
+    
+    const updateNumber = () => {
+      const elapsed = Date.now() - startTime
+      const progress = Math.min(elapsed / duration, 1)
+      
+      // 缓动函数
+      const easeOutQuart = 1 - Math.pow(1 - progress, 4)
+      const current = Math.floor(target * easeOutQuart)
+      
+      // 格式化数字显示
+      if (el.textContent.includes('%')) {
+        el.textContent = current + '%'
+      } else if (target >= 1000) {
+        el.textContent = current.toLocaleString() + (target >= 50000 ? '' : target === 35 ? '' : '')
+      } else {
+        el.textContent = current
+      }
+      
+      if (progress < 1) {
+        requestAnimationFrame(updateNumber)
+      }
+    }
+    
+    updateNumber()
+  })
 }
 
-const caseDetail = computed(() => caseData[caseId.value] || null)
+// 组件挂载后执行动画
+onMounted(async () => {
+  await nextTick()
+  // 延迟执行数字动画，等待CSS动画完成
+  setTimeout(animateNumbers, 800)
+})
 </script>
 
 <style scoped>
-.page-view { padding-top: 0; }
+.case-detail-page {
+  background-color: #0A1929;
+  color: #FFFFFF;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', 'Inter', sans-serif;
+  line-height: 1.5;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
 
-.page-hero {
+/* 背景微动颗粒 + 光晕 */
+.background-effects {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: 
+    radial-gradient(circle at 30% 40%, rgba(0,113,227,0.08) 0%, transparent 40%),
+    repeating-radial-gradient(circle at 20% 30%, rgba(255,255,255,0.02) 0px, transparent 1px);
+  pointer-events: none;
+  z-index: 0;
+  animation: slowDrift 40s infinite alternate ease-in-out;
+}
+
+@keyframes slowDrift {
+  0% { transform: scale(1) translate(0, 0); opacity: 0.7; }
+  100% { transform: scale(1.2) translate(-2%, -1%); opacity: 1; }
+}
+
+/* 主要内容区 */
+.content {
   position: relative;
-  height: 60vh;
-  min-height: 400px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-.page-hero-bg {
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center;
-}
-
-.page-hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.6) 100%);
-}
-
-.page-hero-inner {
-  position: relative;
-  z-index: 1;
-  text-align: center;
-  color: #fff;
-  max-width: 800px;
-}
-
-.case-tag {
-  display: inline-block;
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: var(--color-industry);
-  background: rgba(255,255,255,0.1);
-  padding: 0.25rem 1rem;
-  border-radius: 20px;
-  margin-bottom: 1rem;
-  backdrop-filter: blur(10px);
-}
-
-.page-hero-title {
-  font-size: clamp(2rem, 5vw, 3rem);
-  font-weight: 600;
-  margin-bottom: 1rem;
-  line-height: 1.2;
-}
-
-.page-hero-lead {
-  font-size: 1.25rem;
-  opacity: 0.9;
-  margin-bottom: 0;
-}
-
-.page-body { padding: 4rem 0; }
-
-.case-detail-content {
-  max-width: 1000px;
+  z-index: 2;
+  max-width: 1400px;
   margin: 0 auto;
+  padding: 0 40px;
 }
 
+/* 区块样式 */
+.section {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 5vh 0;
+  border-bottom: 1px solid rgba(255,255,255,0.02);
+}
+
+.hero-section {
+  min-height: 85vh;
+  justify-content: flex-end;
+  padding-bottom: 15vh;
+}
+
+/* 面包屑导航 */
+.breadcrumb {
+  color: #A0A0A0;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+  margin-bottom: 2rem;
+  opacity: 0;
+  animation: fadeInUp 0.8s forwards;
+  animation-delay: 0.2s;
+}
+
+.breadcrumb a {
+  color: #C0C0C0;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s;
+}
+
+.breadcrumb a:hover {
+  border-color: #0071e3;
+}
+
+/* 标题样式 */
 .section-title {
   font-size: 2rem;
-  font-weight: 600;
-  margin-bottom: 2rem;
-  text-align: center;
-  color: var(--color-text);
-}
-
-/* 项目概览 */
-.overview-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 2rem;
-  margin-bottom: 3rem;
-}
-
-.overview-item {
-  text-align: center;
-  padding: 1.5rem;
-  background: var(--color-bg);
-  border-radius: 12px;
-  border: 1px solid var(--color-border);
-}
-
-.overview-item h3 {
-  font-size: 0.875rem;
-  color: var(--color-text-secondary);
-  margin-bottom: 0.5rem;
-  font-weight: 500;
-}
-
-.overview-item p {
-  font-size: 1.125rem;
-  font-weight: 600;
-  color: var(--color-text);
-}
-
-/* 项目描述 */
-.case-description {
-  margin-bottom: 3rem;
-}
-
-.description-text {
-  font-size: 1.125rem;
-  line-height: 1.8;
-  color: var(--color-text-secondary);
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-/* 技术方案 */
-.case-solution {
-  margin-bottom: 3rem;
-}
-
-.solution-content p {
-  font-size: 1.125rem;
-  line-height: 1.8;
-  color: var(--color-text-secondary);
-  margin-bottom: 1.5rem;
-}
-
-.tech-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  list-style: none;
-}
-
-.tech-list li {
-  background: var(--color-primary-light);
-  color: var(--color-primary);
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  font-size: 0.875rem;
-  font-weight: 500;
-  border: 1px solid var(--color-border);
-}
-
-/* 项目成果 */
-.results-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-  margin-top: 2rem;
-}
-
-.result-item {
-  text-align: center;
-  padding: 2rem;
-  background: var(--gradient-subtle);
-  border-radius: 16px;
-  border: 1px solid var(--color-border);
-}
-
-.result-value {
-  display: block;
-  font-size: 2.5rem;
+  color: #FFFFFF;
   font-weight: 700;
-  color: var(--color-industry);
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.hero-title {
+  font-size: clamp(3rem, 10vw, 6rem);
+  font-weight: 600;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+  opacity: 0;
+  animation: fadeInUp 0.8s forwards;
+  animation-delay: 0.3s;
+}
+
+.hero-sub {
+  font-size: 1.4rem;
+  color: #C0C0C0;
+  font-weight: 300;
+  max-width: 700px;
+  opacity: 0;
+  animation: fadeInUp 0.8s forwards;
+  animation-delay: 0.4s;
+}
+
+.eyebrow {
+  color: #0071e3;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 1rem;
+  font-weight: 400;
+}
+
+/* 核心数据卡片 */
+.card-grid {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 40px 0;
+}
+
+.stat-card {
+  background: rgba(0,0,0,0.25);
+  backdrop-filter: blur(2px);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 24px;
+  padding: 2.5rem 1.5rem;
+  width: 280px;
+  text-align: center;
+  transition: transform 0.25s ease-out, border-color 0.2s, box-shadow 0.3s;
+  box-shadow: 0 10px 20px -10px rgba(0,0,0,0.5);
+  opacity: 0;
+  transform: translateY(30px);
+  animation: slideUpFade 0.7s forwards;
+}
+
+.stat-card:hover {
+  transform: translateY(-8px);
+  border-color: #0071e3;
+  box-shadow: 0 30px 40px -15px rgba(0,113,227,0.25);
+}
+
+.stat-number {
+  font-size: 4rem;
+  font-weight: 600;
+  color: #0071e3;
   line-height: 1;
   margin-bottom: 0.5rem;
 }
 
-.result-metric {
-  display: block;
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--color-text);
+.stat-label {
+  font-size: 1.2rem;
+  color: white;
   margin-bottom: 0.5rem;
 }
 
-.result-desc {
-  font-size: 0.875rem;
-  color: var(--color-text-secondary);
+.stat-desc {
+  font-size: 0.95rem;
+  color: #B0B0B0;
 }
 
-/* 项目图片 */
-.case-gallery {
-  margin-bottom: 3rem;
+/* 照片网格 */
+.photo-grid {
+  display: flex;
+  gap: 24px;
+  margin: 40px 0;
+  flex-wrap: wrap;
 }
 
-.gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.5rem;
+.photo-item {
+  flex: 1 1 280px;
+  opacity: 0;
+  transform: translateX(-20px);
+  animation: slideInPhoto 0.7s forwards;
 }
 
-.gallery-item {
-  height: 250px;
+.photo-frame {
+  width: 100%;
+  aspect-ratio: 16/9;
+  border-radius: 20px;
+  background: linear-gradient(145deg, #1e3a5f, #102433);
+  filter: grayscale(90%) contrast(110%);
+  transition: filter 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 15px 25px -8px black;
   background-size: cover;
   background-position: center;
-  border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-  transition: transform 0.3s ease;
 }
 
-.gallery-item:hover {
-  transform: scale(1.05);
+.photo-frame1 { background-image: radial-gradient(circle at 30% 40%, #2a4a6e, #0e1f30); }
+.photo-frame2 { background-image: radial-gradient(circle at 70% 60%, #1e4a5e, #0c1c2a); }
+.photo-frame3 { background-image: radial-gradient(circle at 40% 70%, #2a3f5a, #0a1929); }
+
+.photo-item:hover .photo-frame {
+  filter: grayscale(50%) contrast(110%);
+  transform: scale(1.02);
+  box-shadow: 0 20px 30px -5px #0071e3;
 }
 
-/* 返回按钮 */
-.back-section {
+.photo-caption {
   text-align: center;
-  margin-top: 3rem;
-  padding-top: 2rem;
-  border-top: 1px solid var(--color-border);
+  font-size: 0.9rem;
+  color: #A0A0A0;
+  margin-top: 10px;
+}
+
+/* 技术亮点分栏 */
+.split-layout {
+  display: flex;
+  gap: 60px;
+  align-items: center;
+  margin: 30px 0;
+}
+
+.split-left {
+  flex: 5;
+  opacity: 0;
+  transform: translateX(-30px);
+  animation: slideInLeft 0.8s forwards;
+}
+
+.split-right {
+  flex: 4;
+  display: flex;
+  justify-content: center;
+  opacity: 0;
+  transform: translateX(30px);
+  animation: slideInRight 0.8s forwards;
+  animation-delay: 0.1s;
+}
+
+.tech-title {
+  font-size: 2.5rem;
+  color: #FFFFFF;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  margin-bottom: 25px;
+  line-height: 1.2;
+}
+
+.tech-description {
+  font-size: 1.1rem;
+  color: #C0C0C0;
+  line-height: 1.6;
+  max-width: 500px;
+}
+
+.tech-icon {
+  width: 280px;
+  height: 280px;
+  background: radial-gradient(circle at 30% 40%, #1e3a6b, #0a1a2f);
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(0,113,227,0.3);
+  box-shadow: 0 0 30px rgba(0,113,227,0.2);
+  animation: floatShape 6s infinite alternate ease-in-out;
+}
+
+.tech-icon i {
+  font-size: 5rem;
+  color: #0071e3;
+  opacity: 0.8;
+}
+
+@keyframes floatShape {
+  0% { 
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; 
+    transform: rotate(0deg); 
+  }
+  100% { 
+    border-radius: 70% 30% 30% 70% / 60% 40% 60% 40%; 
+    transform: rotate(5deg); 
+  }
+}
+
+/* 客户评价 */
+.testimonial {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 0;
+  opacity: 0;
+  transform: scale(0.95);
+  animation: fadeScale 0.9s forwards;
+}
+
+.testimonial-quote {
+  font-size: 1.8rem;
+  color: #E0E0E0;
+  font-style: italic;
+  font-weight: 300;
+  line-height: 1.4;
+  position: relative;
+}
+
+.testimonial-quote::before {
+  content: '“';
+  font-size: 4rem;
+  color: #0071e3;
+  opacity: 0.4;
+  position: absolute;
+  left: -30px;
+  top: -20px;
+}
+
+.testimonial-author {
+  margin-top: 30px;
+  font-size: 1rem;
+  color: #A0A0A0;
+}
+
+/* 底部导航 */
+.bottom-nav {
+  display: flex;
+  gap: 25px;
+  justify-content: center;
+  padding: 60px 0 80px;
+  flex-wrap: wrap;
 }
 
 .btn {
+  padding: 10px 28px;
+  border-radius: 40px;
+  font-size: 1rem;
+  font-weight: 400;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  cursor: pointer;
+  border: 1px solid transparent;
+  background: transparent;
+  color: white;
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  padding: 0.875rem 2rem;
-  border-radius: 8px;
-  font-weight: 500;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  border: 2px solid transparent;
+  gap: 8px;
 }
 
 .btn-outline {
+  border: 1px solid rgba(255,255,255,0.3);
   background: transparent;
-  color: var(--color-primary);
-  border-color: var(--color-primary);
 }
 
 .btn-outline:hover {
-  background: var(--color-primary);
+  border-color: white;
+  background: rgba(255,255,255,0.05);
+  transform: scale(1.02);
+}
+
+.btn-primary {
+  background: #0071e3;
   color: white;
-  transform: translateY(-2px);
+  border: none;
+}
+
+.btn-primary:hover {
+  background: #0077ed;
+  transform: scale(1.02);
+  box-shadow: 0 10px 20px -8px #0071e3;
+}
+
+/* 动画定义 */
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUpFade {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInPhoto {
+  0% { opacity: 0; transform: translateX(-20px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInLeft {
+  0% { opacity: 0; transform: translateX(-30px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInRight {
+  0% { opacity: 0; transform: translateX(30px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeScale {
+  0% { opacity: 0; transform: scale(0.95); }
+  100% { opacity: 1; transform: scale(1); }
 }
 
 /* 响应式设计 */
+@media (max-width: 1000px) {
+  .content {
+    padding: 0 30px;
+  }
+  
+  .split-layout {
+    flex-direction: column;
+    gap: 40px;
+  }
+  
+  .hero-title {
+    font-size: 3.5rem;
+  }
+  
+  .card-grid {
+    gap: 20px;
+  }
+  
+  .stat-card {
+    width: 240px;
+  }
+  
+  .photo-grid {
+    gap: 15px;
+  }
+  
+  .tech-title {
+    font-size: 2.2rem;
+  }
+}
+
 @media (max-width: 768px) {
-  .page-hero {
-    height: 50vh;
+  .content {
+    padding: 0 20px;
   }
   
-  .overview-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
+  .hero-title {
+    font-size: 2.8rem;
   }
   
-  .results-grid {
-    grid-template-columns: 1fr;
+  .stat-card {
+    width: 100%;
   }
   
-  .gallery-grid {
-    grid-template-columns: 1fr;
+  .photo-item {
+    flex: 1 1 100%;
   }
   
-  .tech-list {
+  .bottom-nav {
+    gap: 15px;
+  }
+  
+  .btn {
+    width: 200px;
     justify-content: center;
   }
 }
 
 @media (max-width: 480px) {
-  .overview-grid {
-    grid-template-columns: 1fr;
+  .hero-title {
+    font-size: 2rem;
   }
   
-  .result-value {
-    font-size: 2rem;
+  .stat-number {
+    font-size: 3rem;
+  }
+  
+  .section-title {
+    font-size: 1.6rem;
+  }
+  
+  .tech-title {
+    font-size: 1.8rem;
+  }
+  
+  .testimonial-quote {
+    font-size: 1.5rem;
   }
 }
 </style>

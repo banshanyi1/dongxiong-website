@@ -16,6 +16,12 @@ const routes = [
   },
 
   {
+    path: '/about',
+    name: 'about',
+    component: () => import('../views/AboutTestView_backup.vue'),
+    meta: { title: '关于我们', hideBottomNav: true },
+  },
+  {
     path: '/services',
     name: 'services',
     component: () => import('../views/ServicesView.vue'),
@@ -33,6 +39,7 @@ const routes = [
     component: () => import('../views/CasesView.vue'),
     meta: { title: '工程案例' },
   },
+
   {
     path: '/cases/:id',
     name: 'case-detail',
@@ -58,7 +65,9 @@ const router = createRouter({
   },
 })
 
-router.beforeEach((to, _from, next) => {
+// 添加路由守卫调试
+router.beforeEach((to, from, next) => {
+  console.log('路由跳转:', from.path, '->', to.path)
   document.title = to.meta.title ? `${to.meta.title} | 东雄环保` : '东雄环保'
   next()
 })

@@ -168,3 +168,23 @@ img {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* 全屏模糊遮罩 */
+.fullscreen-blur-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 199; /* 低于导航栏但高于内容 */
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.fullscreen-blur-overlay.active {
+  opacity: 1;
+}

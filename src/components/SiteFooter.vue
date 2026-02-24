@@ -50,7 +50,7 @@
 
 .footer-logo {
   font-weight: var(--font-weight-semibold);
-  font-size: 1rem;
+  font-size: 1.25rem; /* 从1rem增大到1.25rem */
   color: white;
 }
 

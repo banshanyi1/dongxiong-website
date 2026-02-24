@@ -1,5 +1,10 @@
 <template>
-  <header class="site-header" :class="{ 'is-scrolled': scrolled, 'dropdown-open': activeDropdown }">
+  <header 
+    class="site-header" 
+    :class="{ 'is-scrolled': scrolled, 'dropdown-open': activeDropdown }"
+    @mouseenter="handleHeaderMouseEnter()"
+    @mouseleave="handleHeaderMouseLeave()"
+  >
     <div class="container header-inner">
       <RouterLink to="/" class="logo" aria-label="东雄环保 首页">
         <span class="logo-text">东雄环保</span>
@@ -91,6 +96,8 @@
         </template>
       </template>
     </div>
+    
+
   </header>
 </template>
 
@@ -98,7 +105,12 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import { useRoute } from 'vue-router'
 
+const emits = defineEmits(['blur-change'])
+
 const route = useRoute()
+
+// 全屏模糊状态
+const isFullscreenBlur = ref(false)
 
 const navItems = [
   {
@@ -192,6 +204,9 @@ function handleDropdownEnter() {
     clearTimeout(dropdownTimeout.value)
     dropdownTimeout.value = null
   }
+  // 鼠标进入下拉菜单时保持模糊效果
+  isFullscreenBlur.value = true
+  emits('blur-change', true)
 }
 
 // 下拉菜单鼠标离开处理
@@ -201,6 +216,7 @@ function handleDropdownLeave() {
   if (!isMouseOverNav.value) {
     scheduleDropdownClose()
   }
+  // 鼠标离开下拉菜单时不立即取消模糊，让导航栏mouseleave处理
 }
 
 // 计划关闭下拉菜单
@@ -213,6 +229,24 @@ function scheduleDropdownClose() {
     }
     dropdownTimeout.value = null
   }, 300)
+}
+
+// 导航栏整体鼠标事件处理
+function handleHeaderMouseEnter() {
+  // 鼠标进入整个导航栏区域时触发模糊
+  isFullscreenBlur.value = true
+  // 发射事件到父组件
+  emits('blur-change', true)
+}
+
+function handleHeaderMouseLeave() {
+  // 鼠标离开整个导航栏区域时取消模糊
+  isFullscreenBlur.value = false
+  // 发射事件到父组件
+  emits('blur-change', false)
+  
+  // 同时关闭下拉菜单
+  activeDropdown.value = null
 }
 
 function closeAll() {
@@ -299,7 +333,7 @@ onUnmounted(() => {
 .logo {
   color: var(--color-text);
   font-weight: var(--font-weight-semibold);
-  font-size: 1.125rem;
+  font-size: 1.5rem; /* 从1.125rem增大到1.5rem */
   letter-spacing: -0.01em;
 }
 

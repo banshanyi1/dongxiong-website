@@ -1,10 +1,13 @@
 <template>
-  <div class="globe-container">
+  <div class="globe-container" @touchstart="handleTouchStart">
     <!-- 导航栏 -->
     <SiteHeader />
     
     <!-- 加载界面 -->
-    <div v-if="isLoading" class="loading-overlay">
+    <div 
+      class="loading-overlay" 
+      :class="{ 'loading-visible': isLoading, 'loading-hidden': !isLoading }"
+    >
       <div class="loading-content">
         <div class="loading-spinner"></div>
         <h2 class="loading-text">正在加载地球数据...</h2>
@@ -20,9 +23,9 @@
         <!-- 第一屏：初始状态 - 中国区域居中 -->
         <div class="scroll-section section-1" data-section-index="0">
           <div class="content-box glass">
-            <h1 class="hero-title">东雄环保</h1>
-            <p>有色金属冶炼与大气环保专业服务商</p>
-            <div class="scroll-hint">向下滚动探索我们的全球足迹 ↓</div>
+            <h1 class="hero-title animate-in">东雄环保</h1>
+            <p class="animate-in delay-1">有色金属冶炼与大气环保专业服务商</p>
+            <div class="scroll-hint animate-in delay-2">向下滚动探索我们的全球足迹 ↓</div>
           </div>
         </div>
 
@@ -332,6 +335,8 @@ const globeDiv = ref(null)
 const globeInstance = ref(null)
 const isLoading = ref(true)
 const chinaCount = ref(8)
+const isGlobeRotating = ref(true) // 控制地球是否旋转
+const rotationInterval = ref(null) // 旋转定时器
 
 // 亚洲国家
 const asiaCountries = [
@@ -491,14 +496,74 @@ let cleanupFunction = null
 let currentCardIndex = 0
 let isAnimating = false
 
+// 地球自旋转函数
+const startGlobeRotation = (world) => {
+  if (rotationInterval.value) return // 如果已经在旋转则不重复启动
+  
+  rotationInterval.value = setInterval(() => {
+    if (isGlobeRotating.value && world) {
+      const currentView = world.pointOfView()
+      // 缓慢向西旋转（经度减少）- 符合地球实际自转方向
+      const newLng = (currentView.lng - 0.1 + 360) % 360
+      world.pointOfView({ ...currentView, lng: newLng }, 0) // 0表示立即更新，无动画
+    }
+  }, 50) // 每50ms更新一次，营造缓慢旋转效果
+}
+
+// 停止地球旋转
+const stopGlobeRotation = () => {
+  if (rotationInterval.value) {
+    clearInterval(rotationInterval.value)
+    rotationInterval.value = null
+  }
+  isGlobeRotating.value = false
+}
+
+// 处理触摸开始事件，解决移动端滚动问题
+const handleTouchStart = (event) => {
+  // 确保滚动容器能够正常响应触摸事件
+  const scrollWrapper = document.querySelector('.scroll-wrapper')
+  if (scrollWrapper) {
+    // 强制启用滚动
+    scrollWrapper.style.overflowY = 'auto'
+    scrollWrapper.style.webkitOverflowScrolling = 'touch'
+    
+    // 触发一次滚动事件确保激活
+    setTimeout(() => {
+      scrollWrapper.scrollTop = scrollWrapper.scrollTop
+    }, 100)
+  }
+  
+  // 阻止默认行为可能会干扰滚动，所以不阻止
+  // event.preventDefault() 
+}
+
 onMounted(() => {
   initGlobe()
+  
+  // 页面加载完成后主动激活滚动
+  setTimeout(() => {
+    const scrollWrapper = document.querySelector('.scroll-wrapper')
+    if (scrollWrapper) {
+      // 确保滚动属性正确设置
+      scrollWrapper.style.overflowY = 'auto'
+      scrollWrapper.style.webkitOverflowScrolling = 'touch'
+      
+      // 触发一次微小的滚动来激活滚动机制
+      const currentScroll = scrollWrapper.scrollTop
+      scrollWrapper.scrollTop = currentScroll + 1
+      setTimeout(() => {
+        scrollWrapper.scrollTop = currentScroll
+      }, 50)
+    }
+  }, 1000) // 等待1秒确保页面完全加载
 })
 
 onUnmounted(() => {
   if (cleanupFunction) {
     cleanupFunction()
   }
+  stopGlobeRotation() // 清理旋转定时器
   if (globeInstance.value && globeInstance.value._destructor) {
     globeInstance.value._destructor()
   }
@@ -517,6 +582,9 @@ const initGlobe = () => {
     .pointOfView({ lat: 35, lng: 105, altitude: 1.2 })
 
   globeInstance.value = world
+
+  // 启动地球自旋转
+  startGlobeRotation(world)
 
   fetch(
     'https://raw.githubusercontent.com/vasturiano/globe.gl/master/example/datasets/ne_110m_admin_0_countries.geojson',
@@ -548,6 +616,11 @@ const initGlobe = () => {
 
       setupScrollAnimation(world)
     })
+    .catch(error => {
+      console.error('地球数据加载失败:', error)
+      // 即使数据加载失败也隐藏加载界面
+      isLoading.value = false
+    })
 
   window.addEventListener('resize', () => {
     world.width(window.innerWidth)
@@ -558,10 +631,10 @@ const initGlobe = () => {
 const setupScrollAnimation = world => {
   cleanupFunction = initializeAnimationTriggers(world)
   
-  // 地球加载完成后隐藏加载界面
+  // 延迟隐藏加载界面，让用户能看到消失动画
   setTimeout(() => {
     isLoading.value = false
-  }, 1500)
+  }, 600) // 等待0.6秒让动画完成
   
   return cleanupFunction
 }
@@ -696,6 +769,11 @@ const setupPixelBasedTrigger = world => {
       currentCardIndex = targetIndex
       isAnimating = true
 
+      // 当到达最后一个板块（关注国内，索引为5）时停止旋转
+      if (targetIndex === 5) {
+        stopGlobeRotation()
+      }
+
       world.pointOfView(targetViews[targetIndex], 800)
       updateHighlightedCountries(targetIndex)
       updateMapDisplay(world)
@@ -751,6 +829,11 @@ const setupSmartPixelTrigger = world => {
       currentCardIndex = targetIndex
       isAnimating = true
 
+      // 当到达最后一个板块（关注国内，索引为5）时停止旋转
+      if (targetIndex === 5) {
+        stopGlobeRotation()
+      }
+
       world.pointOfView(targetViews[targetIndex], 800)
       updateHighlightedCountries(targetIndex)
       updateMapDisplay(world)
@@ -785,13 +868,42 @@ const initializeAnimationTriggers = world => {
   color: #e5e7eb;
 }
 
-/* 确保导航栏在最顶层 */
+/* 确保导航栏在最顶层并保持一致样式 */
 .site-header {
   z-index: 1001 !important;
   position: fixed !important;
   top: 0 !important;
   left: 0 !important;
   right: 0 !important;
+  /* 保持与其他页面一致的背景样式 */
+  background: rgba(251, 251, 253, 0.72) !important;
+  backdrop-filter: saturate(180%) blur(20px) !important;
+  -webkit-backdrop-filter: saturate(180%) blur(20px) !important;
+}
+
+/* 加载界面动画 */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  transition: all 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.loading-visible {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  filter: blur(0);
+  visibility: visible;
+}
+
+.loading-hidden {
+  opacity: 0;
+  transform: scale(1.1) translateY(-20px);
+  filter: blur(10px);
+  visibility: hidden;
 }
 
 /* 加载界面样式 */
@@ -807,11 +919,15 @@ const initializeAnimationTriggers = world => {
   justify-content: center;
   z-index: 1000;
   backdrop-filter: blur(10px);
+  /* 添加渐变动画 */
+  background-size: 200% 200%;
+  animation: gradientShift 3s ease infinite;
 }
 
 .loading-content {
   text-align: center;
   color: white;
+  animation: contentFloat 2s ease-in-out infinite;
 }
 
 .loading-spinner {
@@ -822,6 +938,7 @@ const initializeAnimationTriggers = world => {
   border-radius: 50%;
   animation: spin 1s linear infinite;
   margin: 0 auto 20px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
 }
 
 @keyframes spin {
@@ -834,12 +951,14 @@ const initializeAnimationTriggers = world => {
   font-weight: 600;
   margin-bottom: 10px;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  animation: textGlow 2s ease-in-out infinite alternate;
 }
 
 .loading-subtext {
   font-size: 1.1rem;
   opacity: 0.9;
   margin: 0;
+  animation: fadeInOut 3s ease-in-out infinite;
 }
 
 .globe-viz {
@@ -859,6 +978,14 @@ const initializeAnimationTriggers = world => {
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
+  /* 优化移动端滚动体验 */
+  touch-action: pan-y;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .scroll-content {
@@ -940,7 +1067,7 @@ h1 {
 
 /* 首页标题样式 */
 .hero-title {
-  font-size: 4rem; /* 64px */
+  font-size: 5rem; /* 80px - 增大字体 */
   font-weight: 700;
   text-align: center;
   margin-bottom: 1rem;
@@ -972,6 +1099,33 @@ p {
   animation: bounce 2s infinite;
   font-size: 0.95rem;
   text-align: center;
+}
+
+/* 字体出现动画 */
+.animate-in {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 0.8s forwards;
+  animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.delay-1 {
+  animation-delay: 0.2s;
+}
+
+.delay-2 {
+  animation-delay: 0.4s;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes bounce {
@@ -1112,9 +1266,45 @@ p {
   }
 }
 
+/* 关键帧动画定义 */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
 
+@keyframes contentFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
 
+@keyframes textGlow {
+  from {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+  to {
+    text-shadow: 0 2px 10px rgba(255, 255, 255, 0.5);
+  }
+}
 
+@keyframes fadeInOut {
+  0%, 100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+}
 
 .apple-style-title {
   font-size: 4rem; /* 64px */
