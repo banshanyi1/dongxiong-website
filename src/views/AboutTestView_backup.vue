@@ -217,6 +217,13 @@
           </div>
         </div>
 
+        <!-- 企业使命上方的灰色遮罩过渡层 -->
+        <div class="mission-overlay">
+          <div class="overlay-content">
+            <!-- 这里可以添加一些装饰性元素或保持空白 -->
+          </div>
+        </div>
+        
         <!-- 第七屏：企业使命/环保 -->
         <div class="content-section section-7">
           <div class="full-width-content">
@@ -991,6 +998,7 @@ const initializeAnimationTriggers = world => {
 .scroll-content {
   min-height: 100vh;
   position: relative;
+  /* 确保子元素紧密排列 */
 }
 
 .scroll-section,
@@ -1003,6 +1011,7 @@ const initializeAnimationTriggers = world => {
   justify-content: space-between;
   padding: 4rem 2rem;
   z-index: 20;
+  /* 移除 margin-bottom，避免板块间出现间隙 */
 }
 
 /* 第一个卡片（东雄环保）保持居中 */
@@ -1025,8 +1034,51 @@ const initializeAnimationTriggers = world => {
   margin-right: 4rem;
 }
 
+/* 内容板块样式 - 确保无缝连接 */
 .content-section {
   background: var(--color-bg-alt);
+  position: relative;
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4rem 2rem;
+  z-index: 20;
+  /* 确保板块紧密连接，无间隙 */
+  margin: 0;
+  border: none;
+}
+
+/* 企业使命上方的灰色遮罩过渡层 - 添加真正的渐变效果 */
+.mission-overlay {
+  position: relative;
+  width: 100vw;
+  height: 180px;
+  /* 创建从透明到浅灰色的平滑渐变遮罩 */
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(245, 245, 247, 0.1) 20%,
+    rgba(245, 245, 247, 0.3) 40%,
+    rgba(245, 245, 247, 0.6) 60%,
+    rgba(245, 245, 247, 0.8) 80%,
+    rgba(245, 245, 247, 1) 100%
+  );
+  z-index: 15;
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* 添加微妙的阴影增强过渡效果 */
+  box-shadow: inset 0 -15px 25px -10px rgba(245, 245, 247, 0.3);
+}
+
+.overlay-content {
+  width: 100%;
+  height: 100%;
+  /* 可以在这里添加装饰性内容 */
 }
 
 /* 段落分割线 */
