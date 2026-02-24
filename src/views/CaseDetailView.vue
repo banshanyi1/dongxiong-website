@@ -41,19 +41,45 @@
       <!-- 项目照片展示区 -->
       <section class="section photos-section">
         <h2 class="section-title">项目实拍</h2>
-        <div class="photo-grid">
-          <div 
-            v-for="(photo, index) in photoData" 
-            :key="index" 
-            class="photo-item"
-            :style="{ animationDelay: `${index * 0.15}s` }"
-          >
+        <div class="photo-carousel-container">
+          <button class="carousel-btn prev-btn" @click="scrollPhotos('prev')">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          
+          <div class="photo-carousel-wrapper">
             <div 
-              class="photo-frame" 
-              :class="`photo-frame${index + 1}`"
-            ></div>
-            <div class="photo-caption">{{ photo.caption }}</div>
+              class="photo-carousel" 
+              ref="carouselRef"
+              :style="{ transform: `translateX(${scrollPosition}px)` }"
+            >
+              <div 
+                v-for="(photo, index) in photoData" 
+                :key="index" 
+                class="photo-item"
+                :class="[
+                  photo.orientation === 'landscape' ? 'landscape' : 'portrait',
+                  `photo-frame${(index % 6) + 1}`
+                ]"
+              >
+                <div 
+                  class="photo-frame" 
+                  :style="{ backgroundImage: `url(${photo.image})` }"
+                >
+                  <!-- 对角线遮罩层 -->
+                  <div class="diagonal-overlay">
+                    <div class="overlay-content">
+                      <h3 class="photo-title">{{ photo.caption }}</h3>
+                      <p class="photo-desc">{{ photo.description || '项目现场实拍照片' }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
+          
+          <button class="carousel-btn next-btn" @click="scrollPhotos('next')">
+            <i class="fas fa-chevron-right"></i>
+          </button>
         </div>
       </section>
 
@@ -112,12 +138,23 @@ const statsData = ref([
   { number: '35', label: 'SO₂排放', desc: '优于国家超低排放标准 (mg/m³)' }
 ])
 
-// 照片数据
+// 照片数据 - 支持横竖向混合展示，添加测试图片和描述
 const photoData = ref([
-  { caption: '回转窑主体' },
-  { caption: '中央控制室' },
-  { caption: '成品氧化锌堆场' }
+  { caption: '回转窑主体', orientation: 'portrait', image: 'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=600&h=800&fit=crop', description: '核心处理设备' },
+  { caption: '中央控制室', orientation: 'landscape', image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=600&fit=crop', description: '智能化监控中心' },
+  { caption: '成品氧化锌堆场', orientation: 'portrait', image: 'https://images.unsplash.com/photo-1567767292278-a4f21aa2d36e?w=600&h=800&fit=crop', description: '产品存储区域' },
+  { caption: '除尘设备', orientation: 'landscape', image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&h=600&fit=crop', description: '环保处理设施' },
+  { caption: '化验分析室', orientation: 'portrait', image: 'https://images.unsplash.com/photo-1581092921461-8227d51bf9b1?w=600&h=800&fit=crop', description: '质量检测实验室' },
+  { caption: '原料储存区', orientation: 'landscape', image: 'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=800&h=600&fit=crop', description: '原材料仓储管理' },
+  { caption: '废气处理系统', orientation: 'portrait', image: 'https://images.unsplash.com/photo-1567767292278-a4f21aa2d36e?w=600&h=800&fit=crop', description: '尾气净化装置' },
+  { caption: '自动化生产线', orientation: 'landscape', image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=600&fit=crop', description: '智能制造流水线' }
 ])
+
+// 轮播相关
+const carouselRef = ref(null)
+const scrollPosition = ref(0)
+const itemWidth = ref(320) // 每张照片的基础宽度
+const gap = ref(24) // 间距
 
 // 数字动画相关
 const numberRefs = ref([])
@@ -153,6 +190,19 @@ const animateNumbers = () => {
     
     updateNumber()
   })
+}
+
+// 照片轮播功能
+const scrollPhotos = (direction) => {
+  const containerWidth = carouselRef.value?.parentElement?.offsetWidth || 1200
+  const visibleCount = Math.floor(containerWidth / (itemWidth.value + gap.value))
+  const maxScroll = -(photoData.value.length - visibleCount) * (itemWidth.value + gap.value)
+  
+  if (direction === 'next') {
+    scrollPosition.value = Math.max(scrollPosition.value - (itemWidth.value + gap.value), maxScroll)
+  } else {
+    scrollPosition.value = Math.min(scrollPosition.value + (itemWidth.value + gap.value), 0)
+  }
 }
 
 // 组件挂载后执行动画
@@ -197,9 +247,9 @@ onMounted(async () => {
 .content {
   position: relative;
   z-index: 2;
-  max-width: 1400px;
+  max-width: 100%;
   margin: 0 auto;
-  padding: 0 40px;
+  padding: 0 20px;
 }
 
 /* 区块样式 */
@@ -216,6 +266,11 @@ onMounted(async () => {
   min-height: 85vh;
   justify-content: flex-end;
   padding-bottom: 15vh;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 50px;
+  padding-right: 50px;
 }
 
 /* 面包屑导航 */
@@ -240,13 +295,16 @@ onMounted(async () => {
   border-color: #0071e3;
 }
 
-/* 标题样式 */
+/* 标题样式 - 居中显示，不影响照片宽度 */
 .section-title {
   font-size: 2rem;
   color: #FFFFFF;
   font-weight: 700;
   text-align: center;
   margin-bottom: 2rem;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .hero-title {
@@ -257,16 +315,18 @@ onMounted(async () => {
   opacity: 0;
   animation: fadeInUp 0.8s forwards;
   animation-delay: 0.3s;
+  text-align: left;
 }
 
 .hero-sub {
   font-size: 1.4rem;
   color: #C0C0C0;
   font-weight: 300;
-  max-width: 700px;
+  max-width: 800px;
   opacity: 0;
   animation: fadeInUp 0.8s forwards;
   animation-delay: 0.4s;
+  text-align: left;
 }
 
 .eyebrow {
@@ -276,6 +336,7 @@ onMounted(async () => {
   letter-spacing: 2px;
   margin-bottom: 1rem;
   font-weight: 400;
+  text-align: left;
 }
 
 /* 核心数据卡片 */
@@ -327,48 +388,183 @@ onMounted(async () => {
   color: #B0B0B0;
 }
 
-/* 照片网格 */
-.photo-grid {
+/* 轮播容器 */
+.photo-carousel-container {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  margin: 40px auto;
   display: flex;
-  gap: 24px;
-  margin: 40px 0;
-  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px;
 }
 
+/* 轮播按钮 */
+.carousel-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  backdrop-filter: blur(10px);
+}
+
+.carousel-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: scale(1.1);
+}
+
+.carousel-btn i {
+  font-size: 1.2rem;
+}
+
+/* 轮播包装器 */
+.photo-carousel-wrapper {
+  flex: 1;
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+/* 轮播轨道 */
+.photo-carousel {
+  display: flex;
+  gap: 24px;
+  transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+  will-change: transform;
+}
+
+/* 照片项基础样式 */
 .photo-item {
-  flex: 1 1 280px;
+  flex: 0 0 auto;
   opacity: 0;
   transform: translateX(-20px);
   animation: slideInPhoto 0.7s forwards;
 }
 
-.photo-frame {
-  width: 100%;
-  aspect-ratio: 16/9;
-  border-radius: 20px;
-  background: linear-gradient(145deg, #1e3a5f, #102433);
-  filter: grayscale(90%) contrast(110%);
-  transition: filter 0.3s ease, transform 0.3s ease;
-  box-shadow: 0 15px 25px -8px black;
-  background-size: cover;
-  background-position: center;
+/* 竖向照片 (3:4比例) */
+.photo-item.portrait {
+  width: 400px;
 }
 
-.photo-frame1 { background-image: radial-gradient(circle at 30% 40%, #2a4a6e, #0e1f30); }
-.photo-frame2 { background-image: radial-gradient(circle at 70% 60%, #1e4a5e, #0c1c2a); }
-.photo-frame3 { background-image: radial-gradient(circle at 40% 70%, #2a3f5a, #0a1929); }
+.photo-item.portrait .photo-frame {
+  width: 400px;
+  height: 533px;
+}
 
+/* 横向照片 (4:3比例) */
+.photo-item.landscape {
+  width: 711px;
+}
+
+.photo-item.landscape .photo-frame {
+  width: 711px;
+  height: 533px;
+}
+
+/* 照片框架 */
+.photo-frame {
+  border-radius: 20px;
+  background: #0a1929;
+  background-size: cover;
+  background-position: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 15px 25px -8px black;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 对角线遮罩层 - 持续缩小覆盖面积 */
+.diagonal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* 使用mask创建三角形遮罩，持续缩小覆盖面积 */
+  mask: linear-gradient(
+    to bottom right,
+    black 0%,
+    black 25%,
+    transparent 100%
+  );
+  -webkit-mask: linear-gradient(
+    to bottom right,
+    black 0%,
+    black 25%,
+    transparent 100%
+  );
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 20px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.photo-frame:hover .diagonal-overlay {
+  opacity: 1;
+}
+
+.overlay-content {
+  color: white;
+  max-width: 80%;
+}
+
+.photo-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.photo-desc {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* 不同照片的背景样式 - 简化为纯色 */
+.photo-frame1 { background: #0a1929; }
+.photo-frame2 { background: #0a1929; }
+.photo-frame3 { background: #0a1929; }
+.photo-frame4 { background: #0a1929; }
+.photo-frame5 { background: #0a1929; }
+.photo-frame6 { background: #0a1929; }
+
+/* 悬停效果 */
 .photo-item:hover .photo-frame {
-  filter: grayscale(50%) contrast(110%);
+  filter: grayscale(0%) contrast(100%);
   transform: scale(1.02);
   box-shadow: 0 20px 30px -5px #0071e3;
 }
 
+/* 照片标题 */
 .photo-caption {
   text-align: center;
   font-size: 0.9rem;
   color: #A0A0A0;
   margin-top: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 原始照片网格样式（保留以防需要） */
+.photo-grid {
+  display: flex;
+  gap: 24px;
+  margin: 40px 0;
+  flex-wrap: wrap;
 }
 
 /* 技术亮点分栏 */
@@ -377,6 +573,9 @@ onMounted(async () => {
   gap: 60px;
   align-items: center;
   margin: 30px 0;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .split-left {
@@ -384,6 +583,7 @@ onMounted(async () => {
   opacity: 0;
   transform: translateX(-30px);
   animation: slideInLeft 0.8s forwards;
+  padding-left: 50px;
 }
 
 .split-right {
@@ -403,13 +603,14 @@ onMounted(async () => {
   letter-spacing: -0.3px;
   margin-bottom: 25px;
   line-height: 1.2;
+  text-align: left;
 }
 
 .tech-description {
   font-size: 1.1rem;
   color: #C0C0C0;
   line-height: 1.6;
-  max-width: 500px;
+  text-align: left;
 }
 
 .tech-icon {
@@ -445,7 +646,7 @@ onMounted(async () => {
 /* 客户评价 */
 .testimonial {
   text-align: center;
-  max-width: 800px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 40px 0;
   opacity: 0;
@@ -580,8 +781,33 @@ onMounted(async () => {
     width: 240px;
   }
   
-  .photo-grid {
+  .photo-carousel-container {
+    max-width: 1000px;
     gap: 15px;
+    padding: 0;
+  }
+  
+  .carousel-btn {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .photo-item.portrait {
+    width: 340px;
+  }
+  
+  .photo-item.portrait .photo-frame {
+    width: 340px;
+    height: 453px;
+  }
+  
+  .photo-item.landscape {
+    width: 604px;
+  }
+  
+  .photo-item.landscape .photo-frame {
+    width: 604px;
+    height: 453px;
   }
   
   .tech-title {
@@ -602,8 +828,41 @@ onMounted(async () => {
     width: 100%;
   }
   
-  .photo-item {
-    flex: 1 1 100%;
+  .photo-carousel-container {
+    max-width: 800px;
+    gap: 12px;
+    padding: 0;
+  }
+  
+  .carousel-btn {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .carousel-btn i {
+    font-size: 0.8rem;
+  }
+  
+  .carousel-btn i {
+    font-size: 1rem;
+  }
+  
+  .photo-item.portrait {
+    width: 280px;
+  }
+  
+  .photo-item.portrait .photo-frame {
+    width: 280px;
+    height: 373px;
+  }
+  
+  .photo-item.landscape {
+    width: 497px;
+  }
+  
+  .photo-item.landscape .photo-frame {
+    width: 497px;
+    height: 373px;
   }
   
   .bottom-nav {
