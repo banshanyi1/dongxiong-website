@@ -127,10 +127,11 @@
 }
 
 .contact-cta-block {
-  background: var(--color-bg-dark);
-  color: #fff;
+  background: var(--color-bg-alt);
+  color: var(--color-text);
   border-radius: 20px;
   padding: 2.5rem;
+  border: 1px solid var(--color-border);
 }
 
 .contact-cta-inner { max-width: 20em; }
@@ -165,13 +166,13 @@
 }
 
 .contact-cta-block .btn-primary {
-  background: #fff;
-  color: var(--color-bg-dark);
+  background: var(--color-primary);
+  color: #fff;
 }
 
 .contact-cta-block .btn-primary:hover {
-  background: var(--color-bg-alt);
-  color: var(--color-text);
+  background: var(--color-primary-hover);
+  color: #fff;
 }
 
 .btn-block { width: 100%; }

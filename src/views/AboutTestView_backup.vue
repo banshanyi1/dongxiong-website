@@ -1,5 +1,18 @@
 <template>
   <div class="globe-container">
+    <!-- 导航栏 -->
+    <SiteHeader />
+    
+    <!-- 加载界面 -->
+    <div v-if="isLoading" class="loading-overlay">
+      <div class="loading-content">
+        <div class="loading-spinner"></div>
+        <h2 class="loading-text">正在加载地球数据...</h2>
+        <p class="loading-subtext">请稍候，精彩即将呈现</p>
+      </div>
+    </div>
+    
+    <!-- 地球可视化区域 -->
     <div ref="globeDiv" class="globe-viz"></div>
 
     <div class="scroll-wrapper">
@@ -7,15 +20,9 @@
         <!-- 第一屏：初始状态 - 中国区域居中 -->
         <div class="scroll-section section-1" data-section-index="0">
           <div class="content-box glass">
-            <h1>东雄环保</h1>
+            <h1 class="hero-title">东雄环保</h1>
             <p>有色金属冶炼与大气环保专业服务商</p>
-            <div class="scroll-hint">向下滚动探索我们的全球足迹 ➜</div>
-            <div class="china-stats">
-              <div class="stat-item">
-                <span class="stat-number">{{ chinaCount }}</span>
-                <span class="stat-label">重点省份</span>
-              </div>
-            </div>
+            <div class="scroll-hint">向下滚动探索我们的全球足迹 ↓</div>
           </div>
         </div>
 
@@ -33,11 +40,9 @@
                 @click="toggleCountryHighlight(country.code)"
               >
                 <div class="country-flag">{{ country.flag }}</div>
-                <div class="country-name">{{ country.name }}</div>
-                <div class="country-debug">
-                  {{ country.code }}:
-                  {{ highlightedCountries.includes(country.code) ? '✓' : '○' }}
-                </div>
+                <div class="country-name-cn">{{ country.name }}</div>
+                <div class="country-name-en">{{ getFullEnglishName(country.code) }}</div>
+
               </div>
             </div>
           </div>
@@ -57,11 +62,9 @@
                 @click="toggleCountryHighlight(country.code)"
               >
                 <div class="country-flag">{{ country.flag }}</div>
-                <div class="country-name">{{ country.name }}</div>
-                <div class="country-debug">
-                  {{ country.code }}:
-                  {{ highlightedCountries.includes(country.code) ? '✓' : '○' }}
-                </div>
+                <div class="country-name-cn">{{ country.name }}</div>
+                <div class="country-name-en">{{ getFullEnglishName(country.code) }}</div>
+
               </div>
             </div>
           </div>
@@ -81,11 +84,9 @@
                 @click="toggleCountryHighlight(country.code)"
               >
                 <div class="country-flag">{{ country.flag }}</div>
-                <div class="country-name">{{ country.name }}</div>
-                <div class="country-debug">
-                  {{ country.code }}:
-                  {{ highlightedCountries.includes(country.code) ? '✓' : '○' }}
-                </div>
+                <div class="country-name-cn">{{ country.name }}</div>
+                <div class="country-name-en">{{ getFullEnglishName(country.code) }}</div>
+
               </div>
             </div>
           </div>
@@ -105,11 +106,9 @@
                 @click="toggleCountryHighlight(country.code)"
               >
                 <div class="country-flag">{{ country.flag }}</div>
-                <div class="country-name">{{ country.name }}</div>
-                <div class="country-debug">
-                  {{ country.code }}:
-                  {{ highlightedCountries.includes(country.code) ? '✓' : '○' }}
-                </div>
+                <div class="country-name-cn">{{ country.name }}</div>
+                <div class="country-name-en">{{ getFullEnglishName(country.code) }}</div>
+
               </div>
             </div>
           </div>
@@ -122,111 +121,96 @@
             <p>我们在全国多个省份设有服务网点。</p>
 
             <div class="provinces-scroll-container">
-              <div class="infinite-scroll-track">
-                <div class="infinite-content">
-                  <!-- 第一组省份（无限循环用） -->
+              <!-- 上行：向左滚动 -->
+              <div class="scroll-row top-row">
+                <div class="infinite-content left-scroll">
                   <div class="province-sequence">
                     <span class="province-item">北京</span>
                     <span class="province-item">上海</span>
                     <span class="province-item colored">河北</span>
-
                     <span class="province-item">天津</span>
                     <span class="province-item">重庆</span>
                     <span class="province-item colored">河南</span>
-
                     <span class="province-item">山西</span>
                     <span class="province-item">陕西</span>
                     <span class="province-item colored">内蒙古</span>
-
                     <span class="province-item">辽宁</span>
                     <span class="province-item">吉林</span>
                     <span class="province-item colored">黑龙江</span>
-
                     <span class="province-item">江苏</span>
                     <span class="province-item">浙江</span>
                     <span class="province-item colored">安徽</span>
-
                     <span class="province-item">福建</span>
                     <span class="province-item">江西</span>
                     <span class="province-item colored">山东</span>
-
                     <span class="province-item">湖北</span>
                     <span class="province-item">湖南</span>
                     <span class="province-item colored">广东</span>
-
-                    <span class="province-item">广西</span>
-                    <span class="province-item">海南</span>
-                    <span class="province-item colored">四川</span>
-
-                    <span class="province-item">贵州</span>
-                    <span class="province-item">云南</span>
-                    <span class="province-item colored">西藏</span>
-
-                    <span class="province-item">甘肃</span>
-                    <span class="province-item">青海</span>
-                    <span class="province-item colored">宁夏</span>
-
-                    <span class="province-item">新疆</span>
                   </div>
-
-                  <!-- 第二组省份（重复一遍保证无缝衔接） -->
                   <div class="province-sequence">
                     <span class="province-item">北京</span>
                     <span class="province-item">上海</span>
                     <span class="province-item colored">河北</span>
-
                     <span class="province-item">天津</span>
                     <span class="province-item">重庆</span>
                     <span class="province-item colored">河南</span>
-
                     <span class="province-item">山西</span>
                     <span class="province-item">陕西</span>
                     <span class="province-item colored">内蒙古</span>
-
                     <span class="province-item">辽宁</span>
                     <span class="province-item">吉林</span>
                     <span class="province-item colored">黑龙江</span>
-
                     <span class="province-item">江苏</span>
                     <span class="province-item">浙江</span>
                     <span class="province-item colored">安徽</span>
-
                     <span class="province-item">福建</span>
                     <span class="province-item">江西</span>
                     <span class="province-item colored">山东</span>
-
                     <span class="province-item">湖北</span>
                     <span class="province-item">湖南</span>
                     <span class="province-item colored">广东</span>
-
+                  </div>
+                </div>
+              </div>
+              
+              <!-- 下行：向右滚动 -->
+              <div class="scroll-row bottom-row">
+                <div class="infinite-content right-scroll">
+                  <div class="province-sequence">
                     <span class="province-item">广西</span>
                     <span class="province-item">海南</span>
                     <span class="province-item colored">四川</span>
-
                     <span class="province-item">贵州</span>
                     <span class="province-item">云南</span>
                     <span class="province-item colored">西藏</span>
-
                     <span class="province-item">甘肃</span>
                     <span class="province-item">青海</span>
                     <span class="province-item colored">宁夏</span>
-
                     <span class="province-item">新疆</span>
+                    <span class="province-item">香港</span>
+                    <span class="province-item colored">澳门</span>
+                    <span class="province-item">台湾</span>
+                  </div>
+                  <div class="province-sequence">
+                    <span class="province-item">广西</span>
+                    <span class="province-item">海南</span>
+                    <span class="province-item colored">四川</span>
+                    <span class="province-item">贵州</span>
+                    <span class="province-item">云南</span>
+                    <span class="province-item colored">西藏</span>
+                    <span class="province-item">甘肃</span>
+                    <span class="province-item">青海</span>
+                    <span class="province-item colored">宁夏</span>
+                    <span class="province-item">新疆</span>
+                    <span class="province-item">香港</span>
+                    <span class="province-item colored">澳门</span>
+                    <span class="province-item">台湾</span>
                   </div>
                 </div>
               </div>
             </div>
 
-            <!-- 可视化调试按钮（可选） -->
-            <div class="debug-info">
-              <div>当前高亮省份代码：{{ debugHighlighted.join(', ') }}</div>
-              <button class="debug-btn" @click="highlightAllProvinces">
-                高亮全部重点省份
-              </button>
-              <button class="debug-btn" @click="clearHighlights">
-                清除省份高亮
-              </button>
-            </div>
+
           </div>
         </div>
 
@@ -253,6 +237,9 @@
             </div>
           </div>
         </div>
+        
+        <!-- 分割线 -->
+        <div class="section-divider"></div>
 
         <!-- 第八屏：企业实力 -->
         <div class="content-section section-8">
@@ -277,6 +264,9 @@
             </div>
           </div>
         </div>
+        
+        <!-- 分割线 -->
+        <div class="section-divider"></div>
 
         <!-- 第九屏：技术创新 -->
         <div class="content-section section-9">
@@ -301,6 +291,9 @@
             </div>
           </div>
         </div>
+        
+        <!-- 分割线 -->
+        <div class="section-divider"></div>
 
         <!-- 第十屏：客户价值 -->
         <div class="content-section section-10">
@@ -333,9 +326,11 @@
 <script setup>
 import { onMounted, ref, onUnmounted, computed } from 'vue'
 import Globe from 'globe.gl'
+import SiteHeader from '../components/SiteHeader.vue'
 
 const globeDiv = ref(null)
 const globeInstance = ref(null)
+const isLoading = ref(true)
 const chinaCount = ref(8)
 
 // 亚洲国家
@@ -439,8 +434,6 @@ const provincesColumn3 = computed(() => {
 const highlightedCountries = ref([])
 const highlightedProvinces = ref([])
 
-const debugHighlighted = computed(() => highlightedProvinces.value)
-
 const toggleCountryHighlight = code => {
   if (highlightedCountries.value.includes(code)) {
     highlightedCountries.value = highlightedCountries.value.filter(c => c !== code)
@@ -463,12 +456,35 @@ const toggleProvinceHighlight = code => {
   }
 }
 
-const highlightAllProvinces = () => {
-  highlightedProvinces.value = activeProvinces.map(p => p.code)
-}
-
-const clearHighlights = () => {
-  highlightedProvinces.value = []
+// 获取国家英文全称
+const getFullEnglishName = (code) => {
+  const englishNames = {
+    'CN': 'China',
+    'JP': 'Japan',
+    'KR': 'South Korea',
+    'IN': 'India',
+    'TH': 'Thailand',
+    'VN': 'Vietnam',
+    'MY': 'Malaysia',
+    'SG': 'Singapore',
+    'DE': 'Germany',
+    'FR': 'France',
+    'GB': 'United Kingdom',
+    'IT': 'Italy',
+    'NL': 'Netherlands',
+    'SE': 'Sweden',
+    'NO': 'Norway',
+    'CH': 'Switzerland',
+    'US': 'United States',
+    'CA': 'Canada',
+    'BR': 'Brazil',
+    'MX': 'Mexico',
+    'AR': 'Argentina',
+    'CL': 'Chile',
+    'PE': 'Peru',
+    'CO': 'Colombia'
+  }
+  return englishNames[code] || code
 }
 
 let cleanupFunction = null
@@ -493,7 +509,7 @@ const initGlobe = () => {
     .globeImageUrl(
       '//unpkg.com/three-globe/example/img/earth-blue-marble.jpg',
     )
-    .backgroundColor('#020617')
+    .backgroundColor('#ffffff')
     .width(window.innerWidth)
     .height(window.innerHeight)
     .atmosphereColor('#22d3ee')
@@ -541,6 +557,12 @@ const initGlobe = () => {
 
 const setupScrollAnimation = world => {
   cleanupFunction = initializeAnimationTriggers(world)
+  
+  // 地球加载完成后隐藏加载界面
+  setTimeout(() => {
+    isLoading.value = false
+  }, 1500)
+  
   return cleanupFunction
 }
 
@@ -763,6 +785,63 @@ const initializeAnimationTriggers = world => {
   color: #e5e7eb;
 }
 
+/* 确保导航栏在最顶层 */
+.site-header {
+  z-index: 1001 !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+}
+
+/* 加载界面样式 */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #60a5fa 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+}
+
+.loading-content {
+  text-align: center;
+  color: white;
+}
+
+.loading-spinner {
+  width: 60px;
+  height: 60px;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top: 4px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.loading-subtext {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  margin: 0;
+}
+
 .globe-viz {
   position: fixed;
   top: 0;
@@ -794,52 +873,97 @@ const initializeAnimationTriggers = world => {
   min-height: 100vh;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   padding: 4rem 2rem;
   z-index: 20;
 }
 
+/* 第一个卡片（东雄环保）保持居中 */
+.scroll-section:first-child .content-box,
+.content-section:first-child .content-box {
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* 其他卡片左右分布但不过于靠边 */
+.scroll-section:nth-child(odd):not(:first-child) .content-box,
+.content-section:nth-child(odd):not(:first-child) .content-box {
+  margin-right: auto;
+  margin-left: 4rem;
+}
+
+.scroll-section:nth-child(even) .content-box,
+.content-section:nth-child(even) .content-box {
+  margin-left: auto;
+  margin-right: 4rem;
+}
+
 .content-section {
-  background: linear-gradient(135deg, #f5f7fa 0%, #e4edf9 100%);
+  background: var(--color-bg-alt);
+}
+
+/* 段落分割线 */
+.section-divider {
+  height: 13px;
+  background: #ffffff;
+  width: 90%;
+  margin: 0 auto;
+  opacity: 1;
 }
 
 .content-box {
-  background: rgba(15, 23, 42, 0.9);
-  border: 1px solid rgba(148, 163, 184, 0.3);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
   padding: 2rem;
   border-radius: 18px;
-  color: #e5e7eb;
+  color: var(--color-text);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  max-width: 520px;
-  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.65);
+  max-width: 480px;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.08);
+  width: 100%;
 }
 
 .content-box.glass {
-  background: rgba(15, 23, 42, 0.92);
-  border: 1px solid rgba(148, 163, 184, 0.4);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-strong);
 }
 
 h1 {
   font-size: 2.8rem;
   margin-bottom: 1rem;
-  color: #f9fafb;
+  color: var(--color-text);
   font-weight: 700;
   letter-spacing: -0.04em;
+  text-align: center;
+}
+
+/* 首页标题样式 */
+.hero-title {
+  font-size: 4rem; /* 64px */
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 1rem;
+  background: linear-gradient(120deg, #22d3ee, #a855f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 h2 {
   font-size: 2.2rem;
-  color: #f9fafb;
+  color: var(--color-text);
   margin-bottom: 1rem;
   font-weight: 600;
+  text-align: center;
 }
 
 p {
   font-size: 1.05rem;
   line-height: 1.6;
   margin-bottom: 1.5rem;
-  color: #d1d5db;
+  color: var(--color-text-secondary);
+  text-align: center;
 }
 
 .scroll-hint {
@@ -847,6 +971,7 @@ p {
   opacity: 0.8;
   animation: bounce 2s infinite;
   font-size: 0.95rem;
+  text-align: center;
 }
 
 @keyframes bounce {
@@ -859,31 +984,6 @@ p {
   }
 }
 
-.china-stats {
-  display: flex;
-  justify-content: center;
-  margin-top: 1.5rem;
-}
-
-.stat-item {
-  text-align: center;
-}
-
-.stat-number {
-  display: block;
-  font-size: 2.4rem;
-  font-weight: 700;
-  color: #22d3ee;
-  line-height: 1;
-}
-
-.stat-label {
-  font-size: 0.9rem;
-  color: #9ca3af;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-
 .countries-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
@@ -892,73 +992,97 @@ p {
 }
 
 .country-card {
-  background: rgba(15, 23, 42, 0.9);
+  background: rgba(255, 255, 255, 0.95);
   border-radius: 12px;
   padding: 1rem;
   text-align: center;
   cursor: pointer;
-  transition: all 0.3s ease;
-  border: 1px solid rgba(148, 163, 184, 0.5);
+  border: 1px solid #e0e0e0;
 }
 
-.country-card.highlighted {
-  background: rgba(34, 211, 238, 0.12);
-  border-color: #22d3ee;
-  transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(45, 212, 191, 0.3);
-}
+
 
 .country-flag {
   font-size: 1.8rem;
   margin-bottom: 0.5rem;
 }
 
-.country-name {
+.country-name-cn {
   font-size: 0.95rem;
-  color: #e5e7eb;
+  color: #000000;
+  font-weight: 500;
+  margin-bottom: 0.2rem;
+}
+
+.country-name-en {
+  font-size: 0.75rem;
+  color: #666666;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+}
+
+.country-card.highlighted .country-name-cn {
+  color: #000000;
+  font-weight: 600;
+}
+
+.country-card.highlighted .country-name-en {
+  color: #333333;
   font-weight: 500;
 }
 
-.country-debug {
-  font-size: 0.7rem;
-  color: #9ca3af;
-  margin-top: 0.2rem;
-}
+
 
 .provinces-scroll-container {
   margin-top: 1.5rem;
-  height: 60px;
+  height: 100px;
   overflow: hidden;
   background: transparent;
-  padding: 0.3rem 0;
+  padding: 0.2rem 0;
   position: relative;
 }
 
-.infinite-scroll-track {
+.scroll-row {
+  height: 50%;
   width: 100%;
-  height: 100%;
   overflow: hidden;
   position: relative;
+}
+
+.top-row {
+  margin-bottom: 5px;
+}
+
+.bottom-row {
+  margin-top: 5px;
 }
 
 .infinite-content {
   display: inline-block;
   white-space: nowrap;
-  animation: scrollInfinite 20s linear infinite;
+  position: relative;
+}
+
+.left-scroll {
+  animation: scrollLeft 25s linear infinite;
+}
+
+.right-scroll {
+  animation: scrollRight 25s linear infinite;
 }
 
 .province-sequence {
   display: inline-block;
-  padding: 0 2rem;
+  padding: 0 0.3rem;
 }
 
 .province-item {
   display: inline-block;
-  font-size: 1rem;
-  padding: 0.2rem 0.5rem;
-  margin: 0 0.4rem;
+  font-size: 1.2rem;
+  padding: 0.3rem 0.6rem;
+  margin: 0 0.15rem;
   font-weight: 500;
-  color: #e5e7eb;
+  color: var(--color-text);
 }
 
 .province-item.colored {
@@ -970,7 +1094,7 @@ p {
   text-shadow: 0 1px 3px rgba(0, 113, 227, 0.2);
 }
 
-@keyframes scrollInfinite {
+@keyframes scrollLeft {
   0% {
     transform: translateX(0);
   }
@@ -979,37 +1103,27 @@ p {
   }
 }
 
-.debug-info {
-  margin-top: 1.5rem;
-  font-size: 0.85rem;
-  color: #a5b4fc;
+@keyframes scrollRight {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
 
-.debug-btn {
-  margin-top: 0.75rem;
-  margin-right: 0.75rem;
-  padding: 0.45rem 0.9rem;
-  background: rgba(34, 211, 238, 0.1);
-  border: 1px solid #22d3ee;
-  color: #e0f2fe;
-  border-radius: 999px;
-  cursor: pointer;
-  font-size: 0.8rem;
-  transition: all 0.3s ease;
-}
 
-.debug-btn:hover {
-  background: rgba(34, 211, 238, 0.2);
-  transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(34, 211, 238, 0.3);
-}
+
+
 
 .apple-style-title {
-  font-size: 2.6rem;
+  font-size: 4rem; /* 64px */
   font-weight: 700;
   margin-bottom: 1rem;
   color: #111827;
   line-height: 1.2;
+  text-align: left;
+  margin-left: 0;
 }
 
 .main-title-keyword {
@@ -1025,12 +1139,16 @@ p {
   color: #6b7280;
   margin-bottom: 2.5rem;
   font-weight: 400;
+  text-align: left;
+  margin-left: 0;
 }
 
 .full-width-content {
   max-width: 1200px;
   width: 100%;
-  padding: 0 2rem;
+  padding: 0 1rem;
+  margin: 0 auto;
+  text-align: left;
 }
 
 .company-modules,
@@ -1038,18 +1156,24 @@ p {
 .innovation-modules,
 .value-modules {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 2rem;
   margin-top: 1.5rem;
+  margin-left: 0;
 }
 
 .module-item {
   background: #ffffff;
   border-radius: 16px;
-  padding: 1.8rem;
+  padding: 2.5rem 1.5rem;
   box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
   transition: all 0.3s ease;
   border: 1px solid rgba(148, 163, 184, 0.45);
+  min-height: 380px;
+  min-width: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .module-item:hover {
@@ -1086,8 +1210,9 @@ p {
   }
 
   .province-item {
-    font-size: 0.9rem;
-    margin: 0 0.3rem;
+    font-size: 1.1rem;
+    margin: 0 0.1rem;
+    padding: 0.25rem 0.5rem;
   }
 
   .apple-style-title {

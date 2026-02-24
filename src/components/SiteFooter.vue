@@ -26,8 +26,9 @@
 <style scoped>
 .site-footer {
   padding: var(--space-block) 0;
-  background: var(--color-bg-dark);
-  color: rgba(255, 255, 255, 0.8);
+  background: #1d1d1f;
+  color: white;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .footer-top {
@@ -35,7 +36,7 @@
   flex-direction: column;
   gap: 1.5rem;
   padding-bottom: 1.5rem;
-  border-bottom: 1px solid var(--color-border-dark);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   margin-bottom: 1.5rem;
 }
 
@@ -50,11 +51,12 @@
 .footer-logo {
   font-weight: var(--font-weight-semibold);
   font-size: 1rem;
-  color: #fff;
+  color: white;
 }
 
 .footer-logo:hover {
-  color: #fff;
+  color: white;
+  opacity: 0.8;
 }
 
 .footer-nav {
@@ -66,15 +68,16 @@
 .footer-nav a {
   color: rgba(255, 255, 255, 0.8);
   font-size: var(--text-small);
+  transition: color 0.2s ease;
 }
 
 .footer-nav a:hover {
-  color: #fff;
+  color: white;
 }
 
 .footer-bottom {
   font-size: var(--text-small);
-  color: var(--color-text-muted);
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .footer-copy {

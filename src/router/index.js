@@ -7,17 +7,12 @@ const routes = [
     component: () => import('../views/HomeView.vue'),
     meta: { title: '首页' },
   },
-  {
-    path: '/about',
-    name: 'about',
-    component: () => import('../views/AboutView.vue'),
-    meta: { title: '关于我们' },
-  },
+
   {
     path: '/about-test',
     name: 'about-test',
     component: () => import('../views/AboutTestView_backup.vue'),
-    meta: { title: '关于我们(测试)' },
+    meta: { title: '关于我们(测试)', hideBottomNav: true },
   },
 
   {

@@ -2,13 +2,13 @@
   <div class="app">
     <SiteHeader />
     <main class="main">
-      <RouterView v-slot="{ Component }">
+      <RouterView v-slot="{ Component, route }">
         <Transition name="page" mode="out-in">
           <component :is="Component" />
         </Transition>
       </RouterView>
     </main>
-    <SiteFooter />
+    <SiteFooter v-if="!$route.meta.hideBottomNav" />
   </div>
 </template>
 

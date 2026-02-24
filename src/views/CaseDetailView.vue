@@ -318,12 +318,13 @@ const caseDetail = computed(() => caseData[caseId.value] || null)
 }
 
 .tech-list li {
-  background: var(--color-industry);
-  color: white;
+  background: var(--color-primary-light);
+  color: var(--color-primary);
   padding: 0.5rem 1rem;
   border-radius: 20px;
   font-size: 0.875rem;
   font-weight: 500;
+  border: 1px solid var(--color-border);
 }
 
 /* 项目成果 */
@@ -337,7 +338,7 @@ const caseDetail = computed(() => caseData[caseId.value] || null)
 .result-item {
   text-align: center;
   padding: 2rem;
-  background: linear-gradient(135deg, var(--color-bg) 0%, #f8f9fa 100%);
+  background: var(--gradient-subtle);
   border-radius: 16px;
   border: 1px solid var(--color-border);
 }
@@ -410,12 +411,12 @@ const caseDetail = computed(() => caseData[caseId.value] || null)
 
 .btn-outline {
   background: transparent;
-  color: var(--color-industry);
-  border-color: var(--color-industry);
+  color: var(--color-primary);
+  border-color: var(--color-primary);
 }
 
 .btn-outline:hover {
-  background: var(--color-industry);
+  background: var(--color-primary);
   color: white;
   transform: translateY(-2px);
 }

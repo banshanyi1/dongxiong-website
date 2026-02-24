@@ -134,7 +134,7 @@ const cases = [
 }
 
 .case-card {
-  background: var(--color-bg);
+  background: var(--color-bg-card);
   border-radius: 16px;
   overflow: hidden;
   border: 1px solid var(--color-border);
@@ -155,7 +155,7 @@ const cases = [
   height: 220px;
   background-size: cover;
   background-position: center;
-  background-color: var(--color-bg-alt);
+  background-color: var(--color-bg-subtle);
 }
 
 .case-card-body { 
@@ -166,10 +166,13 @@ const cases = [
   display: inline-block;
   font-size: 0.75rem;
   font-weight: var(--font-weight-medium);
-  color: var(--color-industry);
+  color: var(--color-primary);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   margin-bottom: 0.5rem;
+  background: var(--color-primary-light);
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
 }
 
 .case-card-title {
@@ -188,11 +191,11 @@ const cases = [
 .case-card-link {
   font-size: var(--text-small);
   font-weight: var(--font-weight-medium);
-  color: var(--color-industry);
+  color: var(--color-primary);
 }
 
 .case-card-link:hover { 
-  color: var(--color-accent-hover); 
+  color: var(--color-primary-hover); 
   text-decoration: underline;
 }
 

@@ -236,7 +236,7 @@ onUnmounted(() => {
 
 .page-body { 
   padding: var(--space-section) 0; 
-  background: rgb(250, 250, 252);
+  background: var(--color-bg-section);
 }
 
 .page-eyebrow {
@@ -272,10 +272,10 @@ onUnmounted(() => {
 }
 
 .service-card {
-  background: white;
+  background: var(--color-bg-card);
   border-radius: 16px;
   padding: 2rem;
-  border: 1px solid #e0e0e0;
+  border: 1px solid var(--color-border);
   transition: all var(--duration-normal) var(--ease-out);
   cursor: pointer;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
@@ -284,7 +284,7 @@ onUnmounted(() => {
 .service-card.first {
   padding: 3rem;
   min-height: 200px;
-  background: rgb(245, 245, 247) url('/service-bg-new.png');
+  background: var(--color-bg-alt) url('/service-bg-new.png');
   background-size: 60%;
   background-position: right center;
   background-repeat: no-repeat;
@@ -331,16 +331,16 @@ onUnmounted(() => {
 .service-card-link {
   font-size: var(--text-small);
   font-weight: var(--font-weight-medium);
-  color: var(--color-industry);
+  color: var(--color-primary);
 }
 
-.service-card-link:hover { color: var(--color-accent-hover); }
+.service-card-link:hover { color: var(--color-primary-hover); }
 
 /* 激活状态卡片样式 */
 .service-card.active {
   transform: translateY(-4px);
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
-  border-color: var(--color-industry);
+  border-color: var(--color-primary);
 }
 
 /* 侧滑详情面板容器 */
@@ -518,14 +518,14 @@ onUnmounted(() => {
 }
 
 .btn-primary {
-  background: var(--color-industry);
+  background: var(--color-primary);
   color: white;
 }
 
 .btn-primary:hover {
-  background: #086a8c;
+  background: var(--color-primary-hover);
   transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(10, 126, 164, 0.3);
+  box-shadow: 0 10px 25px rgba(0, 113, 227, 0.3);
 }
 
 /* 重新设计的双层动画 */

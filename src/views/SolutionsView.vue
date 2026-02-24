@@ -107,7 +107,7 @@ const items = [
 .solution-num {
   font-size: var(--text-h2);
   font-weight: var(--font-weight-semibold);
-  color: var(--color-border);
+  color: var(--color-text-muted);
   letter-spacing: -0.02em;
 }
 
