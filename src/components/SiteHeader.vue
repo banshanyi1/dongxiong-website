@@ -122,11 +122,11 @@ const navItems = [
   {
     id: 'about',
     label: '关于我们',
-    path: '/about-test',
+    path: '/about',
     children: [
-      { path: '/about-test', label: '公司简介', desc: '企业愿景与实力' },
-      { path: '/about-test#history', label: '发展历程', desc: '里程碑与成长' },
-      { path: '/about-test#honor', label: '资质荣誉', desc: '认证与奖项' },
+      { path: '/about', label: '公司简介', desc: '企业愿景与实力' },
+      { path: '/about#history', label: '发展历程', desc: '里程碑与成长' },
+      { path: '/about#honor', label: '资质荣誉', desc: '认证与奖项' },
     ],
   },
   {

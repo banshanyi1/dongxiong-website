@@ -15,47 +15,48 @@
       </div>
     </div>
     
-
-    
     <!-- 地球可视化区域 -->
-    <div ref="globeDiv" class="globe-viz"></div>
+    <div ref="globeDiv" class="globe-viz" :class="{ 'globe-right': !isLoading && !showEarthCenter, 'globe-center': showEarthCenter || isLoading }"></div>
 
     <div class="scroll-wrapper">
       <div class="scroll-content">
-        <!-- 第一屏：初始状态 - 中国区域居中 -->
+        <!-- 第一屏：初始状态 - 左侧公司信息，右侧地球 -->
         <div class="scroll-section section-1" data-section-index="0">
-          <!-- 背景特效容器 -->
-          <div class="hero-effects">
-          </div>
-          
-          <div class="content-box glass">
-            <h1 class="hero-title animate-in">东雄环保</h1>
-            <div class="hero-subtitle animate-in delay-1">
-              <span class="tag">全球布局</span>
-              <span class="separator">|</span>
-              <span class="tag">本土深耕</span>
-              <span class="separator">|</span>
-              <span class="tag">技术引领</span>
+          <div class="content-layout">
+            <!-- 左侧公司信息 -->
+            <div class="company-info">
+              <h1 class="hero-title animate-in">东雄环保</h1>
+              <div class="hero-subtitle animate-in delay-1">
+                <span class="tag">全球布局</span>
+                <span class="separator">|</span>
+                <span class="tag">本土深耕</span>
+                <span class="separator">|</span>
+                <span class="tag">技术引领</span>
+              </div>
+              <p class="animate-in delay-1">有色金属冶炼与大气环保专业服务商</p>
+              
+              <!-- 全球业务数据卡片 -->
+              <div class="global-stats animate-in delay-2">
+                <div class="stat-card">
+                  <div class="stat-number">20+</div>
+                  <div class="stat-label">服务国家</div>
+                </div>
+                <div class="stat-card">
+                  <div class="stat-number">30+</div>
+                  <div class="stat-label">覆盖省份</div>
+                </div>
+                <div class="stat-card">
+                  <div class="stat-number">500+</div>
+                  <div class="stat-label">工程项目</div>
+                </div>
+              </div>
+              
+              <div class="scroll-hint animate-in delay-3">向下滚动探索我们的全球足迹 ↓</div>
+                            <div class="scroll-instruction" v-if="!showEarthCenter">滚动查看完整地球</div>
             </div>
-            <p class="animate-in delay-1">有色金属冶炼与大气环保专业服务商</p>
             
-            <!-- 全球业务数据卡片 -->
-            <div class="global-stats animate-in delay-2">
-              <div class="stat-card">
-                <div class="stat-number">20+</div>
-                <div class="stat-label">服务国家</div>
-              </div>
-              <div class="stat-card">
-                <div class="stat-number">30+</div>
-                <div class="stat-label">覆盖省份</div>
-              </div>
-              <div class="stat-card">
-                <div class="stat-number">500+</div>
-                <div class="stat-label">工程项目</div>
-              </div>
-            </div>
-            
-            <div class="scroll-hint animate-in delay-3">向下滚动探索我们的全球足迹 ↓</div>
+            <!-- 右侧留空给地球 -->
+            <div class="earth-placeholder"></div>
           </div>
         </div>
 
@@ -377,8 +378,8 @@ const isLoading = ref(true)
 const chinaCount = ref(8)
 const isGlobeRotating = ref(true) // 控制地球是否旋转
 const rotationInterval = ref(null) // 旋转定时器
-const showHeroEffects = ref(true) // 控制首屏特效显示
-
+const showEarthCenter = ref(false) // 控制地球是否回到中心
+const scrollThreshold = ref(50) // 滚动阈值，降低触发点
 
 // 亚洲国家
 const asiaCountries = [
@@ -620,13 +621,56 @@ const handleTouchStart = (event) => {
   // event.preventDefault() 
 }
 
-// 监听滚动事件控制首屏特效
+// 统一的滚动处理函数
 const handleScroll = () => {
   const scrollWrapper = document.querySelector('.scroll-wrapper')
-  if (scrollWrapper) {
-    const scrollTop = scrollWrapper.scrollTop
-    // 当滚动超过一定距离时隐藏特效
-    showHeroEffects.value = scrollTop < 100
+  if (!scrollWrapper) return
+  
+  const scrollTop = scrollWrapper.scrollTop
+  
+  // 控制地球位置
+  showEarthCenter.value = scrollTop > scrollThreshold.value
+  console.log('滚动位置:', scrollTop, '地球状态:', showEarthCenter.value ? '中心' : '左侧')
+  
+  // 控制卡片切换逻辑
+  const scrollSections = document.querySelectorAll('.scroll-section')
+  if (!scrollSections.length) return
+  
+  const triggerPositions = [0, 800, 1600, 2400, 3200, 4000]
+  const targetViews = [
+    { lat: 35, lng: 105, altitude: 1.2 },
+    { lat: 30, lng: 90, altitude: 1.5 },
+    { lat: 50, lng: 15, altitude: 1.5 },
+    { lat: 20, lng: -90, altitude: 1.5 },
+    { lat: 35, lng: 105, altitude: 1.0 },
+    { lat: 35, lng: 105, altitude: 0.7 },
+  ]
+  
+  let targetIndex = 0
+  for (let i = 0; i < triggerPositions.length; i++) {
+    if (scrollTop >= triggerPositions[i]) {
+      targetIndex = i
+    }
+  }
+  
+  if (targetIndex !== currentCardIndex && !isAnimating) {
+    currentCardIndex = targetIndex
+    isAnimating = true
+    
+    // 当到达最后一个板块时停止旋转
+    if (targetIndex === 5) {
+      stopGlobeRotation()
+    }
+    
+    if (globeInstance.value) {
+      globeInstance.value.pointOfView(targetViews[targetIndex], 800)
+      updateHighlightedCountries(targetIndex)
+      updateMapDisplay(globeInstance.value)
+    }
+    
+    setTimeout(() => {
+      isAnimating = false
+    }, 850)
   }
 }
 
@@ -644,6 +688,8 @@ onMounted(() => {
     if (isLoading.value) {
       console.log('加载超时，强制显示内容')
       isLoading.value = false
+      // 加载完成后默认显示左侧地球
+      showEarthCenter.value = false
     }
   }, 3000) // 超时保护
   
@@ -756,7 +802,9 @@ const setupScrollAnimation = world => {
   // 设置合理的加载时间
   setTimeout(() => {
     isLoading.value = false
-
+    // 加载完成后默认显示左侧地球
+    showEarthCenter.value = false
+    console.log('加载完成，地球移至左侧')
   }, 500) // 等待0.5秒加载界面消失
   
   return cleanupFunction
@@ -878,40 +926,6 @@ const setupPixelBasedTrigger = world => {
     { lat: 35, lng: 105, altitude: 0.7 },
   ]
 
-  const handleScroll = () => {
-    const scrollTop = scrollWrapper.scrollTop
-    let targetIndex = 0
-
-    for (let i = 0; i < triggerPositions.length; i++) {
-      if (scrollTop >= triggerPositions[i]) {
-        targetIndex = i
-      }
-    }
-
-    if (targetIndex !== currentCardIndex && !isAnimating) {
-      currentCardIndex = targetIndex
-      isAnimating = true
-
-      // 当到达最后一个板块（关注国内，索引为5）时停止旋转
-      if (targetIndex === 5) {
-        stopGlobeRotation()
-      }
-
-      world.pointOfView(targetViews[targetIndex], 800)
-      updateHighlightedCountries(targetIndex)
-      updateMapDisplay(world)
-
-      setTimeout(() => {
-        isAnimating = false
-      }, 850)
-    }
-  }
-
-  scrollWrapper.addEventListener('scroll', handleScroll)
-
-  return () => {
-    scrollWrapper.removeEventListener('scroll', handleScroll)
-  }
 }
 
 // 基于 section 位置的智能触发
@@ -931,46 +945,6 @@ const setupSmartPixelTrigger = world => {
     { lat: 35, lng: 105, altitude: 0.7 },
   ]
 
-  const handleScroll = () => {
-    const scrollTop = scrollWrapper.scrollTop
-
-
-
-    const sectionTriggers = []
-    scrollSections.forEach(section => {
-      const rect = section.getBoundingClientRect()
-      const sectionTop = rect.top + scrollTop
-      sectionTriggers.push(sectionTop - 200)
-    })
-
-    let targetIndex = 0
-    for (let i = 0; i < sectionTriggers.length; i++) {
-      if (scrollTop >= sectionTriggers[i]) {
-        targetIndex = i
-      }
-    }
-
-    if (targetIndex !== currentCardIndex && !isAnimating) {
-      currentCardIndex = targetIndex
-      isAnimating = true
-
-      // 当到达最后一个板块（关注国内，索引为5）时停止旋转
-      if (targetIndex === 5) {
-        stopGlobeRotation()
-      }
-
-      world.pointOfView(targetViews[targetIndex], 800)
-      updateHighlightedCountries(targetIndex)
-      updateMapDisplay(world)
-
-      setTimeout(() => {
-        isAnimating = false
-      }, 850)
-    }
-  }
-
-  scrollWrapper.addEventListener('scroll', handleScroll)
-  return () => scrollWrapper.removeEventListener('scroll', handleScroll)
 }
 
 // 统一入口：优先使用智能触发，失败则使用固定像素触发
@@ -988,9 +962,9 @@ const initializeAnimationTriggers = world => {
   position: relative;
   width: 100vw;
   height: 100vh;
-  background: #020617;
+  background: #ffffff; /* 改为白色背景 */
   overflow: hidden;
-  color: #e5e7eb;
+  color: #111827;
 }
 
 /* 确保导航栏在最顶层并保持一致样式 */
@@ -1049,7 +1023,37 @@ const initializeAnimationTriggers = world => {
   animation: gradientShift 3s ease infinite;
 }
 
+/* 地球位置控制 */
+.globe-viz {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+  /* 默认状态下地球居中 */
+  transform: translateX(0) scale(1);
+  opacity: 1;
+}
 
+/* 加载完成后地球移动到右侧，只缩放地球本身 */
+.globe-viz.globe-right {
+  transform: translateX(25%); /* 只向右移动，不缩放容器 */
+  opacity: 0.9;
+}
+
+/* 地球内部缩放 */
+.globe-viz.globe-right canvas {
+  transform: scale(0.7); /* 只缩放地球画布本身 */
+  transform-origin: center;
+}
+
+/* 地球回到中心并恢复正常大小 */
+.globe-viz.globe-center {
+  transform: translateX(0) scale(1); /* 回到中心并恢复正常大小 */
+  opacity: 1;
+}
 
 
 
@@ -1090,14 +1094,7 @@ const initializeAnimationTriggers = world => {
   animation: fadeInOut 3s ease-in-out infinite;
 }
 
-.globe-viz {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 1;
-}
+
 
 .scroll-wrapper {
   position: relative;
@@ -1136,11 +1133,35 @@ const initializeAnimationTriggers = world => {
   /* 移除 margin-bottom，避免板块间出现间隙 */
 }
 
-/* 第一个卡片（东雄环保）保持居中 */
-.scroll-section:first-child .content-box,
-.content-section:first-child .content-box {
-  margin: 0 auto;
-  text-align: center;
+/* 新的布局容器 */
+.content-layout {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4rem;
+}
+
+.company-info {
+  flex: 1;
+  max-width: 600px;
+  z-index: 30;
+}
+
+.earth-placeholder {
+  flex: 1;
+  height: 100%;
+  position: relative;
+}
+
+/* 第一个板块使用新的左右布局 */
+.scroll-section:first-child .content-layout {
+  justify-content: space-between;
+}
+
+.scroll-section:first-child .company-info {
+  text-align: left;
 }
 
 /* 首屏特效容器 */
@@ -1294,11 +1315,11 @@ global-stats {
 }
 
 .content-box {
-  background: var(--color-bg-card);
-  border: 1px solid var(--color-border);
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   padding: 2rem;
   border-radius: 18px;
-  color: var(--color-text);
+  color: #111827;
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   max-width: 480px;
@@ -1307,17 +1328,17 @@ global-stats {
 }
 
 .content-box.glass {
-  background: var(--color-bg-card);
-  border: 1px solid var(--color-border-strong);
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(0, 0, 0, 0.15);
 }
 
 h1 {
   font-size: 2.8rem;
   margin-bottom: 1rem;
-  color: var(--color-text);
+  color: #111827;
   font-weight: 700;
   letter-spacing: -0.04em;
-  text-align: center;
+  text-align: left;
 }
 
 /* 首页标题样式 */
@@ -1334,7 +1355,7 @@ h1 {
 
 h2 {
   font-size: 2.2rem;
-  color: var(--color-text);
+  color: #111827;
   margin-bottom: 1rem;
   font-weight: 600;
   text-align: center;
@@ -1344,8 +1365,8 @@ p {
   font-size: 1.05rem;
   line-height: 1.6;
   margin-bottom: 1.5rem;
-  color: var(--color-text-secondary);
-  text-align: center;
+  color: #6b7280;
+  text-align: left;
 }
 
 .scroll-hint {
@@ -1354,6 +1375,15 @@ p {
   animation: bounce 2s infinite;
   font-size: 0.95rem;
   text-align: center;
+}
+
+.scroll-instruction {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #22d3ee;
+  font-weight: 500;
+  text-align: center;
+  animation: pulse 2s infinite;
 }
 
 /* 字体出现动画 */
@@ -1390,6 +1420,18 @@ p {
   }
   50% {
     transform: translateY(10px);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
   }
 }
 
@@ -1500,7 +1542,7 @@ p {
   padding: 0.3rem 0.6rem;
   margin: 0 0.15rem;
   font-weight: 500;
-  color: var(--color-text);
+  color: #111827;
 }
 
 .province-item.colored {

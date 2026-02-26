@@ -18,7 +18,7 @@ const routes = [
   {
     path: '/about',
     name: 'about',
-    component: () => import('../views/AboutTestView_backup.vue'),
+    component: () => import('../views/AboutView.vue'),
     meta: { title: '关于我们', hideBottomNav: true },
   },
   {
