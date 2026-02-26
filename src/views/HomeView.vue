@@ -92,53 +92,37 @@
 
     <!-- 第三屏：业务范围 -->
     <section class="section services-section" ref="servicesSection">
-      <div class="container">
-        <div class="section-header text-center">
-          <span class="section-eyebrow">业务范围</span>
-          <h2 class="section-title">核心业务板块</h2>
-          <p class="section-description">
-            覆盖大气治理、冶炼环保、工程咨询、设备运维等全方位服务
-          </p>
-        </div>
-        <div class="services-wrapper">
-          <div class="services-grid">
-            <!-- 左侧大模块 -->
-            <div class="service-item large">
-              <div class="service-card first">
-                <div class="service-card-icon">{{ services[0].icon }}</div>
-                <h3 class="service-card-title">{{ services[0].title }}</h3>
-                <p class="service-card-desc">{{ services[0].description }}</p>
-              </div>
+      <div class="container-full">
+        <p class="page-eyebrow">核心业务</p>
+        <h2 class="section-title">四大业务板块</h2>
+        <p class="section-lead page-intro">
+          为客户提供合规、高效、可持续的解决方案。
+        </p>
+        <div class="dx-card-grid">
+          <article 
+            v-for="(card, index) in serviceCards" 
+            :key="card.title" 
+            class="dx-card"
+            @click="openServiceDetail(index)"
+          >
+            <div 
+              class="dx-card__media"
+              :class="`dx-card__media--${index}`"
+            ></div>
+            <div class="dx-card__body">
+              <div class="dx-card__icon">{{ card.icon }}</div>
+              <h3 class="dx-card__title">{{ card.title }}</h3>
+              <p class="dx-card__desc">{{ card.description }}</p>
+              <span class="dx-card__link">点击查看详情 →</span>
             </div>
-            
-            <!-- 右侧上方模块 -->
-            <div class="service-item small top">
-              <div class="service-card second">
-                <div class="service-card-icon">{{ services[1].icon }}</div>
-                <h3 class="service-card-title">{{ services[1].title }}</h3>
-                <p class="service-card-desc">{{ services[1].description }}</p>
-              </div>
-            </div>
-            
-            <!-- 右侧下方模块 -->
-            <div class="service-item small bottom">
-              <div class="service-card third">
-                <div class="service-card-icon">{{ services[2].icon }}</div>
-                <h3 class="service-card-title">{{ services[2].title }}</h3>
-                <p class="service-card-desc">{{ services[2].description }}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="services-cta">
-          <RouterLink to="/services" class="btn btn-primary">查看详情</RouterLink>
+          </article>
         </div>
       </div>
     </section>
 
     <!-- 第四屏：工程案例 -->
     <section class="section cases-section" ref="casesSection">
-      <div class="container">
+      <div class="container-full">
         <div class="section-content reverse">
           <div class="section-image">
             <img :src="casesImage" alt="工程案例">
@@ -172,8 +156,8 @@
 
     <!-- 第五屏：联系我们 -->
     <section class="section contact-section" ref="contactSection">
-      <div class="container">
-        <div class="section-header text-center">
+      <div class="container-full">
+        <div class="section-header text-left">
           <span class="section-eyebrow">联系我们</span>
           <h2 class="section-title">携手共创绿色未来</h2>
           <p class="section-description">
@@ -259,21 +243,62 @@ const casesImage = 'https://images.unsplash.com/photo-1567767292278-a4f21aa2d36e
 // 业务范围数据
 const services = [
   { 
-    icon: '🏭', 
-    title: '技术工程', 
-    description: '冶金固、危废处理的技术咨询、设计、工程建设'
+    icon: '📐', 
+    title: '工程设计咨询', 
+    description: '可研与设计，提供专业的工程前期咨询和设计服务'
+  },
+  { 
+    icon: '🔥', 
+    title: '有色金属冶炼', 
+    description: '先进的系统工艺技术，专注有色金属冶炼领域'
   },
   { 
     icon: '🌫️', 
-    title: '环保设备', 
-    description: '除尘、脱硫脱硝设备及滤料配件系统解决方案'
+    title: '大气污染治理', 
+    description: '脱硫脱硝、除尘、VOCs治理全方位解决方案'
   },
   { 
-    icon: '📦', 
-    title: '输送装备', 
-    description: '气力输送装置、刮板输送机及配套系统集成'
+    icon: '🔧', 
+    title: '设备与运维', 
+    description: '专业的设备与运维服务，保障系统稳定运行'
   }
 ]
+
+// 业务范围卡片数据
+const serviceCards = [
+  { 
+    icon: '📐', 
+    title: '工程设计咨询', 
+    description: '可研与设计，提供专业的工程前期咨询和设计服务'
+  },
+  { 
+    icon: '🔥', 
+    title: '有色金属冶炼', 
+    description: '先进的系统工艺技术，专注有色金属冶炼领域'
+  },
+  { 
+    icon: '🌫️', 
+    title: '大气污染治理', 
+    description: '脱硫脱硝、除尘、VOCs治理全方位解决方案'
+  },
+  { 
+    icon: '🔧', 
+    title: '设备与运维', 
+    description: '专业的设备与运维服务，保障系统稳定运行'
+  }
+]
+
+const activeCardIndex = ref(null)
+
+async function openServiceDetail(index) {
+  // 先清空当前状态，确保动画能正确触发
+  activeCardIndex.value = null
+  await nextTick()
+  // 设置新状态
+  activeCardIndex.value = index
+  // 跳转到业务范围页面
+  router.push('/services')
+}
 
 // 响应式数据
 const currentSlide = ref(0)
@@ -581,8 +606,193 @@ onUnmounted(() => {
   margin-bottom: 3rem;
 }
 
+.cases-section .section-text,
+.cases-section .section-header,
+.cases-section .section-description {
+  text-align: left;
+}
+
+.cases-section .stats {
+  justify-content: flex-start;
+}
+
 .text-center {
   text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+/* 业务范围模块特有样式 */
+.container-full {
+  width: 100%;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 105.25px;
+  padding-right: 105.25px;
+}
+
+.services-section .section-eyebrow,
+.services-section .section-title,
+.services-section .section-description {
+  margin-left: 0;
+}
+
+/* 核心业务模块对齐规范（文字宽度控制，但不再用额外左边距） */
+.page-eyebrow,
+.section-lead,
+.page-intro {
+  text-align: left;
+  margin-left: 0;
+  max-width: 640px;
+}
+
+.page-eyebrow {
+  font-size: var(--text-small);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-industry);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.75rem;
+}
+
+.section-lead {
+  font-size: var(--text-body);
+  color: var(--color-text-secondary);
+  margin-top: 0.75rem;
+}
+
+.page-intro { 
+  margin-bottom: 2rem; 
+}
+
+/* 卡片网格容器对齐 */
+.services-grid {
+  display: flex;
+  gap: 2rem;
+  margin: 3rem 0 0;
+  width: 100%;
+  max-width: 100%;
+  justify-content: space-between;
+}
+
+.service-card {
+  background: var(--color-bg-card);
+  border-radius: 16px;
+  padding: 2rem;
+  border: 1px solid var(--color-border);
+  transition: all var(--duration-normal) var(--ease-out);
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  flex: 1;
+  min-width: 400px;
+  width: calc(42vw - 2.6rem);
+  height: calc(56vw - 3.47rem);
+  max-width: 470px;
+  max-height: 630px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.service-card.first {
+  padding: 2rem;
+  background: var(--color-bg-alt);
+  border: 1px solid #d0d0d0;
+  flex: 1;
+  min-width: 400px;
+  width: calc(42vw - 2.6rem);
+  height: calc(56vw - 3.47rem);
+  max-width: 470px;
+  max-height: 630px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.service-card.second {
+  background: white;
+  border: 1px solid #e0e0e0;
+  flex: 1;
+  min-width: 400px;
+  width: calc(42vw - 2.6rem);
+  height: calc(56vw - 3.47rem);
+  max-width: 470px;
+  max-height: 630px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.service-card.third {
+  background: white;
+  border: 1px solid #e0e0e0;
+  flex: 1;
+  min-width: 400px;
+  width: calc(42vw - 2.6rem);
+  height: calc(56vw - 3.47rem);
+  max-width: 470px;
+  max-height: 630px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.service-card.fourth {
+  background: white;
+  border: 1px solid #e0e0e0;
+  flex: 1;
+  min-width: 400px;
+  width: calc(42vw - 2.6rem);
+  height: calc(56vw - 3.47rem);
+  max-width: 470px;
+  max-height: 630px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.service-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.12);
+  border-color: var(--color-industry);
+}
+
+.service-card-icon { 
+  font-size: 2rem; 
+  margin-bottom: 1rem; 
+}
+
+.service-card-title {
+  font-size: 1.75rem;
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: 0.5rem;
+}
+
+.service-card-desc {
+  font-size: var(--text-small);
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.service-card-link {
+  font-size: var(--text-small);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-primary);
+}
+
+.service-card-link:hover { 
+  color: var(--color-primary-hover); 
+}
+
+/* 激活状态卡片样式 */
+.service-card.active {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
+  border-color: var(--color-primary);
 }
 
 .section-eyebrow {
@@ -780,32 +990,10 @@ onUnmounted(() => {
   margin: 3rem 0;
 }
 
-.services-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  gap: 1.5rem;
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-}
+
 
 .service-item {
   position: relative;
-}
-
-.service-item.large {
-  grid-row: 1 / 3;
-}
-
-.service-item.small.top {
-  grid-column: 2;
-  grid-row: 1;
-}
-
-.service-item.small.bottom {
-  grid-column: 2;
-  grid-row: 2;
 }
 
 .service-card {
@@ -847,6 +1035,14 @@ onUnmounted(() => {
   border: 1px solid #e0e0e0;
 }
 
+.service-card.fourth {
+  background: white url('/service-bg-operation.png');
+  background-size: 55%;
+  background-position: right center;
+  background-repeat: no-repeat;
+  border: 1px solid #e0e0e0;
+}
+
 .service-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 15px 50px rgba(0, 0, 0, 0.12);
@@ -871,6 +1067,82 @@ onUnmounted(() => {
   line-height: 1.6;
   margin-bottom: 1rem;
   flex-grow: 1;
+}
+
+/* 统一业务卡片栅格（苹果风） */
+.dx-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+  margin-top: 2.5rem;
+}
+
+.dx-card {
+  background: var(--color-bg-card);
+  border-radius: 18px;
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.06);
+  transition:
+    transform var(--duration-normal) var(--ease-out),
+    box-shadow var(--duration-normal) var(--ease-out);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+
+.dx-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.12);
+}
+
+.dx-card__media {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  background-size: cover;
+  background-position: center;
+}
+
+.dx-card__media--0 {
+  background-image: url('/service-bg-new.png');
+}
+.dx-card__media--1 {
+  background-image: url('/service-bg-metals-new.png');
+}
+.dx-card__media--2 {
+  background-image: url('/service-bg-equipment.png');
+}
+.dx-card__media--3 {
+  background-image: url('/service-bg-operation.png');
+}
+
+.dx-card__body {
+  padding: 20px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dx-card__icon {
+  font-size: 1.6rem;
+}
+
+.dx-card__title {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.dx-card__desc {
+  font-size: 0.95rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+.dx-card__link {
+  margin-top: 4px;
+  font-size: 0.9rem;
+  color: var(--color-primary);
+  font-weight: 500;
 }
 
 /* 业务范围CTA按钮区域 */

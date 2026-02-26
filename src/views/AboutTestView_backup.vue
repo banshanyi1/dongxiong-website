@@ -1600,8 +1600,10 @@ p {
 .full-width-content {
   max-width: 1200px;
   width: 100%;
-  padding: 0 1rem;
-  margin: 0 auto;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 105.25px;
+  padding-right: 105.25px;
   text-align: left;
 }
 

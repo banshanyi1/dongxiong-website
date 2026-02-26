@@ -21,10 +21,10 @@
     <div class="scroll-wrapper">
       <div class="scroll-content">
         <!-- 第一屏：初始状态 - 左侧公司信息，右侧地球 -->
-        <div class="scroll-section section-1" data-section-index="0">
+        <div class="scroll-section section-1 screen-mask" data-section-index="0">
           <div class="content-layout">
             <!-- 左侧公司信息 -->
-            <div class="company-info">
+            <div class="company-info fullscreen-card" :class="{ 'slide-in-left': !isLoading }">
               <h1 class="hero-title animate-in">东雄环保</h1>
               <div class="hero-subtitle animate-in delay-1">
                 <span class="tag">全球布局</span>
@@ -380,6 +380,7 @@ const isGlobeRotating = ref(true) // 控制地球是否旋转
 const rotationInterval = ref(null) // 旋转定时器
 const showEarthCenter = ref(false) // 控制地球是否回到中心
 const scrollThreshold = ref(50) // 滚动阈值，降低触发点
+const animatedSections = ref(new Set()) // 记录已经触发动画的区块
 
 // 亚洲国家
 const asiaCountries = [
@@ -630,12 +631,35 @@ const handleScroll = () => {
   
   // 控制地球位置
   showEarthCenter.value = scrollTop > scrollThreshold.value
-  console.log('滚动位置:', scrollTop, '地球状态:', showEarthCenter.value ? '中心' : '左侧')
+  console.log('滚动位置:', scrollTop, '地球状态:', showEarthCenter.value ? '中心' : '右侧')
+  
+  // 控制卡片动画触发
+  const scrollSections = document.querySelectorAll('.scroll-section')
+  scrollSections.forEach((section, index) => {
+    const sectionRect = section.getBoundingClientRect()
+    const sectionTop = sectionRect.top
+    const windowHeight = window.innerHeight
+    
+    // 当区块进入视窗中部时触发动画
+    if (sectionTop < windowHeight * 0.6 && sectionTop > -windowHeight * 0.4) {
+      if (!animatedSections.value.has(index)) {
+        animatedSections.value.add(index)
+        console.log('触发动画:', index)
+        // 为该区块添加动画类
+        const contentBox = section.querySelector('.content-box')
+        if (contentBox) {
+          // 根据区块位置决定动画方向
+          if (index % 2 === 1) { // 奇数区块（右侧）
+            contentBox.classList.add('slide-in-right')
+          } else if (index % 2 === 0 && index > 0) { // 偶数区块（左侧）
+            contentBox.classList.add('slide-in-left')
+          }
+        }
+      }
+    }
+  })
   
   // 控制卡片切换逻辑
-  const scrollSections = document.querySelectorAll('.scroll-section')
-  if (!scrollSections.length) return
-  
   const triggerPositions = [0, 800, 1600, 2400, 3200, 4000]
   const targetViews = [
     { lat: 35, lng: 105, altitude: 1.2 },
@@ -976,8 +1000,7 @@ const initializeAnimationTriggers = world => {
   right: 0 !important;
   /* 保持与其他页面一致的背景样式 */
   background: rgba(251, 251, 253, 0.72) !important;
-  backdrop-filter: saturate(180%) blur(20px) !important;
-  -webkit-backdrop-filter: saturate(180%) blur(20px) !important;
+  /* 移除全局模糊效果 */
 }
 
 /* 加载界面动画 */
@@ -994,14 +1017,14 @@ const initializeAnimationTriggers = world => {
 .loading-visible {
   opacity: 1;
   transform: scale(1) translateY(0);
-  filter: blur(0);
+  /* 移除模糊效果 */
   visibility: visible;
 }
 
 .loading-hidden {
   opacity: 0;
   transform: scale(1.1) translateY(-20px);
-  filter: blur(10px);
+  /* 移除模糊效果 */
   visibility: hidden;
 }
 
@@ -1017,7 +1040,7 @@ const initializeAnimationTriggers = world => {
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  backdrop-filter: blur(10px);
+  /* 移除背景模糊 */
   /* 添加渐变动画 */
   background-size: 200% 200%;
   animation: gradientShift 3s ease infinite;
@@ -1030,7 +1053,7 @@ const initializeAnimationTriggers = world => {
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 1;
+  z-index: 1; /* 地球在最底层 */
   transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
   /* 默认状态下地球居中 */
   transform: translateX(0) scale(1);
@@ -1145,8 +1168,48 @@ const initializeAnimationTriggers = world => {
 
 .company-info {
   flex: 1;
-  max-width: 600px;
-  z-index: 30;
+  width: 100%;
+  max-width: none;
+  z-index: 20; /* 确保文字在最上层 */
+  position: relative;
+}
+
+/* 全屏公司信息卡片 - 保持渐变移除模糊 */
+.fullscreen-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(35vw + 150px);
+  height: 100vh;
+  padding: 3rem 2rem 2rem 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: transparent;
+  border-radius: 0 20px 20px 0;
+  /* 移除模糊效果 */
+}
+
+/* 全屏卡片背景渐变 - 更自然的扩大渐变范围 */
+.fullscreen-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 0% 0%, 
+    rgba(135, 206, 250, 0.9) 0%, 
+    rgba(160, 210, 240, 0.75) 12%, 
+    rgba(190, 225, 245, 0.6) 25%, 
+    rgba(220, 240, 250, 0.4) 40%, 
+    rgba(240, 248, 255, 0.25) 55%, 
+    rgba(250, 255, 255, 0.1) 70%, 
+    rgba(255, 255, 255, 0) 85%
+  );
+  /* 扩大渐变范围至85%，过渡更自然 */
+  z-index: -1;
+  border-radius: 0 20px 20px 0;
 }
 
 .earth-placeholder {
@@ -1177,23 +1240,23 @@ const initializeAnimationTriggers = world => {
   transition: opacity 0.5s ease;
 }
 
-/* 副标题样式 */
+/* 副标题样式 - 优化间距 */
 .hero-subtitle {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   gap: 1rem;
-  margin: 1.5rem 0;
+  margin: 1rem 0 1.5rem 0;
   font-size: 1.1rem;
   font-weight: 500;
 }
 
 .tag {
-  color: #22d3ee;
+  color: #0ea5e9;
   padding: 0.2rem 0.8rem;
-  background: rgba(34, 211, 238, 0.1);
+  background: rgba(14, 165, 233, 0.1);
   border-radius: 20px;
-  border: 1px solid rgba(34, 211, 238, 0.3);
+  border: 1px solid rgba(14, 165, 233, 0.3);
 }
 
 .separator {
@@ -1314,6 +1377,7 @@ global-stats {
   opacity: 1;
 }
 
+/* 卡片初始隐藏状态 */
 .content-box {
   background: rgba(255, 255, 255, 0.9);
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -1325,6 +1389,14 @@ global-stats {
   max-width: 480px;
   box-shadow: 0 18px 45px rgba(0, 0, 0, 0.08);
   width: 100%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* 动画触发后显示卡片 */
+.content-box.slide-in-left,
+.content-box.slide-in-right {
+  opacity: 1;
 }
 
 .content-box.glass {
@@ -1341,12 +1413,13 @@ h1 {
   text-align: left;
 }
 
-/* 首页标题样式 */
+/* 首页标题样式 - 优化位置和间距 */
 .hero-title {
-  font-size: 5rem; /* 80px - 增大字体 */
+  font-size: 3.2rem;
   font-weight: 700;
-  text-align: center;
-  margin-bottom: 1rem;
+  text-align: left;
+  margin-bottom: 1.2rem;
+  margin-top: 0;
   background: linear-gradient(120deg, #22d3ee, #a855f7);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -1365,7 +1438,7 @@ p {
   font-size: 1.05rem;
   line-height: 1.6;
   margin-bottom: 1.5rem;
-  color: #6b7280;
+  color: #334155; /* 深灰色，适配渐变背景 */
   text-align: left;
 }
 
@@ -1433,6 +1506,38 @@ p {
     opacity: 1;
     transform: scale(1.05);
   }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.slide-in-left {
+  animation: slideInLeft 1.2s ease-out forwards;
+  /* 动画由Vue的isLoading状态控制触发 */
+}
+
+.slide-in-right {
+  animation: slideInRight 1.2s ease-out forwards;
+  /* 动画由Vue的isLoading状态控制触发 */
 }
 
 .countries-grid {

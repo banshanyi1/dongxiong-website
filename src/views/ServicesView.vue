@@ -9,46 +9,30 @@
       </div>
     </section>
     <section class="page-body">
-      <div class="container container--wide">
+      <div class="container-full">
         <p class="page-eyebrow">核心业务</p>
         <h2 class="section-title">四大业务板块</h2>
         <p class="section-lead page-intro">
           为客户提供合规、高效、可持续的解决方案。
         </p>
-        <div class="services-grid">
-          <!-- 顶部大模块 -->
-          <div class="services-grid top-card">
-            <article 
-              :key="cards[0].title" 
-              class="service-card first"
-              :class="{ 'active': activeCardIndex === 0 }"
-              @click="openDetail(0)"
-            >
-              <div class="service-card-icon">{{ cards[0].icon }}</div>
-              <h3 class="service-card-title">{{ cards[0].title }}</h3>
-              <p class="service-card-desc">{{ cards[0].desc }}</p>
-              <span class="service-card-link">点击查看详情 →</span>
-            </article>
-          </div>
-          
-          <!-- 底部两个小模块 -->
-          <div class="services-grid bottom-cards">
-            <article 
-              v-for="(card, index) in cards.slice(1)" 
-              :key="card.title" 
-              :class="[
-                'service-card',
-                index === 0 ? 'second' : 'third',
-                { 'active': activeCardIndex === index + 1 }
-              ]"
-              @click="openDetail(index + 1)"
-            >
-              <div class="service-card-icon">{{ card.icon }}</div>
-              <h3 class="service-card-title">{{ card.title }}</h3>
-              <p class="service-card-desc">{{ card.desc }}</p>
-              <span class="service-card-link">点击查看详情 →</span>
-            </article>
-          </div>
+        <div class="dx-card-grid">
+          <article 
+            v-for="(card, index) in cards" 
+            :key="card.title" 
+            class="dx-card"
+            @click="openDetail(index)"
+          >
+            <div 
+              class="dx-card__media"
+              :style="{ backgroundImage: `url(${card.background})` }"
+            ></div>
+            <div class="dx-card__body">
+              <div class="dx-card__icon">{{ card.icon }}</div>
+              <h3 class="dx-card__title">{{ card.title }}</h3>
+              <p class="dx-card__desc">{{ card.desc }}</p>
+              <span class="dx-card__link">点击查看详情 →</span>
+            </div>
+          </article>
         </div>
       </div>
     </section>
@@ -65,7 +49,8 @@
             :class="[
               'service-detail-panel',
               activeCardIndex === 1 ? 'metals' : '',
-              activeCardIndex === 2 ? 'equipment' : ''
+              activeCardIndex === 2 ? 'equipment' : '',
+              activeCardIndex === 3 ? 'operation' : ''
             ]" 
             @click.stop
           >
@@ -112,65 +97,81 @@ const activeCardIndex = ref(null)
 
 const cards = [
   { 
-    icon: '🏭', 
-    title: '技术工程', 
-    desc: '冶金固、危废处理的技术咨询、设计、工程建设',
-    fullDesc: '我们专注于冶金行业固废与危废资源化利用领域，提供从技术咨询、工艺设计到工程总包、运营支持的全流程专业化服务。',
-    background: '/service-bg-new.png',
+    icon: '📐', 
+    title: '工程设计咨询', 
+    desc: '可研与设计，提供专业的工程前期咨询和设计服务',
+    fullDesc: '我们提供从项目可行性研究、工艺设计到详细工程设计的全流程咨询服务，确保项目技术可行性和经济合理性。',
+    background: '/service-bg-design.png',
     features: [
-      '冶金尘泥资源化利用技术',
-      '危废无害化处置与稳定化工艺',
-      '固废高值化转化解决方案',
-      '全流程环境风险控制体系'
+      '项目可行性研究报告编制',
+      '工艺流程设计与优化',
+      '设备选型与配置方案',
+      '投资估算与经济分析'
     ],
     process: [
-      '物料成分检测与可行性分析',
-      '工艺路线设计与优化',
-      '工程总包与施工管理',
-      '系统调试与投产支持',
-      '运行维护与技改服务'
+      '项目需求调研与分析',
+      '技术方案设计',
+      '图纸绘制与审核',
+      '设计交底与现场服务'
     ]
   },
   { 
-  icon: '🌫️', 
-  title: '环保设备', 
-  desc: '除尘、脱硫脱硝设备及滤料配件系统解决方案',
-  fullDesc: '我们提供覆盖烟气治理全过程的环保设备与耗材，从核心过滤材料到成套净化装备，满足各类工业场景的排放控制需求。',
-  background: '/service-bg-equipment.png',
-  features: [
-    '高效除尘设备（袋式/电袋复合）',
-    '脱硫脱硝一体化装置',
-    '耐高温滤料（P84、美塔斯、氟美斯）',
-    '滤筒、PPS、亚克力等全系配件'
-  ],
-  process: [
-    '工况参数采集与分析',
-    '滤料选型与匹配设计',
-    '设备制造与集成',
-    '现场安装与调试',
-    '耗材更换与运维支持'
-  ]
-},
+    icon: '🔥', 
+    title: '有色金属冶炼', 
+    desc: '先进的系统工艺技术，专注有色金属冶炼领域',
+    fullDesc: '我们拥有成熟的有色金属冶炼工艺技术，专注于锌、铜、铅等有色金属的提取与精炼，提供高效节能的冶炼解决方案。',
+    background: '/service-bg-metals-new.png',
+    features: [
+      '氧压浸出提锌工艺',
+      '电积锌技术',
+      '铜铅分离与提取',
+      '稀贵金属回收'
+    ],
+    process: [
+      '原料预处理',
+      '浸出与净化',
+      '电解沉积',
+      '产品精制与包装'
+    ]
+  },
   { 
-  icon: '📦', 
-  title: '输送装备', 
-  desc: '气力输送装置、刮板输送机及配套系统集成',
-  fullDesc: '我们提供高效可靠的散料输送装备与系统解决方案，专注于冶金、环保等行业粉粒状物料的密闭输送、转运与储存。',
-  background: '/service-bg-conveying.png',
-  features: [
-    '气力输送系统（正压/负压）',
-    '刮板输送机系列产品',
-    '斗式提升机与皮带输送机',
-    '自动化控制与配套附件'
-  ],
-  process: [
-    '物料特性分析',
-    '输送工艺方案设计',
-    '设备选型与制造',
-    '现场安装调试',
-    '运行维护与升级'
-  ]
-},
+    icon: '🌫️', 
+    title: '大气污染治理', 
+    desc: '脱硫脱硝、除尘、VOCs治理全方位解决方案',
+    fullDesc: '我们提供覆盖烟气治理全过程的环保设备与技术，从核心过滤材料到成套净化装备，满足各类工业场景的排放控制需求。',
+    background: '/service-bg-equipment.png',
+    features: [
+      '高效除尘设备（袋式/电袋复合）',
+      '脱硫脱硝一体化装置',
+      'VOCs治理技术',
+      '在线监测与智能控制系统'
+    ],
+    process: [
+      '工况参数采集与分析',
+      '治理方案设计',
+      '设备制造与集成',
+      '现场安装与调试'
+    ]
+  },
+  { 
+    icon: '🔧', 
+    title: '设备与运维', 
+    desc: '专业的设备与运维服务，保障系统稳定运行',
+    fullDesc: '我们提供全面的设备维护保养和运营管理服务，确保环保设施长期稳定高效运行，为客户创造最大价值。',
+    background: '/service-bg-operation.png',
+    features: [
+      '定期巡检与预防性维护',
+      '故障诊断与应急抢修',
+      '备品备件供应',
+      '运行优化与技术改造'
+    ],
+    process: [
+      '设备状态监测',
+      '维护计划制定',
+      '现场检修作业',
+      '运行数据分析'
+    ]
+  }
 ]
 
 async function openDetail(index) {
@@ -242,6 +243,15 @@ onUnmounted(() => {
   background: var(--color-bg-section);
 }
 
+.container-full {
+  width: 100%;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 105.25px;
+  padding-right: 105.25px;
+}
+
 .page-eyebrow {
   font-size: var(--text-small);
   font-weight: var(--font-weight-medium);
@@ -249,29 +259,32 @@ onUnmounted(() => {
   text-transform: uppercase;
   letter-spacing: 0.1em;
   margin-bottom: 0.75rem;
+  text-align: left;
+  max-width: 640px;
+  margin-left: 0;
 }
 
-.page-intro { margin-bottom: 2rem; }
+.page-intro { 
+  margin-bottom: 2rem; 
+  text-align: left;
+  max-width: 640px;
+  margin-left: 0;
+}
+
+/* 业务范围页面特有样式 */
+section.page-body h2.section-title {
+  text-align: left;
+  max-width: 640px;
+  margin-left: 0 !important;
+}
 
 .services-grid {
-  display: grid;
-  gap: 1.5rem;
-  grid-template-columns: 1fr;
-  grid-template-areas: 
-    "top"
-    "bottom";
-}
-
-.services-grid.top-card {
-  grid-area: top;
-  grid-column: 1;
-}
-
-.services-grid.bottom-cards {
-  grid-area: bottom;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
+  display: flex;
+  gap: 2rem;
+  margin: 3rem 0 0;
+  width: 100%;
+  max-width: 100%;
+  justify-content: space-between;
 }
 
 .service-card {
@@ -282,32 +295,84 @@ onUnmounted(() => {
   transition: all var(--duration-normal) var(--ease-out);
   cursor: pointer;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  flex: 1;
+  min-width: 336px;
+  width: calc(35vw - 2.8rem);
+  height: calc(46.67vw - 2.8rem);
+  max-width: 392px;
+  max-height: 522px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .service-card.first {
-  padding: 3rem;
-  min-height: 200px;
-  background: var(--color-bg-alt) url('/service-bg-new.png');
-  background-size: 60%;
-  background-position: right center;
+  padding: 2rem;
+  background: var(--color-bg-alt) url('/service-bg-design.png');
+  background-size: 80%;
+  background-position: center bottom;
   background-repeat: no-repeat;
   border: 1px solid #d0d0d0;
+  flex: 1;
+  min-width: 336px;
+  width: calc(35vw - 2.8rem);
+  height: calc(46.67vw - 2.8rem);
+  max-width: 392px;
+  max-height: 522px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .service-card.second {
   background: white url('/service-bg-metals-new.png');
-  background-size: 50%;
-  background-position: right center;
+  background-size: 80%;
+  background-position: center bottom;
   background-repeat: no-repeat;
   border: 1px solid #e0e0e0;
+  flex: 1;
+  min-width: 336px;
+  width: calc(35vw - 2.8rem);
+  height: calc(46.67vw - 2.8rem);
+  max-width: 392px;
+  max-height: 522px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .service-card.third {
   background: white url('/service-bg-equipment.png');
-  background-size: 50%;
-  background-position: right center;
+  background-size: 80%;
+  background-position: center bottom;
   background-repeat: no-repeat;
   border: 1px solid #e0e0e0;
+  flex: 1;
+  min-width: 336px;
+  width: calc(35vw - 2.8rem);
+  height: calc(46.67vw - 2.8rem);
+  max-width: 392px;
+  max-height: 522px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.service-card.fourth {
+  background: white url('/service-bg-operation.png');
+  background-size: 80%;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  border: 1px solid #e0e0e0;
+  flex: 1;
+  min-width: 336px;
+  width: calc(35vw - 2.8rem);
+  height: calc(46.67vw - 2.8rem);
+  max-width: 392px;
+  max-height: 522px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .service-card:hover {
@@ -329,6 +394,69 @@ onUnmounted(() => {
   color: var(--color-text-secondary);
   line-height: 1.6;
   margin-bottom: 1rem;
+}
+
+/* 统一业务卡片栅格（苹果风） */
+.dx-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+  margin-top: 2.5rem;
+}
+
+.dx-card {
+  background: var(--color-bg-card);
+  border-radius: 18px;
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.06);
+  transition:
+    transform var(--duration-normal) var(--ease-out),
+    box-shadow var(--duration-normal) var(--ease-out);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+
+.dx-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.12);
+}
+
+.dx-card__media {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  background-size: cover;
+  background-position: center;
+}
+
+.dx-card__body {
+  padding: 20px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dx-card__icon {
+  font-size: 1.6rem;
+}
+
+.dx-card__title {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.dx-card__desc {
+  font-size: 0.95rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+.dx-card__link {
+  margin-top: 4px;
+  font-size: 0.9rem;
+  color: var(--color-primary);
+  font-weight: 500;
 }
 
 .service-card-link {
