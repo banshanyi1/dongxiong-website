@@ -263,7 +263,8 @@ function closeAll() {
 
 function handleNavClick(event) {
   // 确保导航正常工作
-  console.log('导航点击:', event.target)
+  console.log('导航点击:', event.target.textContent.trim())
+  console.log('当前路由:', route.path)
   // 不阻止默认行为，让 RouterLink 正常工作
 }
 
@@ -381,9 +382,14 @@ onUnmounted(() => {
   pointer-events: auto;
 }
 
-.nav-item-wrap.no-dropdown .nav-link-trigger {
+.nav-item-wrap.no-dropdown .nav-link {
   cursor: pointer;
   pointer-events: auto;
+}
+
+.nav-link {
+  pointer-events: auto;
+  cursor: pointer;
 }
 
 /* 下拉面板 */

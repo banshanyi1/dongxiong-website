@@ -868,7 +868,7 @@ onUnmounted(() => {
   height: auto;
   transform: translate(-50%, -50%);
   object-fit: cover;
-  z-index: 1;
+  z-index: 1; /* 地球背景在最底层 */
 }
 
 .video-overlay {
@@ -883,7 +883,7 @@ onUnmounted(() => {
 
 .video-content {
   position: relative;
-  z-index: 4; /* 提高层级确保在蒙版之上 */
+  z-index: 3; /* 文字内容在白色遮罩层之上 */
   height: 100%;
   display: flex;
   align-items: center;
@@ -911,7 +911,7 @@ onUnmounted(() => {
     rgba(255, 255, 255, 0.2) 60%,
     rgba(255, 255, 255, 0) 70%
   );
-  z-index: 2;
+  z-index: 2; /* 白色遮罩层在地球背景之上 */
   pointer-events: none; /* 确保不影响交互 */
 }
 

@@ -248,13 +248,7 @@
           </div>
         </div>
 
-        <!-- 企业使命上方的灰色遮罩过渡层 -->
-        <div class="mission-overlay">
-          <div class="overlay-content">
-            <!-- 这里可以添加一些装饰性元素或保持空白 -->
-          </div>
-        </div>
-        
+
         <!-- 第七屏：企业使命/环保 -->
         <div class="content-section section-7">
           <div class="full-width-content">
@@ -1137,7 +1131,7 @@ const initializeAnimationTriggers = world => {
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 1; /* 地球在最底层 */
+  z-index: 1; /* 地球在较低层级 */
   transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
   /* 默认状态下地球居中 */
   transform: translateX(0) scale(1);
@@ -1427,36 +1421,6 @@ const initializeAnimationTriggers = world => {
 }
 
 /* 企业使命上方的灰色遮罩过渡层 - 添加真正的渐变效果 */
-.mission-overlay {
-  position: relative;
-  width: 100vw;
-  height: 180px;
-  /* 创建从透明到浅灰色的平滑渐变遮罩 */
-  background: linear-gradient(
-    to bottom,
-    transparent 0%,
-    rgba(245, 245, 247, 0.1) 20%,
-    rgba(245, 245, 247, 0.3) 40%,
-    rgba(245, 245, 247, 0.6) 60%,
-    rgba(245, 245, 247, 0.8) 80%,
-    rgba(245, 245, 247, 1) 100%
-  );
-  z-index: 15;
-  backdrop-filter: blur(1px);
-  -webkit-backdrop-filter: blur(1px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  /* 添加微妙的阴影增强过渡效果 */
-  box-shadow: inset 0 -15px 25px -10px rgba(245, 245, 247, 0.3);
-}
-
-.overlay-content {
-  width: 100%;
-  height: 100%;
-  /* 可以在这里添加装饰性内容 */
-}
-
 /* 段落分割线 */
 .section-divider {
   height: 13px;
