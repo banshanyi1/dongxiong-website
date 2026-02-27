@@ -259,7 +259,9 @@
             <div class="company-modules dx-card-grid">
               <article class="module-item dx-card">
                 <div class="dx-card__media-wrap">
-                  <div class="module-item__media dx-card__media" style="background-image: url('/service-bg-new.png');"></div>
+                  <div class="dx-card__icon-circle">
+                    <span class="dx-card__icon-emoji">🏭</span>
+                  </div>
                 </div>
                 <div class="module-item__body dx-card__body">
                   <h3>清洁生产</h3>
@@ -268,7 +270,9 @@
               </article>
               <article class="module-item dx-card">
                 <div class="dx-card__media-wrap">
-                  <div class="module-item__media dx-card__media" style="background-image: url('/service-bg-equipment.png');"></div>
+                  <div class="dx-card__icon-circle">
+                    <span class="dx-card__icon-emoji">🧪</span>
+                  </div>
                 </div>
                 <div class="module-item__body dx-card__body">
                   <h3>科技创新</h3>
@@ -277,7 +281,9 @@
               </article>
               <article class="module-item dx-card">
                 <div class="dx-card__media-wrap">
-                  <div class="module-item__media dx-card__media" style="background-image: url('/service-bg-metals-new.png');"></div>
+                  <div class="dx-card__icon-circle">
+                    <span class="dx-card__icon-emoji">🌐</span>
+                  </div>
                 </div>
                 <div class="module-item__body dx-card__body">
                   <h3>全球协同</h3>
@@ -301,7 +307,9 @@
             <div class="strength-modules dx-card-grid">
               <article class="module-item dx-card">
                 <div class="dx-card__media-wrap">
-                  <div class="module-item__media dx-card__media" style="background-image: url('/service-bg-equipment.png');"></div>
+                  <div class="dx-card__icon-circle">
+                    <span class="dx-card__icon-emoji">🛠️</span>
+                  </div>
                 </div>
                 <div class="module-item__body dx-card__body">
                   <h3>技术领先</h3>
@@ -310,7 +318,9 @@
               </article>
               <article class="module-item dx-card">
                 <div class="dx-card__media-wrap">
-                  <div class="module-item__media dx-card__media" style="background-image: url('/service-bg-operation.png');"></div>
+                  <div class="dx-card__icon-circle">
+                    <span class="dx-card__icon-emoji">📚</span>
+                  </div>
                 </div>
                 <div class="module-item__body dx-card__body">
                   <h3>项目经验</h3>
@@ -319,7 +329,9 @@
               </article>
               <article class="module-item dx-card">
                 <div class="dx-card__media-wrap">
-                  <div class="module-item__media dx-card__media" style="background-image: url('/service-bg-new.png');"></div>
+                  <div class="dx-card__icon-circle">
+                    <span class="dx-card__icon-emoji">🗺️</span>
+                  </div>
                 </div>
                 <div class="module-item__body dx-card__body">
                   <h3>布局全国</h3>
@@ -343,7 +355,9 @@
             <div class="innovation-modules dx-card-grid">
               <article class="module-item dx-card">
                 <div class="dx-card__media-wrap">
-                  <div class="module-item__media dx-card__media" style="background-image: url('/service-bg-equipment.png');"></div>
+                  <div class="dx-card__icon-circle">
+                    <span class="dx-card__icon-emoji">🔬</span>
+                  </div>
                 </div>
                 <div class="module-item__body dx-card__body">
                   <h3>持续研发</h3>
@@ -352,7 +366,9 @@
               </article>
               <article class="module-item dx-card">
                 <div class="dx-card__media-wrap">
-                  <div class="module-item__media dx-card__media" style="background-image: url('/service-bg-design.png');"></div>
+                  <div class="dx-card__icon-circle">
+                    <span class="dx-card__icon-emoji">👥</span>
+                  </div>
                 </div>
                 <div class="module-item__body dx-card__body">
                   <h3>人才驱动</h3>
@@ -361,7 +377,9 @@
               </article>
               <article class="module-item dx-card">
                 <div class="dx-card__media-wrap">
-                  <div class="module-item__media dx-card__media" style="background-image: url('/service-bg-metals-new.png');"></div>
+                  <div class="dx-card__icon-circle">
+                    <span class="dx-card__icon-emoji">🎓</span>
+                  </div>
                 </div>
                 <div class="module-item__body dx-card__body">
                   <h3>产学研合作</h3>
@@ -371,34 +389,10 @@
             </div>
           </div>
         </div>
-        
+
         <!-- 分割线 -->
         <div class="section-divider"></div>
-
-        <!-- 核心团队 -->
-        <div class="content-section section-team">
-          <div class="full-width-content">
-            <h2 class="apple-style-title">
-              <span class="main-title-keyword">团队</span>，专业可靠
-            </h2>
-            <p class="subtitle">以工程实践为底座，为每一次交付负责</p>
-            <div class="team-modules dx-card-grid dx-card-grid--solo">
-              <article class="module-item dx-card">
-                <div class="dx-card__media-wrap">
-                  <div
-                    class="module-item__media dx-card__media"
-                    style="background-image: url('/service-metals.jpg');"
-                  ></div>
-                </div>
-                <div class="module-item__body dx-card__body">
-                  <h3>项目总监 · 张工</h3>
-                  <p>深耕有色冶炼与烟气治理多年，擅长工况诊断、方案集成与现场落地。坚持“达标、稳定、可维护”的工程标准，推动设计、采购、施工与运维高效协同，确保系统长期稳定运行。</p>
-                </div>
-              </article>
-            </div>
-          </div>
-        </div>
-
+        
         <!-- 第十屏：客户价值 -->
         <div class="content-section section-10">
           <div class="full-width-content">
@@ -409,7 +403,9 @@
             <div class="value-modules dx-card-grid">
               <article class="module-item dx-card">
                 <div class="dx-card__media-wrap">
-                  <div class="module-item__media dx-card__media" style="background-image: url('/service-bg-operation.png');"></div>
+                  <div class="dx-card__icon-circle">
+                    <span class="dx-card__icon-emoji">🤝</span>
+                  </div>
                 </div>
                 <div class="module-item__body dx-card__body">
                   <h3>客户满意</h3>
@@ -418,7 +414,9 @@
               </article>
               <article class="module-item dx-card">
                 <div class="dx-card__media-wrap">
-                  <div class="module-item__media dx-card__media" style="background-image: url('/service-bg-equipment.png');"></div>
+                  <div class="dx-card__icon-circle">
+                    <span class="dx-card__icon-emoji">🌱</span>
+                  </div>
                 </div>
                 <div class="module-item__body dx-card__body">
                   <h3>环境效益</h3>
@@ -427,7 +425,9 @@
               </article>
               <article class="module-item dx-card">
                 <div class="dx-card__media-wrap">
-                  <div class="module-item__media dx-card__media" style="background-image: url('/service-bg-new.png');"></div>
+                  <div class="dx-card__icon-circle">
+                    <span class="dx-card__icon-emoji">❤️</span>
+                  </div>
                 </div>
                 <div class="module-item__body dx-card__body">
                   <h3>社会责任</h3>
@@ -462,7 +462,7 @@ const animatedSections = ref(new Set()) // 记录已经触发动画的区块
 
 // 亚洲国家
 const asiaCountries = [
-  { code: 'CN', name: '中国（含台湾）', flag: '🇨🇳🇹🇼' },
+  { code: 'CN', name: '中国', flag: '🇨🇳🇹🇼' },
   { code: 'JP', name: '日本', flag: '🇯🇵' },
   { code: 'KR', name: '韩国', flag: '🇰🇷' },
   { code: 'IN', name: '印度', flag: '🇮🇳' },
@@ -613,45 +613,6 @@ const getFullEnglishName = (code) => {
   }
   return englishNames[code] || code
 }
-
-// 粒子动画样式计算
-const getParticleStyle = (index) => {
-  const delay = Math.random() * 5
-  const duration = 4 + Math.random() * 6
-  const size = 2 + Math.random() * 4
-  
-  // 让粒子分布在页面四周，避开中心区域
-  let posX, posY
-  const quadrant = Math.floor(Math.random() * 4)
-  
-  switch(quadrant) {
-    case 0: // 左上角
-      posX = Math.random() * 30
-      posY = Math.random() * 30
-      break
-    case 1: // 右上角
-      posX = 70 + Math.random() * 30
-      posY = Math.random() * 30
-      break
-    case 2: // 左下角
-      posX = Math.random() * 30
-      posY = 70 + Math.random() * 30
-      break
-    case 3: // 右下角
-      posX = 70 + Math.random() * 30
-      posY = 70 + Math.random() * 30
-      break
-  }
-  
-  return {
-    '--delay': `${delay}s`,
-    '--duration': `${duration}s`,
-    '--size': `${size}px`,
-    '--pos-x': `${posX}%`,
-    '--pos-y': `${posY}%`
-  }
-}
-
 
 
 let cleanupFunction = null
@@ -1113,15 +1074,12 @@ const initializeAnimationTriggers = world => {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #60a5fa 100%);
+  background: white;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
   /* 移除背景模糊 */
-  /* 添加渐变动画 */
-  background-size: 200% 200%;
-  animation: gradientShift 3s ease infinite;
 }
 
 /* 地球位置控制 */
@@ -1160,19 +1118,19 @@ const initializeAnimationTriggers = world => {
 
 .loading-content {
   text-align: center;
-  color: white;
+  color: #333;
   animation: contentFloat 2s ease-in-out infinite;
 }
 
 .loading-spinner {
   width: 60px;
   height: 60px;
-  border: 4px solid rgba(255, 255, 255, 0.3);
-  border-top: 4px solid white;
+  border: 4px solid rgba(51, 51, 51, 0.3);
+  border-top: 4px solid #333;
   border-radius: 50%;
   animation: spin 1s linear infinite;
   margin: 0 auto 20px;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 20px rgba(51, 51, 51, 0.3);
 }
 
 @keyframes spin {
@@ -1184,14 +1142,15 @@ const initializeAnimationTriggers = world => {
   font-size: 2rem;
   font-weight: 600;
   margin-bottom: 10px;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  color: #333;
   animation: textGlow 2s ease-in-out infinite alternate;
 }
 
 .loading-subtext {
   font-size: 1.1rem;
-  opacity: 0.9;
+  opacity: 0.7;
   margin: 0;
+  color: #666;
   animation: fadeInOut 3s ease-in-out infinite;
 }
 
@@ -1865,6 +1824,41 @@ p {
   overflow: hidden;
   flex-shrink: 0;
   border-radius: 18px;
+}
+
+/* 关于页卡片图标样式 */
+.dx-card__icon-circle {
+  width: 72px;
+  height: 72px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 16px auto 0;
+  background: radial-gradient(circle at 30% 20%, #e0f2fe 0%, #bfdbfe 35%, #eff6ff 100%);
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.12);
+}
+
+.dx-card__icon-emoji {
+  font-size: 2rem;
+}
+
+/* 团队头像图标样式 */
+.dx-card__avatar-circle {
+  width: 88px;
+  height: 88px;
+  border-radius: 999px;
+  overflow: hidden;
+  margin: 16px auto 0;
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.18);
+  background: #e5e7eb;
+}
+
+.dx-card__avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 /* 图片区：竖向 3:4 比例，仅悬停图片区时上浮 */

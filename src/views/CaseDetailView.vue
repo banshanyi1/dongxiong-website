@@ -244,6 +244,9 @@
 <script setup>
 import { ref, onMounted, nextTick } from 'vue'
 
+// 静态资源基础路径（适配部署子路径）
+const publicBase = import.meta.env.BASE_URL || '/'
+
 // Apple风格屏幕引用
 const screen1 = ref(null)
 const screen2 = ref(null)
@@ -251,16 +254,32 @@ const screen3 = ref(null)
 const screen4 = ref(null)
 const screen5 = ref(null)
 
-// 照片数据 - 支持横竖向混合展示，添加测试图片和描述
+// 项目实拍照片（来自 public 目录：根据图片横竖向放入不同卡片）
 const photoData = ref([
-  { caption: '回转窑主体', orientation: 'portrait', image: 'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=600&h=800&fit=crop', description: '核心处理设备' },
-  { caption: '中央控制室', orientation: 'landscape', image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=600&fit=crop', description: '智能化监控中心' },
-  { caption: '成品氧化锌堆场', orientation: 'portrait', image: 'https://images.unsplash.com/photo-1567767292278-a4f21aa2d36e?w=600&h=800&fit=crop', description: '产品存储区域' },
-  { caption: '除尘设备', orientation: 'landscape', image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&h=600&fit=crop', description: '环保处理设施' },
-  { caption: '化验分析室', orientation: 'portrait', image: 'https://images.unsplash.com/photo-1581092921461-8227d51bf9b1?w=600&h=800&fit=crop', description: '质量检测实验室' },
-  { caption: '原料储存区', orientation: 'landscape', image: 'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=800&h=600&fit=crop', description: '原材料仓储管理' },
-  { caption: '废气处理系统', orientation: 'portrait', image: 'https://images.unsplash.com/photo-1567767292278-a4f21aa2d36e?w=600&h=800&fit=crop', description: '尾气净化装置' },
-  { caption: '自动化生产线', orientation: 'landscape', image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=600&fit=crop', description: '智能制造流水线' }
+  {
+    caption: '窑头风机布置',
+    orientation: 'landscape',
+    image: '/dongxiong-website/cases/case1-horizontal-1.jpg',
+    description: '窑头风机系统布置实拍'
+  },
+  {
+    caption: '项目总图',
+    orientation: 'landscape',
+    image: '/dongxiong-website/cases/case1-horizontal-2.jpg',
+    description: '项目整体布局总图实拍'
+  },
+  {
+    caption: '侧视图',
+    orientation: 'portrait',
+    image: '/dongxiong-website/cases/case1-vertical-1.jpg',
+    description: '项目侧视角度实拍'
+  },
+  {
+    caption: '制粒机室',
+    orientation: 'landscape',
+    image: '/dongxiong-website/cases/case1-horizontal-3.jpg',
+    description: '制粒机室内部实拍'
+  }
 ])
 
 // 轮播相关
@@ -315,15 +334,35 @@ const animateNumbers = (screenIndex) => {
 
 // 照片轮播功能
 const scrollPhotos = (direction) => {
-  const containerWidth = carouselRef.value?.parentElement?.offsetWidth || 1200
-  const visibleCount = Math.floor(containerWidth / (itemWidth.value + gap.value))
-  const maxScroll = -(photoData.value.length - visibleCount) * (itemWidth.value + gap.value)
+  // 预计算各位置的滚动值（基于实际图片尺寸）
+  const positions = [0];
+  let currentPos = 0;
   
-  if (direction === 'next') {
-    scrollPosition.value = Math.max(scrollPosition.value - (itemWidth.value + gap.value), maxScroll)
-  } else {
-    scrollPosition.value = Math.min(scrollPosition.value + (itemWidth.value + gap.value), 0)
+  for (let i = 0; i < photoData.value.length - 1; i++) {
+    const photo = photoData.value[i];
+    const width = photo.orientation === 'landscape' ? 711 : 400;
+    currentPos -= (width + gap.value);
+    positions.push(currentPos);
   }
+  
+  // 找到当前所在的位置索引
+  let currentIndex = 0;
+  for (let i = 0; i < positions.length; i++) {
+    if (scrollPosition.value >= positions[i]) {
+      currentIndex = i;
+      break;
+    }
+  }
+  
+  // 计算目标位置
+  let targetIndex;
+  if (direction === 'next') {
+    targetIndex = Math.min(currentIndex + 1, positions.length - 1);
+  } else {
+    targetIndex = Math.max(currentIndex - 1, 0);
+  }
+  
+  scrollPosition.value = positions[targetIndex];
 }
 
 // Apple风格滚动监听

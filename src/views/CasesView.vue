@@ -69,9 +69,9 @@ const cases = [
   {
     id: '1',
     tag: '冶金行业',
-    title: '三十万吨含锌固（危）废综合利用项目',
+    title: '三十万吨含锌固（危）废综合利用项目【在建项目】',
     desc: '30万吨/年含锌固（危）废综合处置能力，一般固废10万吨 + 危险废物20万吨，锌回收率>92%，年产值15.2亿。',
-    image: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&q=80',
+    image: '/dongxiong-website/cases/case1-horizontal-2.jpg',
   },
   {
     id: '2',

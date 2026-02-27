@@ -103,7 +103,7 @@
             v-for="(card, index) in serviceCards" 
             :key="card.title" 
             class="dx-card"
-            @click="openServiceDetail(index)"
+            @click="openServiceDetail()"
           >
             <div class="dx-card__media-wrap">
               <div class="dx-card__media">
@@ -111,8 +111,6 @@
                   class="dx-card__img"
                   :src="serviceImages[index]"
                   :alt="card.title"
-                  @error="console.log('首页图片加载失败:', serviceImages[index])"
-                  @load="console.log('首页图片加载成功:', serviceImages[index])"
                 />
               </div>
             </div>
@@ -202,11 +200,14 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, useRouter } from 'vue'
 import heroSlide1 from '../assets/images/hero-slide-1.png'
 import heroSlide2 from '../assets/images/hero-slide-2.jpg'
 import heroSlide3 from '../assets/images/hero-slide-3.jpg'
 import aboutVideoSrc from '../assets/videos/about-video.mp4'
+
+const publicBase = import.meta.env.BASE_URL || '/'
+const router = useRouter()
 
 // 轮播图数据
 const heroSlides = [
@@ -296,21 +297,16 @@ const serviceCards = [
 
 // 首页业务范围卡片图片（来自 public 目录）
 const serviceImages = [
-  '/dongxiong-website/service-design.jpg',
-  '/dongxiong-website/service-metals.jpg',
-  '/dongxiong-website/service-environment.jpg',
-  '/dongxiong-website/service-maintenance.jpg'
+  `${publicBase}service-design.jpg`,
+  `${publicBase}service-metals.jpg`,
+  `${publicBase}service-environment.jpg`,
+  `${publicBase}service-maintenance.jpg`
 ]
 
 const activeCardIndex = ref(null)
 
-async function openServiceDetail(index) {
-  // 先清空当前状态，确保动画能正确触发
-  activeCardIndex.value = null
-  await nextTick()
-  // 设置新状态
-  activeCardIndex.value = index
-  // 跳转到业务范围页面
+function openServiceDetail() {
+  // 直接跳转到业务范围页面
   router.push('/services')
 }
 
