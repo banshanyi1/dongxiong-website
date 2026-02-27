@@ -8,13 +8,13 @@
       <!-- 面包屑导航 -->
       <div class="breadcrumb">
         <router-link to="/">首页</router-link> / 
-        <router-link to="/cases">工程案例</router-link> / 山西河津
+        <router-link to="/cases">工程案例</router-link> / {{ currentCase.breadcrumb }}
       </div>
 
       <!-- 顶部标题区 -->
       <section class="section hero-section">
-        <h1 class="hero-title">三十万吨含锌固（危）废综合利用项目</h1>
-        <p class="hero-sub">山西省河津市 · 中禹（山西）新材料有限公司</p>
+        <h1 class="hero-title">{{ currentCase.title }}</h1>
+        <p class="hero-sub">{{ currentCase.subtitle }}</p>
       </section>
 
       <!-- Apple风格5屏内容区 -->
@@ -25,10 +25,10 @@
             <h2 class="screen-title">处理规模</h2>
             <div class="data-grid">
               <div class="data-item">
-                <div class="number" data-target="30">0</div>
+                <div class="number" :data-target="currentCase.scale">0</div>
                 <div class="unit">万吨/年</div>
-                <div class="desc">含锌固（危）废综合处置能力</div>
-                <div class="sub-desc">▸ 一般固废10万吨 + 危险废物20万吨</div>
+                <div class="desc">含锌废料综合处置能力</div>
+                <div class="sub-desc">▸ 年处理含锌废料和含锌物料{{ currentCase.scale }}万吨</div>
               </div>
             </div>
           </div>
@@ -39,35 +39,14 @@
           <div class="screen-content">
             <h2 class="screen-title">产品矩阵</h2>
             <div class="product-grid">
-              <div class="product-item">
-                <div class="product-number" data-target="6">0</div>
-                <div class="product-unit">万吨</div>
-                <div class="product-name">次氧化锌</div>
-              </div>
-              <div class="product-item">
-                <div class="product-number" data-target="6">0</div>
-                <div class="product-unit">万t</div>
-                <div class="product-name">次氧化锌</div>
-              </div>
-              <div class="product-item">
-                <div class="product-number" data-target="6">0</div>
-                <div class="product-unit">万t</div>
-                <div class="product-name">锌砂</div>
-              </div>
-              <div class="product-item">
-                <div class="product-number" data-target="3">0</div>
-                <div class="product-unit">万t</div>
-                <div class="product-name">粗锌锭</div>
-              </div>
-              <div class="product-item">
-                <div class="product-number" data-target="3">0</div>
-                <div class="product-unit">万t</div>
-                <div class="product-name">还原铁粉</div>
-              </div>
-              <div class="product-item">
-                <div class="product-number" data-target="71">0</div>
-                <div class="product-unit">t</div>
-                <div class="product-name">稀散金属（铟/锗/镓等）</div>
+              <div 
+                v-for="(product, index) in currentCase.products" 
+                :key="index" 
+                class="product-item"
+              >
+                <div class="product-number" :data-target="product.value">0</div>
+                <div class="product-unit">{{ product.unit }}</div>
+                <div class="product-name">{{ product.name }}</div>
               </div>
             </div>
           </div>
@@ -78,20 +57,15 @@
           <div class="screen-content">
             <h2 class="screen-title">资源效率</h2>
             <div class="tech-grid">
-              <div class="tech-item highlight">
-                <div class="tech-number" data-target="92">0</div>
-                <div class="tech-unit">%</div>
-                <div class="tech-label">锌回收率</div>
-              </div>
-              <div class="tech-item">
-                <div class="tech-number" data-target="88">0</div>
-                <div class="tech-unit">%</div>
-                <div class="tech-label">铁回收率</div>
-              </div>
-              <div class="tech-item">
-                <div class="tech-number" data-target="88">0</div>
-                <div class="tech-unit">%</div>
-                <div class="tech-label">稀散金属提取率</div>
+              <div 
+                v-for="(tech, index) in currentCase.efficiency" 
+                :key="index" 
+                class="tech-item"
+                :class="{ 'highlight': tech.highlight }"
+              >
+                <div class="tech-number" :data-target="tech.value">0</div>
+                <div class="tech-unit">{{ tech.unit }}</div>
+                <div class="tech-label">{{ tech.name }}</div>
               </div>
             </div>
           </div>
@@ -102,26 +76,24 @@
           <div class="screen-content">
             <h2 class="screen-title">经济效益</h2>
             <div class="economy-grid">
-              <div class="economy-item">
-                <div class="economy-number" data-target="15.2">0</div>
-                <div class="economy-unit">亿元</div>
-                <div class="economy-label">年产值</div>
-              </div>
-              <div class="economy-item">
-                <div class="economy-number" data-target="10.2">0</div>
-                <div class="economy-unit">亿元</div>
-                <div class="economy-label">年净利润</div>
-              </div>
-              <div class="economy-item">
-                <div class="economy-number" data-target="7.5">0</div>
-                <div class="economy-unit">年</div>
-                <div class="economy-label">投资回收期</div>
+              <div 
+                v-for="(eco, index) in currentCase.economy" 
+                :key="index" 
+                class="economy-item"
+              >
+                <div class="economy-number" :data-target="eco.value">0</div>
+                <div class="economy-unit">{{ eco.unit }}</div>
+                <div class="economy-label">{{ eco.name }}</div>
               </div>
             </div>
             <div class="social-value">
-              <div class="value-item">90个就业岗位</div>
-              <div class="value-item">¥585万环保投入</div>
-              <div class="value-item">尾渣100%资源化</div>
+              <div 
+                v-for="(value, index) in currentCase.socialValue" 
+                :key="index" 
+                class="value-item"
+              >
+                {{ value }}
+              </div>
             </div>
           </div>
         </section>
@@ -132,19 +104,19 @@
             <h2 class="screen-title">社会价值</h2>
             <div class="social-grid">
               <div class="social-item">
-                <div class="social-number">90</div>
-                <div class="social-unit">个</div>
-                <div class="social-label">就业岗位</div>
+                <div class="social-number">{{ currentCase.economy[0].value }}</div>
+                <div class="social-unit">{{ currentCase.economy[0].unit.replace('亿元', '') }}</div>
+                <div class="social-label">{{ currentCase.economy[0].name }}</div>
               </div>
               <div class="social-item">
-                <div class="social-number">585</div>
-                <div class="social-unit">万</div>
-                <div class="social-label">环保投入</div>
+                <div class="social-number">{{ currentCase.economy[1].value }}</div>
+                <div class="social-unit">{{ currentCase.economy[1].unit.replace('亿元', '') }}</div>
+                <div class="social-label">{{ currentCase.economy[1].name }}</div>
               </div>
               <div class="social-item">
-                <div class="social-number">100</div>
-                <div class="social-unit">%</div>
-                <div class="social-label">尾渣资源化</div>
+                <div class="social-number">{{ currentCase.economy[2].value }}</div>
+                <div class="social-unit">{{ currentCase.economy[2].unit.replace('年', '') }}</div>
+                <div class="social-label">{{ currentCase.economy[2].name }}</div>
               </div>
             </div>
           </div>
@@ -166,7 +138,7 @@
               :style="{ transform: `translateX(${scrollPosition}px)` }"
             >
               <div 
-                v-for="(photo, index) in photoData" 
+                v-for="(photo, index) in currentCase.photos" 
                 :key="index" 
                 class="photo-item"
                 :class="[
@@ -201,8 +173,8 @@
         <div class="split-layout">
           <div class="split-left">
             <div class="eyebrow">技术亮点</div>
-            <h2 class="tech-title">含锌固危废资源化综合利用</h2>
-            <p class="tech-description">采用先进的火法冶金工艺，实现锌、铁、稀散金属的高效分离与回收，一般固废10万吨+危险废物20万吨的综合处理能力，锌回收率>92%，铁回收率>88%，稀散金属提取率>88%。</p>
+            <h2 class="tech-title">含锌废料资源化综合利用</h2>
+            <p class="tech-description">{{ currentCase.techHighlights }}</p>
           </div>
           <div class="split-right">
             <div class="tech-icon">
@@ -216,24 +188,16 @@
       <section class="section testimonial-section">
         <div class="testimonial">
           <p class="testimonial-quote">"该项目实现了固危废的资源化利用，创造了显著的经济效益和社会价值。"</p>
-          <p class="testimonial-author">—— 中禹（山西）新材料有限公司</p>
+          <p class="testimonial-author">—— {{ currentCase.customer }}</p>
         </div>
       </section>
 
       <!-- 底部导航 -->
       <section class="section navigation-section">
         <div class="bottom-nav">
-          <router-link to="/cases/rizhao-previous" class="btn btn-outline">
-            <i class="fas fa-arrow-left"></i>
-            上一个项目
-          </router-link>
           <router-link to="/cases" class="btn btn-primary">
             <i class="fas fa-th-large"></i>
             返回所有案例
-          </router-link>
-          <router-link to="/cases/rizhao-next" class="btn btn-outline">
-            下一个项目
-            <i class="fas fa-arrow-right"></i>
           </router-link>
         </div>
       </section>
@@ -242,10 +206,35 @@
 </template>
 
 <script setup>
-import { ref, onMounted, nextTick } from 'vue'
+import { ref, onMounted, nextTick, computed } from 'vue'
+import { useRoute } from 'vue-router'
 
 // 静态资源基础路径（适配部署子路径）
 const publicBase = import.meta.env.BASE_URL || '/'
+const route = useRoute()
+
+
+// 获取案例ID列表并排序
+const getCaseIds = () => Object.keys(caseDataMap).sort((a, b) => parseInt(a) - parseInt(b))
+
+// 计算上一个和下一个案例的ID
+const currentCaseId = computed(() => route.params.id || '1')
+const currentIndex = computed(() => {
+  const ids = getCaseIds();
+  return ids.indexOf(currentCaseId.value);
+})
+
+const prevCaseId = computed(() => {
+  const ids = getCaseIds();
+  if (!ids || currentIndex.value <= 0) return ids?.[ids.length - 1] || '1'
+  return ids[currentIndex.value - 1]
+})
+
+const nextCaseId = computed(() => {
+  const ids = getCaseIds();
+  if (!ids || currentIndex.value >= ids.length - 1) return ids?.[0] || '1'
+  return ids[currentIndex.value + 1]
+})
 
 // Apple风格屏幕引用
 const screen1 = ref(null)
@@ -254,33 +243,434 @@ const screen3 = ref(null)
 const screen4 = ref(null)
 const screen5 = ref(null)
 
-// 项目实拍照片（来自 public 目录：根据图片横竖向放入不同卡片）
-const photoData = ref([
-  {
-    caption: '窑头风机布置',
-    orientation: 'landscape',
-    image: '/dongxiong-website/cases/case1-horizontal-1.jpg',
-    description: '窑头风机系统布置实拍'
+// 案例数据映射
+const caseDataMap = {
+  '1': {
+    title: '三十万吨含锌固（危）废综合利用项目',
+    subtitle: '山西省河津市 · 中禹（山西）新材料有限公司',
+    breadcrumb: '山西河津',
+    scale: 30,
+    products: [
+      { value: 6, unit: '万吨', name: '次氧化锌' },
+      { value: 6, unit: '万t', name: '锌砂' },
+      { value: 3, unit: '万t', name: '粗锌锭' },
+      { value: 3, unit: '万t', name: '还原铁粉' },
+      { value: 71, unit: 't', name: '稀散金属（铟/锗/镓等）' }
+    ],
+    efficiency: [
+      { value: 92, unit: '%', name: '锌回收率', highlight: true },
+      { value: 88, unit: '%', name: '铁回收率' },
+      { value: 88, unit: '%', name: '稀散金属提取率' }
+    ],
+    economy: [
+      { value: 15.2, unit: '亿元', name: '年产值' },
+      { value: 10.2, unit: '亿元', name: '年净利润' },
+      { value: 7.5, unit: '年', name: '投资回收期' }
+    ],
+    socialValue: ['90个就业岗位', '¥585万环保投入', '尾渣100%资源化'],
+    photos: [
+      {
+        caption: '窑头风机布置',
+        orientation: 'landscape',
+        image: '/dongxiong-website/cases/case1-horizontal-1.jpg',
+        description: '窑头风机系统布置实拍'
+      },
+      {
+        caption: '项目总图',
+        orientation: 'landscape',
+        image: '/dongxiong-website/cases/case1-horizontal-2.jpg',
+        description: '项目整体布局总图实拍'
+      },
+      {
+        caption: '侧视图',
+        orientation: 'portrait',
+        image: '/dongxiong-website/cases/case1-vertical-1.jpg',
+        description: '项目侧视角度实拍'
+      },
+      {
+        caption: '制粒机室',
+        orientation: 'landscape',
+        image: '/dongxiong-website/cases/case1-horizontal-3.jpg',
+        description: '制粒机室内部实拍'
+      }
+    ],
+    techHighlights: '采用先进的火法冶金工艺，实现锌、铁、稀散金属的高效分离与回收，一般固废10万吨+危险废物20万吨的综合处理能力，锌回收率>92%，铁回收率>88%，稀散金属提取率>88%。',
+    customer: '中禹（山西）新材料有限公司'
   },
-  {
-    caption: '项目总图',
-    orientation: 'landscape',
-    image: '/dongxiong-website/cases/case1-horizontal-2.jpg',
-    description: '项目整体布局总图实拍'
+  '2': {
+    title: '30万吨/年含锌废料处置利用项目',
+    subtitle: '甘肃省白银市 · 白银湘宇麓山环保科技有限公司',
+    breadcrumb: '甘肃白银',
+    scale: 30,
+    products: [
+      { value: 8, unit: '万吨', name: '次氧化锌' },
+      { value: 12, unit: '万吨', name: '锌焙砂' },
+      { value: 5, unit: '万吨', name: '一水硫酸锌' },
+      { value: 4, unit: '万吨', name: '还原铁粉' },
+      { value: 1, unit: '万吨', name: '炭精粉' }
+    ],
+    efficiency: [
+      { value: 90, unit: '%', name: '锌回收率', highlight: true },
+      { value: 85, unit: '%', name: '铁回收率' },
+      { value: 80, unit: '%', name: '综合利用率' }
+    ],
+    economy: [
+      { value: 12.5, unit: '亿元', name: '年产值' },
+      { value: 8.2, unit: '亿元', name: '年净利润' },
+      { value: 6.8, unit: '年', name: '投资回收期' }
+    ],
+    socialValue: ['120个就业岗位', '¥860万环保投入', '危废减量化90%'],
+    photos: [
+      {
+        caption: '回转窑系统',
+        orientation: 'landscape',
+        image: '/dongxiong-website/cases/case-2-回转窑.jpg',
+        description: '回转窑火法回收工艺核心设备'
+      },
+      {
+        caption: '收尘器系统',
+        orientation: 'landscape',
+        image: '/dongxiong-website/cases/case-2-收尘器.jpg',
+        description: '高效除尘设备实拍'
+      },
+      {
+        caption: '收尘器顶部',
+        orientation: 'landscape',
+        image: '/dongxiong-website/cases/case-2-收尘器顶部.jpg',
+        description: '收尘设备顶部结构细节'
+      },
+      {
+        caption: '冷却器设备',
+        orientation: 'portrait',
+        image: '/dongxiong-website/cases/case-2-冷却器.jpg',
+        description: '产品冷却处理设备'
+      },
+      {
+        caption: '厂房全景',
+        orientation: 'landscape',
+        image: '/dongxiong-website/cases/case-2-厂房.jpg',
+        description: '现代化生产车间全景'
+      },
+      {
+        caption: '皮带输送机',
+        orientation: 'landscape',
+        image: '/dongxiong-website/cases/case-2-皮带输送机.jpg',
+        description: '物料自动化输送系统'
+      },
+      {
+        caption: '抓斗作业',
+        orientation: 'portrait',
+        image: '/dongxiong-website/cases/case-2-抓斗.jpg',
+        description: '原料装卸作业实拍'
+      },
+      {
+        caption: '改造前后对比',
+        orientation: 'landscape',
+        image: '/dongxiong-website/cases/case-2-改造前.jpg',
+        description: '项目改造前后效果对比'
+      },
+      {
+        caption: '脱硫塔设备',
+        orientation: 'landscape',
+        image: '/dongxiong-website/cases/case-2-脱硫塔2.jpg',
+        description: '烟气脱硫处理设备'
+      },
+      {
+        caption: '鱼鳞片密封',
+        orientation: 'portrait',
+        image: '/dongxiong-website/cases/case-2-鱼鳞片.jpg',
+        description: '设备密封部件细节'
+      },
+      {
+        caption: '备用收尘器',
+        orientation: 'landscape',
+        image: '/dongxiong-website/cases/case-2-收尘器 (2).jpg',
+        description: '备用收尘设备实拍'
+      }
+    ],
+    techHighlights: '采用回转窑火法回收工艺（化学还原-氧化法），属于《含锌废料处理处置技术规范》中推荐工艺。年处理含锌废料和含锌物料30万吨，主产品：次氧化锌、锌焙砂、一水硫酸锌，副产品：还原铁粉、炭精粉。',
+    customer: '白银湘宇麓山环保科技有限公司'
   },
-  {
-    caption: '侧视图',
-    orientation: 'portrait',
-    image: '/dongxiong-website/cases/case1-vertical-1.jpg',
-    description: '项目侧视角度实拍'
+  '3': {
+    title: '工业固体废弃物环保治理及资源化利用项目',
+    subtitle: '四川省攀枝花市 · 攀枝花市泓岩科技有限公司',
+    breadcrumb: '四川攀枝花',
+    scale: 15,
+    products: [
+      { value: 4.5, unit: '万吨', name: '次氧化锌', highlight: true }
+    ],
+    efficiency: [
+      { value: 85, unit: '%', name: '锌回收率', highlight: true },
+      { value: 95, unit: '%', name: '资源化利用率' }
+    ],
+    economy: [
+      { value: 8.6, unit: '亿元', name: '年产值' },
+      { value: 5.2, unit: '亿元', name: '年净利润' },
+      { value: 5.3, unit: '年', name: '投资回收期' }
+    ],
+    socialValue: ['80个就业岗位', '¥650万环保投入', '危废减量化95%'],
+    photos: [
+      {
+        caption: '项目全景图',
+        orientation: 'landscape',
+        image: '/dongxiong-website/cases/cases-3-全景图.jpg',
+        description: '攀枝花泓岩科技项目整体布局全景'
+      },
+      {
+        caption: '项目点火仪式',
+        orientation: 'landscape',
+        image: '/dongxiong-website/cases/cases-3-点火仪式.jpg',
+        description: '项目正式投产点火仪式'
+      },
+      {
+        caption: '控制室操作',
+        orientation: 'portrait',
+        image: '/dongxiong-website/cases/cases-3-控制室.jpg',
+        description: '现代化中央控制室操作界面'
+      },
+      {
+        caption: '圆盘造粒机',
+        orientation: 'landscape',
+        image: '/dongxiong-website/cases/cases-3-圆盘造粒机.jpg',
+        description: '产品成型圆盘造粒设备'
+      },
+      {
+        caption: '自动配料系统',
+        orientation: 'landscape',
+        image: '/dongxiong-website/cases/cases-3-自动配料系统.jpg',
+        description: '原料自动配料控制系统'
+      },
+      {
+        caption: '在线监测系统',
+        orientation: 'portrait',
+        image: '/dongxiong-website/cases/cases-3-在线监测系统.jpg',
+        description: '环保在线监测设备实拍'
+      },
+      {
+        caption: '成品包装区',
+        orientation: 'landscape',
+        image: '/dongxiong-website/cases/cases-3-成品包装.jpg',
+        description: '次氧化锌成品自动包装线'
+      },
+      {
+        caption: '脱硫塔设备',
+        orientation: 'portrait',
+        image: '/dongxiong-website/cases/cases-3-脱硫塔.jpg',
+        description: '烟气脱硫处理塔设备'
+      },
+      {
+        caption: '自动化控制',
+        orientation: 'portrait',
+        image: '/dongxiong-website/cases/cases-3-自动化控制.jpg',
+        description: 'DCS自动化控制系统'
+      },
+      {
+        caption: '设备安装现场',
+        orientation: 'landscape',
+        image: '/dongxiong-website/cases/cases-3-设备安装.jpg',
+        description: '项目建设期间设备安装实况'
+      },
+      {
+        caption: '回转窑窑头',
+        orientation: 'landscape',
+        image: '/dongxiong-website/cases/cases-3-窑头.jpg',
+        description: 'Φ3.6m×53m回转窑窑头设备实拍'
+      }
+    ],
+    techHighlights: '采用回转窑火法回收工艺（化学还原-氧化法），通过回转窑挥发工艺和回转窑二次焙烧工艺回收锌元素。处理电镀锌槽渣、电炉炼钢灰、锌焙烧矿浸出渣、锌净化渣、铁钒渣、针铁矿渣等六类含锌危险废物。',
+    customer: '攀枝花市泓岩科技有限公司'
   },
-  {
-    caption: '制粒机室',
-    orientation: 'landscape',
-    image: '/dongxiong-website/cases/case1-horizontal-3.jpg',
-    description: '制粒机室内部实拍'
+  '4': {
+    title: '渤海新区新建除尘灰综合利用项目（一期）',
+    subtitle: '河北省沧州市渤海新区 · 河北煜泽之鑫环保科技有限公司',
+    breadcrumb: '河北沧州',
+    scale: 20,
+    products: [
+      { value: 2.4, unit: '万吨', name: '次氧化锌', highlight: true },
+      { value: 2, unit: '万吨', name: '还原铁粉' }
+    ],
+    efficiency: [
+      { value: 88, unit: '%', name: '锌回收率', highlight: true },
+      { value: 92, unit: '%', name: '铁回收率' },
+      { value: 95, unit: '%', name: '资源综合利用率' }
+    ],
+    economy: [
+      { value: 9.8, unit: '亿元', name: '年产值' },
+      { value: 6.1, unit: '亿元', name: '年净利润' },
+      { value: 5.8, unit: '年', name: '投资回收期' }
+    ],
+    socialValue: ['100个就业岗位', '¥780万环保投入', '粉尘减排90%'],
+    photos: [
+      {
+        caption: '项目全景图',
+        orientation: 'landscape',
+        image: '/dongxiong-website/cases/cases-4-项目局部图.jpg',
+        description: '渤海新区新型建材园项目整体布局'
+      },
+      {
+        caption: 'D4000回转窑',
+        orientation: 'landscape',
+        image: '/dongxiong-website/cases/cases-4-窑头.jpg',
+        description: 'D4000型回转窑装置核心设备'
+      },
+      {
+        caption: '脱硫塔设备',
+        orientation: 'portrait',
+        image: '/dongxiong-website/cases/cases-4-脱硫塔.jpg',
+        description: '烟气脱硫处理塔设备'
+      },
+      {
+        caption: '原料储存区',
+        orientation: 'landscape',
+        image: '/dongxiong-website/cases/cases-4-湖心工岛.jpg',
+        description: '电炉灰、高炉灰等原料储存'
+      },
+      {
+        caption: '废气处理系统',
+        orientation: 'landscape',
+        image: '/dongxiong-website/cases/case-2-收尘器.jpg',
+        description: '布袋收尘处理系统'
+      },
+      {
+        caption: '中央控制室',
+        orientation: 'portrait',
+        image: '/dongxiong-website/cases/cases-4-可视化控制.jpg',
+        description: '现代化集散控制系统'
+      },
+      {
+        caption: '成品包装线',
+        orientation: 'landscape',
+        image: '/dongxiong-website/cases/cases-3-成品包装.jpg',
+        description: '次氧化锌和还原铁粉自动包装'
+      },
+      {
+        caption: '环保在线监测',
+        orientation: 'landscape',
+        image: '/dongxiong-website/cases/cases-4-环保排放实时监测.jpg',
+        description: '环保排放实时监测平台'
+      },
+      {
+        caption: '压力检测系统',
+        orientation: 'portrait',
+        image: '/dongxiong-website/cases/cases-4-压力检测.jpg',
+        description: '设备压力在线检测系统'
+      },
+      {
+        caption: '现场技术交流',
+        orientation: 'landscape',
+        image: '/dongxiong-website/cases/cases-4-现场交流.jpg',
+        description: '项目建设期间技术交流实况'
+      }
+    ],
+    techHighlights: '采用回转窑焙烧工艺，配套铁粉精选装置，处理电炉灰、高炉灰、铅水渣、镀锌槽渣、氧化锌浸出渣等多种原料。通过PNCR脱硝+重力沉降+表冷器+布袋收尘+石灰-石膏法脱硫工艺实现清洁生产。',
+    customer: '河北煜泽之鑫环保科技有限公司'
+  },
+  '5': {
+    title: '临沂鑫钢毅再生资源有限公司年处置16.5万吨除尘灰项目',
+    subtitle: '山东省临沂市 · 临沂鑫钢毅再生资源有限公司',
+    breadcrumb: '山东临沂',
+    scale: 16.5,
+    products: [
+      { value: 3.2, unit: '万吨', name: '有价金属', highlight: true },
+      { value: 13.3, unit: '万吨', name: '其他产品' }
+    ],
+    efficiency: [
+      { value: 85, unit: '%', name: '资源回收率', highlight: true },
+      { value: 95, unit: '%', name: '综合利用率' }
+    ],
+    economy: [
+      { value: 7.2, unit: '亿元', name: '年产值' },
+      { value: 4.5, unit: '亿元', name: '年净利润' },
+      { value: 4.2, unit: '年', name: '投资回收期' }
+    ],
+    socialValue: ['75个就业岗位', '¥200万环保投入', '粉尘减排85%'],
+    photos: [
+      {
+        caption: '项目全景图',
+        orientation: 'landscape',
+        image: '/dongxiong-website/cases/case-5-厂房.jpg',
+        description: '临沂临港经济开发区项目整体布局'
+      },
+      {
+        caption: '窑体安装现场',
+        orientation: 'landscape',
+        image: '/dongxiong-website/cases/cases-5-窑体安装.jpg',
+        description: '回转窑窑体安装施工实况'
+      },
+      {
+        caption: '窑体设备',
+        orientation: 'portrait',
+        image: '/dongxiong-website/cases/cases-5-窑体.jpg',
+        description: '除尘灰处理回转窑核心设备'
+      },
+      {
+        caption: '燃烧器系统',
+        orientation: 'landscape',
+        image: '/dongxiong-website/cases/燃烧器.jpg',
+        description: '高效燃烧器设备'
+      },
+      {
+        caption: '收尘器设备',
+        orientation: 'landscape',
+        image: '/dongxiong-website/cases/cases-5-收尘器.jpg',
+        description: '高效除尘处理设备'
+      },
+      {
+        caption: '可视化控制系统',
+        orientation: 'portrait',
+        image: '/dongxiong-website/cases/cases-5-可视化控制.jpg',
+        description: '现代化集散控制系统'
+      },
+      {
+        caption: '传动机组',
+        orientation: 'landscape',
+        image: '/dongxiong-website/cases/cases-5-传动机.jpg',
+        description: '设备传动系统'
+      },
+      {
+        caption: '脱硫塔设备',
+        orientation: 'landscape',
+        image: '/dongxiong-website/cases/脱硫塔.jpg',
+        description: '烟气脱硫处理设备'
+      },
+      {
+        caption: '自动化控制',
+        orientation: 'portrait',
+        image: '/dongxiong-website/cases/自动化控制.jpg',
+        description: 'PLC自动化控制系统'
+      },
+      {
+        caption: '动土仪式',
+        orientation: 'landscape',
+        image: '/dongxiong-website/cases/cases-5-动土仪式.jpg',
+        description: '项目正式启动动土仪式'
+      },
+      {
+        caption: '夜间施工',
+        orientation: 'landscape',
+        image: '/dongxiong-website/cases/case-5-夜间局部图.jpg',
+        description: '夜间施工进展情况'
+      },
+      {
+        caption: '工人施工中',
+        orientation: 'portrait',
+        image: '/dongxiong-website/cases/cases-5-工人施工中.jpg',
+        description: '现场施工作业实况'
+      }
+    ],
+    techHighlights: '采用回转窑焙烧工艺从除尘灰中回收有价金属，实现钢铁产业配套循环经济。项目位于临沂钢铁投资集团特钢有限公司厂内，通过密闭储存、密闭输送、高效除尘等措施实现清洁生产，服务上游钢铁企业除尘灰资源化利用。',
+    customer: '临沂鑫钢毅再生资源有限公司'
   }
-])
+}
+
+// 当前案例数据
+const currentCase = computed(() => {
+  const caseId = route.params.id || '1'
+  return caseDataMap[caseId] || caseDataMap['1']
+})
+
+// 项目实拍照片（动态获取当前案例数据）
+const photoData = computed(() => currentCase.value.photos || [])
 
 // 轮播相关
 const carouselRef = ref(null)

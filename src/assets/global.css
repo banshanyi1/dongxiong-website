@@ -1,7 +1,7 @@
 /* 苹果风 + B2B 专业感：设计变量与全局样式 */
 
 /* 长城共享体字体引入 */
-@font-face {
+/* @font-face {
   font-family: '长城共享体';
   src: url('./fonts/长城共享体.woff2') format('woff2'),
        url('./fonts/长城共享体.woff') format('woff'),
@@ -9,7 +9,7 @@
   font-weight: normal;
   font-style: normal;
   font-display: swap;
-}
+} */
 
 :root {
   /* 色彩 - 统一苹果风格调色板 */

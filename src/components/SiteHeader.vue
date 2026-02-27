@@ -15,14 +15,14 @@
           :key="item.id"
           class="nav-item-wrap"
           :class="{ 'no-dropdown': item.id === 'home' }"
-          @mouseenter="item.id !== 'home' && item.id !== 'contact' ? handleNavEnter(item.id) : null"
-          @mouseleave="item.id !== 'home' && item.id !== 'contact' ? handleNavLeave() : null"
+          @mouseenter="item.id !== 'contact' ? handleNavEnter(item.id) : null"
+          @mouseleave="item.id !== 'contact' ? handleNavLeave() : null"
         >
           <RouterLink
             :to="item.path"
             class="nav-link"
             active-class="is-active"
-            :class="{ 'nav-link-trigger': item.children?.length && item.id !== 'home' && item.id !== 'contact' }"
+            :class="{ 'nav-link-trigger': item.children?.length && item.id !== 'contact' }"
             @click="handleNavClick"
           >
             {{ item.label }}

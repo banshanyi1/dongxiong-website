@@ -104,7 +104,7 @@ const cards = [
     title: '工程设计咨询', 
     desc: '可研与设计',
     fullDesc: '我们提供从项目可行性研究、工艺设计到详细工程设计的全流程咨询服务，确保项目技术可行性和经济合理性。',
-    background: `${publicBase}service-design.jpg`,
+    background: '/dongxiong-website/service-design.jpg',
     features: [
       '项目可行性研究报告编制',
       '工艺流程设计与优化',
@@ -123,7 +123,7 @@ const cards = [
     title: '有色金属冶炼', 
     desc: '先进系统工艺技术',
     fullDesc: '我们拥有成熟的有色金属冶炼工艺技术，专注于锌、铜、铅等有色金属的提取与精炼，提供高效节能的冶炼解决方案。',
-    background: `${publicBase}service-metals.jpg`,
+    background: '/dongxiong-website/service-metals.jpg',
     features: [
       '氧压浸出提锌工艺',
       '电积锌技术',
@@ -142,7 +142,7 @@ const cards = [
     title: '大气污染治理', 
     desc: '脱硫脱硝、除尘、VOCs',
     fullDesc: '我们提供覆盖烟气治理全过程的环保设备与技术，从核心过滤材料到成套净化装备，满足各类工业场景的排放控制需求。',
-    background: `${publicBase}service-environment.jpg`,
+    background: '/dongxiong-website/service-environment.jpg',
     features: [
       '高效除尘设备（袋式/电袋复合）',
       '脱硫脱硝一体化装置',
@@ -161,7 +161,7 @@ const cards = [
     title: '设备与运维', 
     desc: '设备与运维服务',
     fullDesc: '我们提供全面的设备维护保养和运营管理服务，确保环保设施长期稳定高效运行，为客户创造最大价值。',
-    background: `${publicBase}service-maintenance.jpg`,
+    background: '/dongxiong-website/service-maintenance.jpg',
     features: [
       '定期巡检与预防性维护',
       '故障诊断与应急抢修',

@@ -8,7 +8,7 @@
           :key="index"
           class="hero-slide"
           :class="{ 'active': currentSlide === index }"
-          :style="{ backgroundImage: `url(${slide.image})` }"
+          :style="{ backgroundImage: `url(${typeof slide.image === 'string' ? slide.image : slide.image.default})` }"
         >
           <div class="hero-overlay"></div>
           <div class="hero-content container">
@@ -200,7 +200,8 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, useRouter } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
+import { useRouter } from 'vue-router'
 import heroSlide1 from '../assets/images/hero-slide-1.png'
 import heroSlide2 from '../assets/images/hero-slide-2.jpg'
 import heroSlide3 from '../assets/images/hero-slide-3.jpg'
@@ -297,10 +298,10 @@ const serviceCards = [
 
 // 首页业务范围卡片图片（来自 public 目录）
 const serviceImages = [
-  `${publicBase}service-design.jpg`,
-  `${publicBase}service-metals.jpg`,
-  `${publicBase}service-environment.jpg`,
-  `${publicBase}service-maintenance.jpg`
+  '/dongxiong-website/service-design.jpg',
+  '/dongxiong-website/service-metals.jpg',
+  '/dongxiong-website/service-environment.jpg',
+  '/dongxiong-website/service-maintenance.jpg'
 ]
 
 const activeCardIndex = ref(null)
