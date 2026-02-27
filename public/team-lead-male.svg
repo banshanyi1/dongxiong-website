@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1200" viewBox="0 0 900 1200">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#e6f3ff"/>
+      <stop offset="0.55" stop-color="#f5fbff"/>
+      <stop offset="1" stop-color="#f3f4f6"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0071e3"/>
+      <stop offset="1" stop-color="#0a7ea4"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#0f172a" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+
+  <rect width="900" height="1200" rx="48" fill="url(#bg)"/>
+
+  <g opacity="0.18">
+    <path d="M80 290 C220 120, 430 70, 560 130 C690 190, 770 320, 820 410" fill="none" stroke="#0071e3" stroke-width="10"/>
+    <path d="M90 1020 C210 900, 370 860, 520 900 C680 945, 760 1060, 820 1140" fill="none" stroke="#34c759" stroke-width="10"/>
+    <circle cx="160" cy="430" r="12" fill="#0071e3"/>
+    <circle cx="720" cy="360" r="12" fill="#0a7ea4"/>
+    <circle cx="240" cy="980" r="12" fill="#34c759"/>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="90" y="120" width="720" height="960" rx="40" fill="#ffffff" opacity="0.7"/>
+  </g>
+
+  <g transform="translate(0,10)">
+    <circle cx="450" cy="420" r="150" fill="url(#accent)" opacity="0.12"/>
+    <circle cx="450" cy="420" r="118" fill="#ffffff" opacity="0.9"/>
+
+    <path d="M355 386 C365 318, 407 282, 450 282 C493 282, 535 318, 545 386 C554 450, 515 508, 450 508 C385 508, 346 450, 355 386Z" fill="#0f172a" opacity="0.86"/>
+    <path d="M368 408 C378 344, 412 314, 450 314 C488 314, 522 344, 532 408 C540 458, 510 498, 450 498 C390 498, 360 458, 368 408Z" fill="#f8fafc"/>
+
+    <path d="M270 880 C290 750, 365 660, 450 660 C535 660, 610 750, 630 880 C634 906, 612 930, 585 930 L315 930 C288 930, 266 906, 270 880Z" fill="#0f172a" opacity="0.85"/>
+    <path d="M292 880 C310 770, 380 692, 450 692 C520 692, 590 770, 608 880 C611 899, 596 914, 576 914 L324 914 C304 914, 289 899, 292 880Z" fill="#ffffff" opacity="0.92"/>
+
+    <path d="M380 650 L450 708 L520 650 L540 720 C505 742, 478 752, 450 752 C422 752, 395 742, 360 720Z" fill="url(#accent)" opacity="0.95"/>
+
+    <g transform="translate(120,170)">
+      <rect x="0" y="0" width="220" height="110" rx="22" fill="#ffffff" opacity="0.85" stroke="#e5e7eb"/>
+      <path d="M46 78 C60 54, 80 38, 104 32 C134 24, 160 34, 174 52" fill="none" stroke="#34c759" stroke-width="10" stroke-linecap="round"/>
+      <path d="M90 74 C108 52, 128 40, 154 36" fill="none" stroke="#0071e3" stroke-width="10" stroke-linecap="round"/>
+      <circle cx="54" cy="78" r="8" fill="#34c759"/>
+      <circle cx="176" cy="52" r="8" fill="#0071e3"/>
+      <text x="22" y="26" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="16" fill="#0f172a" opacity="0.75">εµΚ­ · 3ΠL</text>
+    </g>
+
+    <g transform="translate(560,850)">
+      <rect x="0" y="0" width="220" height="110" rx="22" fill="#ffffff" opacity="0.85" stroke="#e5e7eb"/>
+      <path d="M46 78 C64 52, 86 44, 112 44 C140 44, 162 58, 176 78" fill="none" stroke="#0a7ea4" stroke-width="10" stroke-linecap="round"/>
+      <path d="M112 28 C100 48, 94 60, 94 74 C94 92, 106 102, 120 102 C138 102, 150 88, 150 74 C150 60, 142 48, 112 28Z" fill="#34c759" opacity="0.95"/>
+      <text x="24" y="26" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="16" fill="#0f172a" opacity="0.75">―έΔ · οτ¤'</text>
+    </g>
+  </g>
+</svg>

@@ -105,12 +105,18 @@
             class="dx-card"
             @click="openServiceDetail(index)"
           >
-            <div 
-              class="dx-card__media"
-              :class="`dx-card__media--${index}`"
-            ></div>
+            <div class="dx-card__media-wrap">
+              <div class="dx-card__media">
+                <img
+                  class="dx-card__img"
+                  :src="serviceImages[index]"
+                  :alt="card.title"
+                  @error="console.log('首页图片加载失败:', serviceImages[index])"
+                  @load="console.log('首页图片加载成功:', serviceImages[index])"
+                />
+              </div>
+            </div>
             <div class="dx-card__body">
-              <div class="dx-card__icon">{{ card.icon }}</div>
               <h3 class="dx-card__title">{{ card.title }}</h3>
               <p class="dx-card__desc">{{ card.description }}</p>
               <span class="dx-card__link">点击查看详情 →</span>
@@ -264,28 +270,36 @@ const services = [
   }
 ]
 
-// 业务范围卡片数据
+// 业务范围卡片数据（配图见 serviceImages，文字区透明显底层）
 const serviceCards = [
   { 
     icon: '📐', 
     title: '工程设计咨询', 
-    description: '可研与设计，提供专业的工程前期咨询和设计服务'
+    description: '可研与设计'
   },
   { 
     icon: '🔥', 
     title: '有色金属冶炼', 
-    description: '先进的系统工艺技术，专注有色金属冶炼领域'
+    description: '先进系统工艺技术'
   },
   { 
     icon: '🌫️', 
     title: '大气污染治理', 
-    description: '脱硫脱硝、除尘、VOCs治理全方位解决方案'
+    description: '脱硫脱硝、除尘、VOCs'
   },
   { 
     icon: '🔧', 
     title: '设备与运维', 
-    description: '专业的设备与运维服务，保障系统稳定运行'
+    description: '设备与运维服务'
   }
+]
+
+// 首页业务范围卡片图片（来自 public 目录）
+const serviceImages = [
+  '/dongxiong-website/service-design.jpg',
+  '/dongxiong-website/service-metals.jpg',
+  '/dongxiong-website/service-environment.jpg',
+  '/dongxiong-website/service-maintenance.jpg'
 ]
 
 const activeCardIndex = ref(null)
@@ -1069,58 +1083,61 @@ onUnmounted(() => {
   flex-grow: 1;
 }
 
-/* 统一业务卡片栅格（苹果风） */
+/* 统一业务卡片栅格（固定卡片尺寸：上图 4:3，下文为剩余区域） */
 .dx-card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 24px;
   margin-top: 2.5rem;
 }
 
 .dx-card {
-  background: var(--color-bg-card);
+  background: transparent;
   border-radius: 18px;
-  border: 1px solid var(--color-border);
-  overflow: hidden;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.06);
-  transition:
-    transform var(--duration-normal) var(--ease-out),
-    box-shadow var(--duration-normal) var(--ease-out);
+  border: 1px solid transparent;
+  overflow: visible;
+  box-shadow: none;
   cursor: pointer;
   display: flex;
   flex-direction: column;
+  width: 100%;
+  min-width: 280px;
+  max-width: 470px;
+  min-height: 520px;
+  max-height: none;
 }
 
-.dx-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.12);
+/* 图片区包装：照片区四角圆角，溢出隐藏 */
+.dx-card__media-wrap {
+  overflow: hidden;
+  flex-shrink: 0;
+  border-radius: 18px;
 }
 
+/* 图片区：上方 3:4 竖向图片区域，内部为 img */
 .dx-card__media {
   width: 100%;
   aspect-ratio: 3 / 4;
-  background-size: cover;
-  background-position: center;
+  position: relative;
+  overflow: hidden;
 }
 
-.dx-card__media--0 {
-  background-image: url('/service-bg-new.png');
-}
-.dx-card__media--1 {
-  background-image: url('/service-bg-metals-new.png');
-}
-.dx-card__media--2 {
-  background-image: url('/service-bg-equipment.png');
-}
-.dx-card__media--3 {
-  background-image: url('/service-bg-operation.png');
+.dx-card__img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
 }
 
+/* 文字区：占剩余高度，背景透明，文字颜色与底层区块背景协调 */
 .dx-card__body {
+  flex: 1;
+  min-height: 120px;
   padding: 20px 24px 24px;
   display: flex;
   flex-direction: column;
   gap: 8px;
+  background: transparent;
 }
 
 .dx-card__icon {
@@ -1130,6 +1147,7 @@ onUnmounted(() => {
 .dx-card__title {
   font-size: 1.25rem;
   font-weight: 600;
+  color: var(--color-text);
 }
 
 .dx-card__desc {
@@ -1141,6 +1159,7 @@ onUnmounted(() => {
 .dx-card__link {
   margin-top: 4px;
   font-size: 0.9rem;
+  color: var(--color-primary);
   color: var(--color-primary);
   font-weight: 500;
 }
@@ -1397,6 +1416,18 @@ onUnmounted(() => {
   
   .services-grid {
     grid-template-columns: 1fr;
+  }
+  
+  .dx-card-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .dx-card {
+    min-width: 0;
+    max-width: 100%;
+    height: auto;
+    min-height: 420px;
+    max-height: none;
   }
   
   .contact-info {

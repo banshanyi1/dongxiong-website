@@ -262,19 +262,34 @@
               <span class="main-title-keyword">环保</span>，一流的使命
             </h2>
             <p class="subtitle">为地球可持续发展注入东雄动力</p>
-            <div class="company-modules">
-              <div class="module-item">
-                <h3>清洁生产</h3>
-                <p>有色金属冶炼行业清洁化、集约化转型的技术推动者。</p>
-              </div>
-              <div class="module-item">
-                <h3>科技创新</h3>
-                <p>围绕大气污染控制与资源综合利用持续研发新工艺。</p>
-              </div>
-              <div class="module-item">
-                <h3>全球协同</h3>
-                <p>与全球环保企业携手，共建清洁低碳新未来。</p>
-              </div>
+            <div class="company-modules dx-card-grid">
+              <article class="module-item dx-card">
+                <div class="dx-card__media-wrap">
+                  <div class="module-item__media dx-card__media" style="background-image: url('/service-bg-new.png');"></div>
+                </div>
+                <div class="module-item__body dx-card__body">
+                  <h3>清洁生产</h3>
+                  <p>有色金属冶炼行业清洁化、集约化转型的技术推动者。从工艺源头到末端治理，推动绿色冶炼与资源高效利用，实现生产与环保协同。</p>
+                </div>
+              </article>
+              <article class="module-item dx-card">
+                <div class="dx-card__media-wrap">
+                  <div class="module-item__media dx-card__media" style="background-image: url('/service-bg-equipment.png');"></div>
+                </div>
+                <div class="module-item__body dx-card__body">
+                  <h3>科技创新</h3>
+                  <p>围绕大气污染控制与资源综合利用持续研发新工艺。依托装备与控制系统创新，为脱硫脱硝、除尘及 VOCs 治理提供技术支撑。</p>
+                </div>
+              </article>
+              <article class="module-item dx-card">
+                <div class="dx-card__media-wrap">
+                  <div class="module-item__media dx-card__media" style="background-image: url('/service-bg-metals-new.png');"></div>
+                </div>
+                <div class="module-item__body dx-card__body">
+                  <h3>全球协同</h3>
+                  <p>与全球环保企业携手，共建清洁低碳新未来。将本土冶炼与环保经验与国际标准结合，服务亚洲、欧洲、美洲等多地项目。</p>
+                </div>
+              </article>
             </div>
           </div>
         </div>
@@ -289,19 +304,34 @@
               <span class="main-title-keyword">实力</span>，值得信赖
             </h2>
             <p class="subtitle">立足中国，服务全球的环保科技企业</p>
-            <div class="strength-modules">
-              <div class="module-item">
-                <h3>技术领先</h3>
-                <p>百余项专利与核心技术，覆盖除尘、脱硫、脱硝等多个领域。</p>
-              </div>
-              <div class="module-item">
-                <h3>项目经验</h3>
-                <p>500+ 环保工程项目经验，深度服务冶金、化工、电力等行业。</p>
-              </div>
-              <div class="module-item">
-                <h3>布局全国</h3>
-                <p>多个重点省份设立服务团队，形成快速响应网络。</p>
-              </div>
+            <div class="strength-modules dx-card-grid">
+              <article class="module-item dx-card">
+                <div class="dx-card__media-wrap">
+                  <div class="module-item__media dx-card__media" style="background-image: url('/service-bg-equipment.png');"></div>
+                </div>
+                <div class="module-item__body dx-card__body">
+                  <h3>技术领先</h3>
+                  <p>百余项专利与核心技术，覆盖除尘、脱硫、脱硝及冶炼工艺等多个领域，为工程设计与设备选型提供可靠技术保障。</p>
+                </div>
+              </article>
+              <article class="module-item dx-card">
+                <div class="dx-card__media-wrap">
+                  <div class="module-item__media dx-card__media" style="background-image: url('/service-bg-operation.png');"></div>
+                </div>
+                <div class="module-item__body dx-card__body">
+                  <h3>项目经验</h3>
+                  <p>500+ 环保工程项目经验，深度服务冶金、化工、电力等行业，从可研设计到施工运维全流程落地。</p>
+                </div>
+              </article>
+              <article class="module-item dx-card">
+                <div class="dx-card__media-wrap">
+                  <div class="module-item__media dx-card__media" style="background-image: url('/service-bg-new.png');"></div>
+                </div>
+                <div class="module-item__body dx-card__body">
+                  <h3>布局全国</h3>
+                  <p>在多个重点省份设立服务团队与网点，形成快速响应与属地化服务能力，就近保障项目交付与运维。</p>
+                </div>
+              </article>
             </div>
           </div>
         </div>
@@ -316,25 +346,64 @@
               <span class="main-title-keyword">创新</span>，不断前行
             </h2>
             <p class="subtitle">以技术创新驱动环保产业升级</p>
-            <div class="innovation-modules">
-              <div class="module-item">
-                <h3>持续研发</h3>
-                <p>每年将营收的一定比例投入技术研发与工艺升级。</p>
-              </div>
-              <div class="module-item">
-                <h3>人才驱动</h3>
-                <p>多学科交叉的工程技术团队，覆盖工艺、设备与自动化。</p>
-              </div>
-              <div class="module-item">
-                <h3>产学研合作</h3>
-                <p>与多所高校和科研院所建立长期合作关系，共建联合实验室。</p>
-              </div>
+            <div class="innovation-modules dx-card-grid">
+              <article class="module-item dx-card">
+                <div class="dx-card__media-wrap">
+                  <div class="module-item__media dx-card__media" style="background-image: url('/service-bg-equipment.png');"></div>
+                </div>
+                <div class="module-item__body dx-card__body">
+                  <h3>持续研发</h3>
+                  <p>每年将营收的一定比例投入技术研发与工艺升级，在除尘、脱硫脱硝及冶炼工艺上持续迭代，保持技术领先。</p>
+                </div>
+              </article>
+              <article class="module-item dx-card">
+                <div class="dx-card__media-wrap">
+                  <div class="module-item__media dx-card__media" style="background-image: url('/service-bg-design.png');"></div>
+                </div>
+                <div class="module-item__body dx-card__body">
+                  <h3>人才驱动</h3>
+                  <p>多学科交叉的工程技术团队，覆盖工艺、设备与自动化，从方案设计到现场实施形成闭环能力。</p>
+                </div>
+              </article>
+              <article class="module-item dx-card">
+                <div class="dx-card__media-wrap">
+                  <div class="module-item__media dx-card__media" style="background-image: url('/service-bg-metals-new.png');"></div>
+                </div>
+                <div class="module-item__body dx-card__body">
+                  <h3>产学研合作</h3>
+                  <p>与多所高校和科研院所建立长期合作关系，共建联合实验室，推动环保与冶炼技术的成果转化与工程应用。</p>
+                </div>
+              </article>
             </div>
           </div>
         </div>
         
         <!-- 分割线 -->
         <div class="section-divider"></div>
+
+        <!-- 核心团队 -->
+        <div class="content-section section-team">
+          <div class="full-width-content">
+            <h2 class="apple-style-title">
+              <span class="main-title-keyword">团队</span>，专业可靠
+            </h2>
+            <p class="subtitle">以工程实践为底座，为每一次交付负责</p>
+            <div class="team-modules dx-card-grid dx-card-grid--solo">
+              <article class="module-item dx-card">
+                <div class="dx-card__media-wrap">
+                  <div
+                    class="module-item__media dx-card__media"
+                    style="background-image: url('/service-metals.jpg');"
+                  ></div>
+                </div>
+                <div class="module-item__body dx-card__body">
+                  <h3>项目总监 · 张工</h3>
+                  <p>深耕有色冶炼与烟气治理多年，擅长工况诊断、方案集成与现场落地。坚持“达标、稳定、可维护”的工程标准，推动设计、采购、施工与运维高效协同，确保系统长期稳定运行。</p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
 
         <!-- 第十屏：客户价值 -->
         <div class="content-section section-10">
@@ -343,19 +412,34 @@
               <span class="main-title-keyword">价值</span>，共同创造
             </h2>
             <p class="subtitle">为客户、行业与社会持续创造环保价值</p>
-            <div class="value-modules">
-              <div class="module-item">
-                <h3>客户满意</h3>
-                <p>以工程效果与长期稳定运行为核心，赢得客户信赖。</p>
-              </div>
-              <div class="module-item">
-                <h3>环境效益</h3>
-                <p>通过系统性治理，显著降低污染物排放与能耗水平。</p>
-              </div>
-              <div class="module-item">
-                <h3>社会责任</h3>
-                <p>积极参与行业标准制定与公益环保项目，推动行业发展。</p>
-              </div>
+            <div class="value-modules dx-card-grid">
+              <article class="module-item dx-card">
+                <div class="dx-card__media-wrap">
+                  <div class="module-item__media dx-card__media" style="background-image: url('/service-bg-operation.png');"></div>
+                </div>
+                <div class="module-item__body dx-card__body">
+                  <h3>客户满意</h3>
+                  <p>以工程效果与长期稳定运行为核心，从设计、施工到运维全程保障，以交付质量与响应速度赢得客户信赖。</p>
+                </div>
+              </article>
+              <article class="module-item dx-card">
+                <div class="dx-card__media-wrap">
+                  <div class="module-item__media dx-card__media" style="background-image: url('/service-bg-equipment.png');"></div>
+                </div>
+                <div class="module-item__body dx-card__body">
+                  <h3>环境效益</h3>
+                  <p>通过系统性治理与高效装备，显著降低污染物排放与能耗水平，为业主创造合规、节能、可持续的运营环境。</p>
+                </div>
+              </article>
+              <article class="module-item dx-card">
+                <div class="dx-card__media-wrap">
+                  <div class="module-item__media dx-card__media" style="background-image: url('/service-bg-new.png');"></div>
+                </div>
+                <div class="module-item__body dx-card__body">
+                  <h3>社会责任</h3>
+                  <p>积极参与行业标准制定与公益环保项目，推动冶炼与大气治理行业规范发展，践行企业环保责任。</p>
+                </div>
+              </article>
             </div>
           </div>
         </div>
@@ -1169,7 +1253,7 @@ const initializeAnimationTriggers = world => {
 .company-info {
   flex: 1;
   width: 100%;
-  max-width: none;
+  max-width: 520px;
   z-index: 20; /* 确保文字在最上层 */
   position: relative;
 }
@@ -1179,9 +1263,9 @@ const initializeAnimationTriggers = world => {
   position: absolute;
   top: 0;
   left: 0;
-  width: calc(35vw + 150px);
+  width: calc(38vw + 120px);
   height: 100vh;
-  padding: 3rem 2rem 2rem 3rem;
+  padding: 4.5rem 3.25rem 3.25rem 4.5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -1245,18 +1329,21 @@ const initializeAnimationTriggers = world => {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  gap: 1rem;
-  margin: 1rem 0 1.5rem 0;
-  font-size: 1.1rem;
+  gap: 0.75rem;
+  margin: 0.5rem 0 1.5rem 0;
+  font-size: 1rem;
   font-weight: 500;
 }
 
 .tag {
-  color: #0ea5e9;
-  padding: 0.2rem 0.8rem;
-  background: rgba(14, 165, 233, 0.1);
+  color: #0369a1;
+  padding: 0.18rem 0.9rem;
+  background: rgba(148, 163, 184, 0.08);
   border-radius: 20px;
-  border: 1px solid rgba(14, 165, 233, 0.3);
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  font-size: 0.9rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 .separator {
@@ -1265,23 +1352,23 @@ const initializeAnimationTriggers = world => {
 }
 
 /* 全球业务数据卡片 */
-global-stats {
+.global-stats {
   display: flex;
-  justify-content: center;
-  gap: 2rem;
-  margin: 2rem 0;
+  justify-content: flex-start;
+  gap: 1.5rem;
+  margin: 1.75rem 0 1.25rem;
   flex-wrap: wrap;
 }
 
 .stat-card {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 12px;
-  padding: 1.2rem 1.5rem;
-  text-align: center;
-  min-width: 120px;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 999px;
+  padding: 0.75rem 1.4rem;
+  text-align: left;
+  min-width: 150px;
   transition: all 0.3s ease;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.06);
 }
 
 .stat-card:hover {
@@ -1291,16 +1378,18 @@ global-stats {
 }
 
 .stat-number {
-  font-size: 1.8rem;
+  font-size: 1.4rem;
   font-weight: 700;
-  color: #22d3ee;
+  color: #0f172a;
   margin-bottom: 0.3rem;
 }
 
 .stat-label {
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.78rem;
+  color: #6b7280;
   font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
 }
 
 /* 特效隐藏状态 */
@@ -1542,57 +1631,68 @@ p {
 
 .countries-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 1rem;
-  margin-top: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 1.25rem;
+  margin-top: 1.75rem;
+  max-width: 640px;
 }
 
 .country-card {
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 12px;
-  padding: 1rem;
-  text-align: center;
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: 18px;
+  padding: 0.95rem 1.1rem;
+  text-align: left;
   cursor: pointer;
-  border: 1px solid #e0e0e0;
-  transition: all 0.3s ease; /* 添加过渡动画 */
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
 }
 
 /* 国家卡片高亮状态 */
 .country-card.highlighted {
-  background: linear-gradient(135deg, #22d3ee, #a855f7); /* 渐变背景 */
-  border-color: #22d3ee;
-  transform: translateY(-2px); /* 轻微上浮效果 */
-  box-shadow: 0 8px 25px rgba(34, 211, 238, 0.3); /* 添加阴影 */
+  background: linear-gradient(135deg, #e0f2fe, #f5f3ff);
+  border-color: #2563eb;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px rgba(37, 99, 235, 0.18);
 }
 
 
 
 .country-flag {
-  font-size: 1.8rem;
-  margin-bottom: 0.5rem;
+  font-size: 1.4rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f3f4f6;
 }
 
 .country-name-cn {
   font-size: 0.95rem;
-  color: #000000;
-  font-weight: 500;
-  margin-bottom: 0.2rem;
+  color: #111827;
+  font-weight: 600;
+  margin-bottom: 0.15rem;
 }
 
 .country-name-en {
   font-size: 0.75rem;
-  color: #666666;
+  color: #6b7280;
   font-weight: 400;
   letter-spacing: 0.05em;
 }
 
 .country-card.highlighted .country-name-cn {
-  color: #ffffff; /* 白色文字在渐变背景上更清晰 */
-  font-weight: 600;
+  color: #111827;
+  font-weight: 700;
 }
 
 .country-card.highlighted .country-name-en {
-  color: #f0f0f0; /* 浅灰色辅助文字 */
+  color: #374151;
   font-weight: 500;
 }
 
@@ -1752,51 +1852,107 @@ p {
   text-align: left;
 }
 
+/* 与首页完全一致的卡片栅格：相同 gap、margin、定位与尺寸 */
+.dx-card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 2.5rem;
+  margin-left: 0;
+}
+
+.dx-card-grid--solo {
+  grid-template-columns: 1fr;
+  justify-items: center;
+  max-width: 470px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .company-modules,
 .strength-modules,
 .innovation-modules,
 .value-modules {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 2rem;
-  margin-top: 1.5rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 2.5rem;
   margin-left: 0;
 }
 
-.module-item {
-  background: #ffffff;
-  border-radius: 16px;
-  padding: 2.5rem 1.5rem;
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
-  transition: all 0.3s ease;
-  border: 1px solid rgba(148, 163, 184, 0.45);
-  min-height: 380px;
-  min-width: 280px;
+/* 统一卡片：与首页相同规格（透明大卡片、相同尺寸与定位） */
+.module-item.dx-card {
+  background: transparent;
+  border-radius: 18px;
+  border: 1px solid transparent;
+  overflow: hidden;
+  box-shadow: none;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  width: 100%;
+  min-width: 280px;
+  height: calc(56vw - 3.47rem);
+  max-width: 470px;
+  max-height: 630px;
 }
 
-.module-item:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.16);
+/* 图片区包装：照片区四角圆角，溢出隐藏以便上浮动画不带动文字区 */
+.dx-card__media-wrap {
+  overflow: hidden;
+  flex-shrink: 0;
+  border-radius: 18px;
 }
 
-.module-item h3 {
-  font-size: 1.4rem;
-  color: #111827;
-  margin-bottom: 0.5rem;
+/* 图片区：竖向 3:4 比例，仅悬停图片区时上浮 */
+.module-item__media.dx-card__media {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  background-size: cover;
+  background-position: center;
+}
+
+/* 文字区：占剩余高度，背景透明，文字颜色与底层区块背景协调（与首页一致） */
+.module-item__body.dx-card__body {
+  flex: 1;
+  min-height: 0;
+  padding: 20px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: transparent;
+}
+
+.module-item__body.dx-card__body h3 {
+  font-size: 1.25rem;
+  color: var(--color-text);
+  margin: 0 0 0.25rem 0;
   font-weight: 600;
 }
 
-.module-item p {
-  color: #6b7280;
-  line-height: 1.7;
+.module-item__body.dx-card__body p {
+  color: var(--color-text-secondary);
+  line-height: 1.6;
   margin: 0;
-  font-size: 0.98rem;
+  font-size: 0.95rem;
 }
 
 @media (max-width: 768px) {
+  .dx-card-grid,
+  .company-modules,
+  .strength-modules,
+  .innovation-modules,
+  .value-modules {
+    grid-template-columns: 1fr;
+  }
+  
+  .module-item.dx-card {
+    min-width: 0;
+    max-width: 100%;
+    height: auto;
+    min-height: 420px;
+    max-height: none;
+  }
+  
   .content-box {
     max-width: 90%;
     padding: 1.6rem 1.4rem;

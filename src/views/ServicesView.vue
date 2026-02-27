@@ -22,12 +22,18 @@
             class="dx-card"
             @click="openDetail(index)"
           >
-            <div 
-              class="dx-card__media"
-              :style="{ backgroundImage: `url(${card.background})` }"
-            ></div>
+            <div class="dx-card__media-wrap">
+              <div class="dx-card__media">
+                <img
+                  class="dx-card__img"
+                  :src="card.background"
+                  :alt="card.title"
+                  @error="console.log('图片加载失败:', card.background)"
+                  @load="console.log('图片加载成功:', card.background)"
+                />
+              </div>
+            </div>
             <div class="dx-card__body">
-              <div class="dx-card__icon">{{ card.icon }}</div>
               <h3 class="dx-card__title">{{ card.title }}</h3>
               <p class="dx-card__desc">{{ card.desc }}</p>
               <span class="dx-card__link">点击查看详情 →</span>
@@ -46,12 +52,8 @@
         <Transition name="slide-panel">
           <div 
             v-if="activeCardIndex !== null"
-            :class="[
-              'service-detail-panel',
-              activeCardIndex === 1 ? 'metals' : '',
-              activeCardIndex === 2 ? 'equipment' : '',
-              activeCardIndex === 3 ? 'operation' : ''
-            ]" 
+            class="service-detail-panel"
+            :style="getPanelStyle()"
             @click.stop
           >
             <button class="detail-close-btn" @click="closeDetail">×</button>
@@ -91,7 +93,7 @@
 </template>
 
 <script setup>
-import { ref, nextTick } from 'vue'
+import { ref, nextTick, onUnmounted } from 'vue'
 
 const activeCardIndex = ref(null)
 
@@ -99,9 +101,9 @@ const cards = [
   { 
     icon: '📐', 
     title: '工程设计咨询', 
-    desc: '可研与设计，提供专业的工程前期咨询和设计服务',
+    desc: '可研与设计',
     fullDesc: '我们提供从项目可行性研究、工艺设计到详细工程设计的全流程咨询服务，确保项目技术可行性和经济合理性。',
-    background: '/service-bg-design.png',
+    background: '/dongxiong-website/service-design.jpg',
     features: [
       '项目可行性研究报告编制',
       '工艺流程设计与优化',
@@ -118,9 +120,9 @@ const cards = [
   { 
     icon: '🔥', 
     title: '有色金属冶炼', 
-    desc: '先进的系统工艺技术，专注有色金属冶炼领域',
+    desc: '先进系统工艺技术',
     fullDesc: '我们拥有成熟的有色金属冶炼工艺技术，专注于锌、铜、铅等有色金属的提取与精炼，提供高效节能的冶炼解决方案。',
-    background: '/service-bg-metals-new.png',
+    background: '/dongxiong-website/service-metals.jpg',
     features: [
       '氧压浸出提锌工艺',
       '电积锌技术',
@@ -137,9 +139,9 @@ const cards = [
   { 
     icon: '🌫️', 
     title: '大气污染治理', 
-    desc: '脱硫脱硝、除尘、VOCs治理全方位解决方案',
+    desc: '脱硫脱硝、除尘、VOCs',
     fullDesc: '我们提供覆盖烟气治理全过程的环保设备与技术，从核心过滤材料到成套净化装备，满足各类工业场景的排放控制需求。',
-    background: '/service-bg-equipment.png',
+    background: '/dongxiong-website/service-environment.jpg',
     features: [
       '高效除尘设备（袋式/电袋复合）',
       '脱硫脱硝一体化装置',
@@ -156,9 +158,9 @@ const cards = [
   { 
     icon: '🔧', 
     title: '设备与运维', 
-    desc: '专业的设备与运维服务，保障系统稳定运行',
+    desc: '设备与运维服务',
     fullDesc: '我们提供全面的设备维护保养和运营管理服务，确保环保设施长期稳定高效运行，为客户创造最大价值。',
-    background: '/service-bg-operation.png',
+    background: '/dongxiong-website/service-maintenance.jpg',
     features: [
       '定期巡检与预防性维护',
       '故障诊断与应急抢修',
@@ -190,8 +192,20 @@ function closeDetail() {
   document.body.style.overflow = ''
 }
 
+function getPanelStyle() {
+  if (activeCardIndex.value === null) return {}
+  const card = cards[activeCardIndex.value]
+  if (!card?.background) return {}
+  
+  return {
+    backgroundImage: `linear-gradient(to bottom, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.85) 30%, rgba(255,255,255,0.7) 60%, transparent 100%), url(${card.background})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat'
+  }
+}
+
 // 组件卸载时恢复滚动
-import { onUnmounted } from 'vue'
 onUnmounted(() => {
   document.body.style.overflow = ''
 })
@@ -248,7 +262,7 @@ onUnmounted(() => {
   max-width: 100%;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 105.25px;
+  padding-left: 280px;
   padding-right: 105.25px;
 }
 
@@ -396,60 +410,80 @@ section.page-body h2.section-title {
   margin-bottom: 1rem;
 }
 
-/* 统一业务卡片栅格（苹果风） */
+/* 统一业务卡片栅格（固定卡片尺寸：上图 4:3，下文为剩余区域） */
 .dx-card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 24px;
   margin-top: 2.5rem;
 }
 
 .dx-card {
-  background: var(--color-bg-card);
+  background: transparent;
   border-radius: 18px;
-  border: 1px solid var(--color-border);
-  overflow: hidden;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.06);
-  transition:
-    transform var(--duration-normal) var(--ease-out),
-    box-shadow var(--duration-normal) var(--ease-out);
+  border: 1px solid transparent;
+  overflow: visible;
+  box-shadow: none;
   cursor: pointer;
   display: flex;
   flex-direction: column;
+  width: 100%;
+  min-width: 280px;
+  min-height: 520px;
+  max-width: 470px;
+  max-height: none;
 }
 
-.dx-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.12);
+
+/* 移除整卡动画，仅图片区悬停上浮 */
+
+/* 图片区包装：照片区四角圆角，溢出隐藏以便上浮动画不带动文字区 */
+.dx-card__media-wrap {
+  overflow: hidden;
+  flex-shrink: 0;
+  border-radius: 18px;
 }
 
+/* 图片区：上方 3:4 竖向图片区域，内部为 img */
 .dx-card__media {
   width: 100%;
   aspect-ratio: 3 / 4;
-  background-size: cover;
-  background-position: center;
+  position: relative;
+  overflow: hidden;
 }
 
+.dx-card__img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+/* 文字区：占剩余高度，背景透明，文字颜色与底层区块背景协调 */
 .dx-card__body {
+  flex: 1;
+  min-height: 120px;
   padding: 20px 24px 24px;
   display: flex;
   flex-direction: column;
   gap: 8px;
+  background: transparent;
 }
 
 .dx-card__icon {
-  font-size: 1.6rem;
+  font-size: 1.4rem;
 }
 
 .dx-card__title {
-  font-size: 1.25rem;
+  font-size: 1rem;
   font-weight: 600;
+  color: var(--color-text);
 }
 
 .dx-card__desc {
-  font-size: 0.95rem;
+  font-size: 0.75rem;
   color: var(--color-text-secondary);
-  line-height: 1.6;
+  line-height: 1.4;
 }
 
 .dx-card__link {
@@ -505,17 +539,6 @@ section.page-body h2.section-title {
   width: 80%;
   max-width: 1000px;
   max-height: 90vh;
-  background: 
-    linear-gradient(
-      to bottom, 
-      rgba(255, 255, 255, 0.95) 0%, 
-      rgba(255, 255, 255, 0.85) 15%, 
-      rgba(255, 255, 255, 0.7) 30%, 
-      rgba(255, 255, 255, 0.4) 50%, 
-      rgba(255, 255, 255, 0.15) 70%, 
-      transparent 85%
-    ), 
-    url('/service-bg-new.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -703,6 +726,18 @@ section.page-body h2.section-title {
 
 /* 响应式设计 */
 @media (max-width: 768px) {
+  .dx-card-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .dx-card {
+    min-width: 0;
+    max-width: 100%;
+    height: auto;
+    min-height: 420px;
+    max-height: none;
+  }
+  
   .service-detail-overlay {
     padding: 10px;
   }
