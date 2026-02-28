@@ -203,21 +203,21 @@
               <div class="contact-icon">📍</div>
               <div>
                 <h4>公司地址</h4>
-                <p>北京市朝阳区XX路XX号</p>
+                <p>安徽省合肥市蜀山区耕耘路多伦多花园443号</p>
               </div>
             </div>
             <div class="contact-item">
               <div class="contact-icon">📞</div>
               <div>
                 <h4>联系电话</h4>
-                <p>400-XXX-XXXX</p>
+                <p>18269751880</p>
               </div>
             </div>
             <div class="contact-item">
               <div class="contact-icon">✉️</div>
               <div>
                 <h4>电子邮箱</h4>
-                <p>info@dongxiong-env.com</p>
+                <p>754815750@qq.com</p>
               </div>
             </div>
           </div>
