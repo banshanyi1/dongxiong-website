@@ -340,7 +340,7 @@ section.page-body h2.section-title {
 
 .service-card.first {
   padding: 2rem;
-  background: var(--color-bg-alt) url('/service-bg-design.png');
+  background: var(--color-bg-alt) url('/dongxiong-website/service-bg-design.png');
   background-size: 80%;
   background-position: center bottom;
   background-repeat: no-repeat;
@@ -357,7 +357,7 @@ section.page-body h2.section-title {
 }
 
 .service-card.second {
-  background: white url('/service-bg-metals-new.png');
+  background: white url('/dongxiong-website/service-bg-metals-new.png');
   background-size: 80%;
   background-position: center bottom;
   background-repeat: no-repeat;
@@ -374,7 +374,7 @@ section.page-body h2.section-title {
 }
 
 .service-card.third {
-  background: white url('/service-bg-equipment.png');
+  background: white url('/dongxiong-website/service-bg-equipment.png');
   background-size: 80%;
   background-position: center bottom;
   background-repeat: no-repeat;
@@ -391,7 +391,7 @@ section.page-body h2.section-title {
 }
 
 .service-card.fourth {
-  background: white url('/service-bg-operation.png');
+  background: white url('/dongxiong-website/service-bg-operation.png');
   background-size: 80%;
   background-position: center bottom;
   background-repeat: no-repeat;
