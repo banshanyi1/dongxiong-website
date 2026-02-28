@@ -38,6 +38,7 @@ const items = [
   { titleKey: 'solutions.item1', descKey: 'solutions.item1Desc' },
   { titleKey: 'solutions.item2', descKey: 'solutions.item2Desc' },
   { titleKey: 'solutions.item3', descKey: 'solutions.item3Desc' },
+  { titleKey: 'solutions.item4', descKey: 'solutions.item4Desc' },
 ]
 </script>
 
