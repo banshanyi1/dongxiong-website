@@ -72,15 +72,11 @@
                 <span class="stat-label">工程项目</span>
               </div>
               <div class="video-stat">
-                <span class="stat-number">100+</span>
-                <span class="stat-label">技术专利</span>
-              </div>
-              <div class="video-stat">
-                <span class="stat-number">20+</span>
+                <span class="stat-number">15+</span>
                 <span class="stat-label">服务国家</span>
               </div>
               <div class="video-stat">
-                <span class="stat-number">15年</span>
+                <span class="stat-number">30年</span>
                 <span class="stat-label">行业经验</span>
               </div>
             </div>
@@ -103,7 +99,7 @@
             v-for="(card, index) in serviceCards" 
             :key="card.title" 
             class="dx-card"
-            @click="openServiceDetail()"
+            @click="openServiceDetail(index)"
           >
             <div class="dx-card__media-wrap">
               <div class="dx-card__media">
@@ -123,6 +119,39 @@
         </div>
       </div>
     </section>
+
+    <!-- 业务范围扩展栏 -->
+    <div 
+      v-if="activeCardIndex !== null" 
+      class="service-detail-overlay"
+      @click="closeServiceDetail"
+    >
+      <div 
+        class="service-detail-modal"
+        :style="{ '--modal-bg-image': `url(${serviceImages[activeCardIndex]})` }"
+        @click.stop
+      >
+        <button class="modal-close" @click="closeServiceDetail">×</button>
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2>{{ serviceCards[activeCardIndex].title }}</h2>
+            <p>{{ serviceCards[activeCardIndex].description }}</p>
+          </div>
+          <div class="modal-body">
+            <div class="service-details">
+              <div class="detail-item">
+                <h3>服务内容</h3>
+                <ul>
+                  <li v-for="item in getServiceDetails(activeCardIndex)" :key="item">
+                    {{ item }}
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- 第四屏：工程案例 -->
     <section class="section cases-section" ref="casesSection">
@@ -306,9 +335,51 @@ const serviceImages = [
 
 const activeCardIndex = ref(null)
 
-function openServiceDetail() {
-  // 直接跳转到业务范围页面
-  router.push('/services')
+function openServiceDetail(index) {
+  activeCardIndex.value = index
+  // 阻止页面滚动
+  document.body.style.overflow = 'hidden'
+}
+
+function closeServiceDetail() {
+  activeCardIndex.value = null
+  // 恢复页面滚动
+  document.body.style.overflow = ''
+}
+
+// 获取服务详情内容
+function getServiceDetails(index) {
+  const details = [
+    [
+      '项目可行性研究与评估',
+      '工艺流程设计与优化',
+      '设备选型与配置',
+      '施工图纸设计',
+      '技术支持与咨询服务'
+    ],
+    [
+      '铜冶炼工艺技术',
+      '铅锌冶炼系统',
+      '镍钴分离提纯',
+      '稀有金属回收',
+      '冶炼炉窑设计'
+    ],
+    [
+      '烟气脱硫系统',
+      'SCR脱硝装置',
+      '布袋除尘器',
+      'VOCs治理设备',
+      '在线监测系统'
+    ],
+    [
+      '环保设备供应',
+      '系统安装调试',
+      '定期维护保养',
+      '故障应急处理',
+      '技术升级改造'
+    ]
+  ]
+  return details[index] || []
 }
 
 // 响应式数据
@@ -1491,6 +1562,175 @@ onUnmounted(() => {
   
   .scroll-arrow {
     font-size: 1.25rem;
+  }
+}
+
+/* 业务范围扩展栏样式 */
+.service-detail-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.service-detail-modal {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  max-height: 90vh;
+  background-size: cover;
+  background-position: center;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+  /* 添加背景图片 */
+  background-image: var(--modal-bg-image);
+}
+
+.service-detail-modal::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.4) 0%,
+    rgba(255, 255, 255, 0.3) 100%
+  );
+  z-index: 1;
+}
+
+.modal-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.modal-close:hover {
+  background: rgba(255, 255, 255, 1);
+  transform: rotate(90deg);
+}
+
+.modal-content {
+  position: relative;
+  z-index: 2;
+  padding: 40px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-header {
+  margin-bottom: 30px;
+}
+
+.modal-header h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1d1d1f;
+  margin-bottom: 15px;
+  line-height: 1.2;
+}
+
+.modal-header p {
+  font-size: 1.2rem;
+  color: #6e6e73;
+  line-height: 1.6;
+}
+
+.modal-body {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.service-details {
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 15px;
+  padding: 25px;
+}
+
+.detail-item h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #1d1d1f;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #0071e3;
+}
+
+.detail-item ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.detail-item li {
+  padding: 12px 0;
+  padding-left: 25px;
+  position: relative;
+  font-size: 1.1rem;
+  color: #333;
+  line-height: 1.5;
+}
+
+.detail-item li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: #0071e3;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .service-detail-overlay {
+    padding: 10px;
+  }
+  
+  .service-detail-modal {
+    max-height: 95vh;
+    border-radius: 15px;
+  }
+  
+  .modal-content {
+    padding: 25px;
+  }
+  
+  .modal-header h2 {
+    font-size: 2rem;
+  }
+  
+  .modal-header p {
+    font-size: 1rem;
+  }
+  
+  .detail-item li {
+    font-size: 1rem;
+    padding: 10px 0;
+    padding-left: 20px;
   }
 }
 </style>

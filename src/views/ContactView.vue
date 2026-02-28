@@ -17,15 +17,15 @@
             <div class="contact-info-list">
               <div class="contact-info-item">
                 <span class="contact-label">地址</span>
-                <span>（请填写公司实际地址）</span>
+                <span>安徽省合肥市蜀山区耕耘路多伦多花园443号</span>
               </div>
               <div class="contact-info-item">
                 <span class="contact-label">电话</span>
-                <a href="tel:400-000-0000">400-000-0000</a>
+                <a href="tel:400-000-0000">18269751880</a>
               </div>
               <div class="contact-info-item">
                 <span class="contact-label">邮箱</span>
-                <a href="mailto:contact@example.com">contact@example.com</a>
+                <a href="mailto:contact@example.com">754815750@qq.com</a>
               </div>
             </div>
           </div>

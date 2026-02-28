@@ -43,47 +43,49 @@
       </div>
     </section>
     
-    <!-- 侧滑详情面板 -->
+    <!-- 业务详情展开面板：苹果风格，模糊层 100% 覆盖 -->
     <Teleport to="body">
       <div class="service-detail-container" v-if="activeCardIndex !== null">
         <Transition name="slide-fade">
           <div class="service-detail-backdrop" @click="closeDetail"></div>
         </Transition>
         <Transition name="slide-panel">
-          <div 
+          <div
             v-if="activeCardIndex !== null"
             class="service-detail-panel"
             :style="getPanelStyle()"
             @click.stop
           >
-            <button class="detail-close-btn" @click="closeDetail">×</button>
+            <!-- 全幅模糊层：覆盖整张卡片 100% -->
+            <div class="service-detail-panel__overlay" aria-hidden="true"></div>
+            <button type="button" class="detail-close-btn" @click="closeDetail" aria-label="关闭">×</button>
             <div class="detail-content">
-              <div class="detail-header">
-                <div class="detail-icon">{{ cards[activeCardIndex]?.icon }}</div>
+              <header class="detail-header">
+                <span class="detail-icon">{{ cards[activeCardIndex]?.icon }}</span>
                 <h2 class="detail-title">{{ cards[activeCardIndex]?.title }}</h2>
-              </div>
+                <p class="detail-lead">{{ cards[activeCardIndex]?.fullDesc }}</p>
+              </header>
               <div class="detail-body">
-                <p class="detail-description">{{ cards[activeCardIndex]?.fullDesc }}</p>
-                <div class="detail-features" v-if="cards[activeCardIndex]?.features">
-                  <h3>核心优势</h3>
-                  <ul>
-                    <li v-for="feature in cards[activeCardIndex].features" :key="feature">
-                      {{ feature }}
-                    </li>
+                <section v-if="cards[activeCardIndex]?.features?.length" class="detail-section">
+                  <h3 class="detail-section__title">核心优势</h3>
+                  <ul class="detail-list detail-list--rows">
+                    <li v-for="feature in cards[activeCardIndex].features" :key="feature">{{ feature }}</li>
                   </ul>
-                </div>
-                <div class="detail-process" v-if="cards[activeCardIndex]?.process">
-                  <h3>服务流程</h3>
-                  <ol>
-                    <li v-for="step in cards[activeCardIndex].process" :key="step">
-                      {{ step }}
+                </section>
+                <section v-if="cards[activeCardIndex]?.process?.length" class="detail-section">
+                  <h3 class="detail-section__title">服务流程</h3>
+                  <ol class="detail-list detail-list--numbered detail-list--rows">
+                    <li v-for="(step, i) in cards[activeCardIndex].process" :key="step">
+                      <span class="detail-list__num">{{ i + 1 }}</span>
+                      <span>{{ step }}</span>
                     </li>
                   </ol>
-                </div>
+                </section>
               </div>
-              <div class="detail-footer">
-                <RouterLink to="/contact" class="btn btn-primary">立即咨询</RouterLink>
-              </div>
+              <footer class="detail-footer">
+                <RouterLink to="/contact" class="detail-cta">立即咨询</RouterLink>
+              </footer>
+              <p class="detail-scroll-hint" v-if="hasScrollableContent">向下滚动查看更多</p>
             </div>
           </div>
         </Transition>
@@ -93,86 +95,102 @@
 </template>
 
 <script setup>
-import { ref, nextTick, onUnmounted } from 'vue'
+import { ref, computed, nextTick, onUnmounted } from 'vue'
 
 const activeCardIndex = ref(null)
 const publicBase = import.meta.env.BASE_URL || '/'
 
+const hasScrollableContent = computed(() => {
+  if (activeCardIndex.value === null) return false
+  const card = cards[activeCardIndex.value]
+  if (!card) return false
+  const total = (card.features?.length || 0) + (card.process?.length || 0)
+  return total > 8
+})
+
 const cards = [
-  { 
-    icon: '📐', 
-    title: '工程设计咨询', 
+  {
+    icon: '📐',
+    title: '工程设计咨询',
     desc: '可研与设计',
-    fullDesc: '我们提供从项目可行性研究、工艺设计到详细工程设计的全流程咨询服务，确保项目技术可行性和经济合理性。',
+    fullDesc: '从项目可行性研究、工艺设计到详细工程设计的全流程咨询服务，确保技术可行性与经济合理性，为冶金、化工、环保等项目提供从可研到施工图的一站式设计支持。',
     background: '/dongxiong-website/service-design.jpg',
     features: [
-      '项目可行性研究报告编制',
-      '工艺流程设计与优化',
-      '设备选型与配置方案',
-      '投资估算与经济分析'
+      '项目可行性研究报告编制与评审',
+      '工艺流程设计与多方案比选优化',
+      '设备选型、配置方案与总图布置',
+      '投资估算、经济分析与节能评估',
+      '初步设计、施工图设计及设计变更',
+      '设计交底、现场配合与竣工验收'
     ],
     process: [
-      '项目需求调研与分析',
-      '技术方案设计',
-      '图纸绘制与审核',
-      '设计交底与现场服务'
+      '项目需求调研与边界条件确认',
+      '技术路线与工艺方案设计',
+      '专业计算与图纸绘制、审核',
+      '设计交底与施工阶段现场服务'
     ]
   },
-  { 
-    icon: '🔥', 
-    title: '有色金属冶炼', 
+  {
+    icon: '🔥',
+    title: '有色金属冶炼',
     desc: '先进系统工艺技术',
-    fullDesc: '我们拥有成熟的有色金属冶炼工艺技术，专注于锌、铜、铅等有色金属的提取与精炼，提供高效节能的冶炼解决方案。',
+    fullDesc: '专注锌、铜、铅等有色金属的提取与精炼，提供氧压浸出、电积、湿法冶炼等成熟工艺技术，高效节能、清洁生产，服务国内外冶炼与资源综合利用项目。',
     background: '/dongxiong-website/service-metals.jpg',
     features: [
-      '氧压浸出提锌工艺',
-      '电积锌技术',
-      '铜铅分离与提取',
-      '稀贵金属回收'
+      '氧压浸出提锌工艺及装备集成',
+      '电积锌、电积铜等电解沉积技术',
+      '铜铅分离、多金属协同提取',
+      '稀贵金属综合回收与有价组分利用',
+      '冶炼渣资源化与废水处理工艺',
+      '自动化控制与能效优化方案'
     ],
     process: [
-      '原料预处理',
-      '浸出与净化',
-      '电解沉积',
-      '产品精制与包装'
+      '原料预处理与配料优化',
+      '浸出、净化与溶液制备',
+      '电解沉积与产品成型',
+      '产品精制、包装与仓储'
     ]
   },
-  { 
-    icon: '🌫️', 
-    title: '大气污染治理', 
+  {
+    icon: '🌫️',
+    title: '大气污染治理',
     desc: '脱硫脱硝、除尘、VOCs',
-    fullDesc: '我们提供覆盖烟气治理全过程的环保设备与技术，从核心过滤材料到成套净化装备，满足各类工业场景的排放控制需求。',
+    fullDesc: '覆盖烟气治理全流程：从高效除尘、脱硫脱硝到 VOCs 治理，提供核心过滤材料、成套净化装备及智能控制系统，满足冶金、电力、化工等工业排放控制与超低排放要求。',
     background: '/dongxiong-website/service-environment.jpg',
     features: [
-      '高效除尘设备（袋式/电袋复合）',
-      '脱硫脱硝一体化装置',
-      'VOCs治理技术',
-      '在线监测与智能控制系统'
+      '袋式除尘、电袋复合除尘及超低排放改造',
+      '脱硫脱硝一体化及 SCR/SNCR 技术',
+      'VOCs 吸附浓缩、催化燃烧与 RTO/RCO',
+      '烟气在线监测与 CEMS 数据管理',
+      '智能控制系统与运行优化',
+      '滤料、催化剂等关键材料选型与供应'
     ],
     process: [
-      '工况参数采集与分析',
-      '治理方案设计',
-      '设备制造与集成',
-      '现场安装与调试'
+      '工况参数采集与排放诊断',
+      '治理方案设计与设备选型',
+      '设备制造、集成与出厂检验',
+      '现场安装、调试与性能验收'
     ]
   },
-  { 
-    icon: '🔧', 
-    title: '设备与运维', 
+  {
+    icon: '🔧',
+    title: '设备与运维',
     desc: '设备与运维服务',
-    fullDesc: '我们提供全面的设备维护保养和运营管理服务，确保环保设施长期稳定高效运行，为客户创造最大价值。',
+    fullDesc: '提供环保与冶炼设备的定期巡检、预防性维护、故障诊断与应急抢修，以及备件供应与运行优化，保障设施长期稳定、高效运行，为客户创造持续价值。',
     background: '/dongxiong-website/service-maintenance.jpg',
     features: [
-      '定期巡检与预防性维护',
-      '故障诊断与应急抢修',
-      '备品备件供应',
-      '运行优化与技术改造'
+      '定期巡检、预防性维护与状态评估',
+      '故障诊断、应急抢修与备件供应',
+      '运行数据分析与能效优化建议',
+      '设备改造、技改与延寿方案',
+      '操作培训与运维管理制度建设',
+      '长协运维与托管运营服务'
     ],
     process: [
-      '设备状态监测',
-      '维护计划制定',
-      '现场检修作业',
-      '运行数据分析'
+      '设备状态监测与劣化趋势分析',
+      '维护计划制定与工单管理',
+      '现场检修、更换与调试',
+      '运行报表与持续改进'
     ]
   }
 ]
@@ -197,9 +215,8 @@ function getPanelStyle() {
   if (activeCardIndex.value === null) return {}
   const card = cards[activeCardIndex.value]
   if (!card?.background) return {}
-  
   return {
-    backgroundImage: `linear-gradient(to bottom, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.85) 30%, rgba(255,255,255,0.7) 60%, transparent 100%), url(${card.background})`,
+    backgroundImage: `linear-gradient(to bottom, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.82) 25%, rgba(255,255,255,0.65) 55%, transparent 85%), url(${card.background})`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat'
@@ -525,167 +542,222 @@ section.page-body h2.section-title {
 /* 背景遮罩 */
 .service-detail-backdrop {
   position: absolute;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 
-/* 弹出详情面板样式 */
+/* 弹出详情面板：大尺寸，每张卡片对应自己的背景图 + 渐变，内容多时可滚动 */
 .service-detail-panel {
   position: relative;
-  width: 80%;
-  max-width: 1000px;
-  max-height: 90vh;
+  width: 94%;
+  max-width: 1120px;
+  max-height: 94vh;
+  background-color: #fff;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  border-radius: 16px;
-  box-shadow: 0 25px 100px rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 28px;
+  box-shadow: 0 40px 120px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(0, 0, 0, 0.06);
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
-  padding: 20px;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  margin: 0 auto;
-  /* 确保动画初始状态 */
-  will-change: transform, opacity;
+  overflow: hidden;
+  will-change: transform;
+  transform-origin: bottom center;
 }
 
-.service-detail-panel.metals {
-  background: linear-gradient(to right, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.2) 30%, rgba(255, 255, 255, 0.05) 60%, transparent 80%), url('/service-bg-metals-new.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.service-detail-panel.equipment {
-  background: linear-gradient(to right, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.2) 30%, rgba(255, 255, 255, 0.05) 60%, transparent 80%), url('/service-bg-equipment.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+/* 模糊层：占满整张卡片 100%，无缝隙 */
+.service-detail-panel__overlay {
+  position: absolute;
+  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: saturate(180%) blur(24px);
+  -webkit-backdrop-filter: saturate(180%) blur(24px);
+  pointer-events: none;
 }
 
 .detail-close-btn {
   position: absolute;
   top: 20px;
   right: 20px;
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   border: none;
-  background: #f5f5f5;
+  background: rgba(0, 0, 0, 0.06);
   border-radius: 50%;
-  font-size: 24px;
+  font-size: 22px;
+  line-height: 1;
+  color: #1d1d1f;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease;
-  z-index: 1001;
+  transition: background 0.2s ease, transform 0.2s ease;
+  z-index: 10;
 }
 
 .detail-close-btn:hover {
-  background: #e0e0e0;
-  transform: rotate(90deg);
+  background: rgba(0, 0, 0, 0.12);
+  transform: scale(1.05);
 }
 
+/* 内容区：可滚动，苹果风格大字号 + 一行一项 */
 .detail-content {
-  padding: 30px 30px 30px;
+  position: relative;
+  z-index: 2;
   flex: 1;
-  background: rgba(255, 255, 255, 0.65);
-  backdrop-filter: blur(1px);
-  -webkit-backdrop-filter: blur(1px);
+  display: flex;
+  flex-direction: column;
+  padding: 3.25rem 3rem 3rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  min-height: 0;
+  -webkit-overflow-scrolling: touch;
 }
 
 .detail-header {
   text-align: center;
-  margin-bottom: 30px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid #eee;
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 12px;
-  padding: 20px;
-  margin: -20px -20px 30px -20px;
-  backdrop-filter: blur(0.2px);
-  -webkit-backdrop-filter: blur(0.2px);
+  margin-bottom: 2.5rem;
 }
 
 .detail-icon {
-  font-size: 3rem;
-  margin-bottom: 15px;
+  display: inline-block;
+  font-size: 3.75rem;
+  margin-bottom: 1rem;
+  line-height: 1;
 }
 
 .detail-title {
-  font-size: 2rem;
+  font-size: clamp(2rem, 5.5vw, 3.25rem);
   font-weight: 600;
-  color: var(--color-text);
+  letter-spacing: -0.04em;
+  color: #1d1d1f;
+  margin: 0 0 0.85rem;
+  line-height: 1.12;
+}
+
+.detail-lead {
+  font-size: 1.35rem;
+  line-height: 1.65;
+  color: #6e6e73;
   margin: 0;
+  max-width: 620px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .detail-body {
-  margin-bottom: 30px;
+  flex: 1;
+  margin-bottom: 2.25rem;
 }
 
-.detail-description {
-  font-size: 1.1rem;
-  line-height: 1.8;
-  color: var(--color-text-secondary);
-  margin-bottom: 25px;
+.detail-section {
+  margin-bottom: 2.5rem;
 }
 
-.detail-features, .detail-process {
-  margin-bottom: 25px;
+.detail-section:last-child {
+  margin-bottom: 0;
 }
 
-.detail-features h3, .detail-process h3 {
-  font-size: 1.3rem;
+.detail-section__title {
+  font-size: 1rem;
   font-weight: 600;
-  color: var(--color-text);
-  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #6e6e73;
+  margin: 0 0 1.1rem;
 }
 
-.detail-features ul, .detail-process ol {
-  padding-left: 20px;
+.detail-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-.detail-features li, .detail-process li {
-  margin-bottom: 10px;
-  line-height: 1.6;
-  color: var(--color-text-secondary);
+/* 一行一项：每条独占一行，大字号、留白足 */
+.detail-list--rows.detail-list li {
+  display: block;
+  width: 100%;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  color: #1d1d1f;
+  padding: 0.85rem 0;
+  padding-left: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 }
 
-.detail-footer {
-  text-align: center;
-  padding-top: 20px;
-  border-top: 1px solid #eee;
+.detail-list--rows.detail-list li:last-child {
+  border-bottom: none;
 }
 
-.btn {
+.detail-list--numbered.detail-list li {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.detail-list--numbered .detail-list__num {
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: #0071e3;
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 600;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 12px 30px;
-  border-radius: 8px;
+}
+
+.detail-footer {
+  padding-top: 2rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.detail-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 2.5rem;
+  border-radius: 980px;
+  font-size: 1.2rem;
   font-weight: 500;
+  color: #fff;
+  background: #0071e3;
   text-decoration: none;
-  transition: all 0.3s ease;
-  border: 2px solid transparent;
+  transition: background 0.2s ease, transform 0.15s ease;
 }
 
-.btn-primary {
-  background: var(--color-primary);
-  color: white;
+.detail-cta:hover {
+  background: #0077ed;
+  transform: scale(1.02);
 }
 
-.btn-primary:hover {
-  background: var(--color-primary-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(0, 113, 227, 0.3);
+.detail-scroll-hint {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #6e6e73;
+  margin: 1.5rem 0 0;
+  padding-top: 1rem;
+  animation: scroll-hint-pulse 2s ease-in-out infinite;
+}
+
+@keyframes scroll-hint-pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
 }
 
 /* 重新设计的双层动画 */
@@ -706,22 +778,22 @@ section.page-body h2.section-title {
   opacity: 1;
 }
 
-/* 弹出面板动画 - 标准实现 */
+/* 弹出面板动画：从屏幕底端向上盘出 */
 .slide-panel-enter-active,
 .slide-panel-leave-active {
-  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-  transform-origin: bottom center;
+  transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1), opacity 0.4s ease;
+  transform-origin: center bottom;
 }
 
 .slide-panel-enter-from,
 .slide-panel-leave-to {
-  transform: translateY(100%) scale(0.8);
+  transform: translateY(100%);
   opacity: 0;
 }
 
 .slide-panel-enter-to,
 .slide-panel-leave-from {
-  transform: translateY(0) scale(1);
+  transform: translateY(0);
   opacity: 1;
 }
 
@@ -739,26 +811,58 @@ section.page-body h2.section-title {
     max-height: none;
   }
   
-  .service-detail-overlay {
-    padding: 10px;
+  .service-detail-panel {
+    width: 96%;
+    max-height: 94vh;
+    border-radius: 22px;
   }
   
-  .service-detail-panel {
-    width: 95%;
-    max-height: 95vh;
-    margin: 0 auto;
+  .service-detail-panel__overlay {
+    border-radius: inherit;
   }
   
   .detail-content {
-    padding: 60px 20px 20px;
-  }
-  
-  .detail-title {
-    font-size: 1.7rem;
+    padding: 3.25rem 1.75rem 2.25rem;
+    padding-top: 3.5rem;
   }
   
   .detail-icon {
-    font-size: 2.5rem;
+    font-size: 3.25rem;
+  }
+  
+  .detail-title {
+    font-size: 1.85rem;
+  }
+  
+  .detail-lead {
+    font-size: 1.2rem;
+  }
+  
+  .detail-section__title {
+    font-size: 0.95rem;
+  }
+  
+  .detail-list--rows.detail-list li {
+    font-size: 1.15rem;
+    padding: 0.7rem 0;
+  }
+  
+  .detail-cta {
+    padding: 0.9rem 2.15rem;
+    font-size: 1.1rem;
+  }
+  
+  .detail-close-btn {
+    top: 18px;
+    right: 18px;
+    width: 38px;
+    height: 38px;
+    font-size: 22px;
+  }
+  
+  .detail-scroll-hint {
+    font-size: 0.85rem;
+    margin-top: 1.25rem;
   }
 }
 </style>

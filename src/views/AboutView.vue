@@ -271,194 +271,138 @@
         </div>
 
 
-        <!-- 第七屏：企业使命/环保 -->
-        <div class="content-section section-7">
-          <div class="full-width-content">
-            <h2 class="apple-style-title">
-              <span class="main-title-keyword">环保</span>，一流的使命
+        <!-- 关于我们内容区：苹果风格区块 -->
+        <!-- 第一块：专注领域 -->
+        <section class="about-block about-block--light">
+          <div class="about-block__inner">
+            <h2 class="about-block__title">
+              <span class="about-block__keyword">专注</span>，有色金属与大气环保
             </h2>
-            <p class="subtitle">为地球可持续发展注入东雄动力</p>
-            <div class="company-modules dx-card-grid">
-              <article class="module-item dx-card">
-                <div class="dx-card__media-wrap">
-                  <div class="dx-card__icon-circle">
-                    <span class="dx-card__icon-emoji">🏭</span>
-                  </div>
+            <p class="about-block__lead">一家年轻却技术过硬的环保科技企业，深耕有色金属冶炼与大气环保，用专业守护蓝天与绿色生产。</p>
+            <div class="about-block__cards">
+              <article class="about-card">
+                <div class="about-card__icon-wrap">
+                  <span class="about-card__icon" aria-hidden="true">冶炼</span>
                 </div>
-                <div class="module-item__body dx-card__body">
-                  <h3>清洁生产</h3>
-                  <p>有色金属冶炼行业清洁化、集约化转型的技术推动者。从工艺源头到末端治理，推动绿色冶炼与资源高效利用，实现生产与环保协同。</p>
-                </div>
+                <h3 class="about-card__title">有色金属冶炼</h3>
+                <p class="about-card__text">从工艺源头到末端治理，推动冶炼行业清洁化、集约化。绿色冶炼与资源高效利用，生产与环保协同。</p>
               </article>
-              <article class="module-item dx-card">
-                <div class="dx-card__media-wrap">
-                  <div class="dx-card__icon-circle">
-                    <span class="dx-card__icon-emoji">🧪</span>
-                  </div>
+              <article class="about-card">
+                <div class="about-card__icon-wrap">
+                  <span class="about-card__icon" aria-hidden="true">大气</span>
                 </div>
-                <div class="module-item__body dx-card__body">
-                  <h3>科技创新</h3>
-                  <p>围绕大气污染控制与资源综合利用持续研发新工艺。依托装备与控制系统创新，为脱硫脱硝、除尘及 VOCs 治理提供技术支撑。</p>
-                </div>
+                <h3 class="about-card__title">大气环保</h3>
+                <p class="about-card__text">脱硫脱硝、除尘及 VOCs 治理等大气污染控制与资源综合利用，为业主提供可靠的技术与装备支撑。</p>
               </article>
-              <article class="module-item dx-card">
-                <div class="dx-card__media-wrap">
-                  <div class="dx-card__icon-circle">
-                    <span class="dx-card__icon-emoji">🌐</span>
-                  </div>
+              <article class="about-card">
+                <div class="about-card__icon-wrap">
+                  <span class="about-card__icon" aria-hidden="true">全球</span>
                 </div>
-                <div class="module-item__body dx-card__body">
-                  <h3>全球协同</h3>
-                  <p>与全球环保企业携手，共建清洁低碳新未来。将本土冶炼与环保经验与国际标准结合，服务亚洲、欧洲、美洲等多地项目。</p>
-                </div>
+                <h3 class="about-card__title">全球视野</h3>
+                <p class="about-card__text">立足中国、服务世界。将本土冶炼与环保经验与国际标准结合，在亚洲、欧洲、美洲等地落地项目。</p>
               </article>
             </div>
           </div>
-        </div>
-        
-        <!-- 分割线 -->
-        <div class="section-divider"></div>
+        </section>
 
-        <!-- 第八屏：企业实力 -->
-        <div class="content-section section-8">
-          <div class="full-width-content">
-            <h2 class="apple-style-title">
-              <span class="main-title-keyword">实力</span>，值得信赖
-            </h2>
-            <p class="subtitle">立足中国，服务全球的环保科技企业</p>
-            <div class="strength-modules dx-card-grid">
-              <article class="module-item dx-card">
-                <div class="dx-card__media-wrap">
-                  <div class="dx-card__icon-circle">
-                    <span class="dx-card__icon-emoji">🛠️</span>
-                  </div>
-                </div>
-                <div class="module-item__body dx-card__body">
-                  <h3>技术领先</h3>
-                  <p>百余项专利与核心技术，覆盖除尘、脱硫、脱硝及冶炼工艺等多个领域，为工程设计与设备选型提供可靠技术保障。</p>
-                </div>
-              </article>
-              <article class="module-item dx-card">
-                <div class="dx-card__media-wrap">
-                  <div class="dx-card__icon-circle">
-                    <span class="dx-card__icon-emoji">📚</span>
-                  </div>
-                </div>
-                <div class="module-item__body dx-card__body">
-                  <h3>项目经验</h3>
-                  <p>500+ 环保工程项目经验，深度服务冶金、化工、电力等行业，从可研设计到施工运维全流程落地。</p>
-                </div>
-              </article>
-              <article class="module-item dx-card">
-                <div class="dx-card__media-wrap">
-                  <div class="dx-card__icon-circle">
-                    <span class="dx-card__icon-emoji">🗺️</span>
-                  </div>
-                </div>
-                <div class="module-item__body dx-card__body">
-                  <h3>布局全国</h3>
-                  <p>在多个重点省份设立服务团队与网点，形成快速响应与属地化服务能力，就近保障项目交付与运维。</p>
-                </div>
-              </article>
-            </div>
-          </div>
-        </div>
-        
-        <!-- 分割线 -->
-        <div class="section-divider"></div>
+        <div class="about-divider" aria-hidden="true"></div>
 
-        <!-- 第九屏：技术创新 -->
-        <div class="content-section section-9">
-          <div class="full-width-content">
-            <h2 class="apple-style-title">
-              <span class="main-title-keyword">创新</span>，不断前行
+        <!-- 第二块：技术实力 -->
+        <section class="about-block about-block--white">
+          <div class="about-block__inner">
+            <h2 class="about-block__title">
+              <span class="about-block__keyword">技术</span>，全球数一数二
             </h2>
-            <p class="subtitle">以技术创新驱动环保产业升级</p>
-            <div class="innovation-modules dx-card-grid">
-              <article class="module-item dx-card">
-                <div class="dx-card__media-wrap">
-                  <div class="dx-card__icon-circle">
-                    <span class="dx-card__icon-emoji">🔬</span>
-                  </div>
+            <p class="about-block__lead">初创不初。东雄虽成立不久，技术实力却堪称一流，在有色金属冶炼与大气环保领域位居全球前列。</p>
+            <div class="about-block__cards">
+              <article class="about-card">
+                <div class="about-card__icon-wrap about-card__icon-wrap--accent">
+                  <span class="about-card__icon" aria-hidden="true">工艺</span>
                 </div>
-                <div class="module-item__body dx-card__body">
-                  <h3>持续研发</h3>
-                  <p>每年将营收的一定比例投入技术研发与工艺升级，在除尘、脱硫脱硝及冶炼工艺上持续迭代，保持技术领先。</p>
-                </div>
+                <h3 class="about-card__title">工艺与装备</h3>
+                <p class="about-card__text">核心工艺与装备技术持续迭代，覆盖除尘、脱硫脱硝及冶炼全流程，为工程设计提供可靠保障。</p>
               </article>
-              <article class="module-item dx-card">
-                <div class="dx-card__media-wrap">
-                  <div class="dx-card__icon-circle">
-                    <span class="dx-card__icon-emoji">👥</span>
-                  </div>
+              <article class="about-card">
+                <div class="about-card__icon-wrap about-card__icon-wrap--accent">
+                  <span class="about-card__icon" aria-hidden="true">治理</span>
                 </div>
-                <div class="module-item__body dx-card__body">
-                  <h3>人才驱动</h3>
-                  <p>多学科交叉的工程技术团队，覆盖工艺、设备与自动化，从方案设计到现场实施形成闭环能力。</p>
-                </div>
+                <h3 class="about-card__title">脱硫脱硝与除尘</h3>
+                <p class="about-card__text">大气污染控制与资源综合利用的成熟方案，从可研设计到施工运维，全流程落地交付。</p>
               </article>
-              <article class="module-item dx-card">
-                <div class="dx-card__media-wrap">
-                  <div class="dx-card__icon-circle">
-                    <span class="dx-card__icon-emoji">🎓</span>
-                  </div>
+              <article class="about-card">
+                <div class="about-card__icon-wrap about-card__icon-wrap--accent">
+                  <span class="about-card__icon" aria-hidden="true">交付</span>
                 </div>
-                <div class="module-item__body dx-card__body">
-                  <h3>产学研合作</h3>
-                  <p>与多所高校和科研院所建立长期合作关系，共建联合实验室，推动环保与冶炼技术的成果转化与工程应用。</p>
-                </div>
+                <h3 class="about-card__title">工程落地能力</h3>
+                <p class="about-card__text">多学科工程技术团队，从方案设计到现场实施形成闭环，以交付质量与响应速度赢得信赖。</p>
               </article>
             </div>
           </div>
-        </div>
+        </section>
 
-        <!-- 分割线 -->
-        <div class="section-divider"></div>
-        
-        <!-- 第十屏：客户价值 -->
-        <div class="content-section section-10">
-          <div class="full-width-content">
-            <h2 class="apple-style-title">
-              <span class="main-title-keyword">价值</span>，共同创造
+        <div class="about-divider" aria-hidden="true"></div>
+
+        <!-- 第三块：项目与实践 -->
+        <section class="about-block about-block--light">
+          <div class="about-block__inner">
+            <h2 class="about-block__title">
+              <span class="about-block__keyword">项目</span>，遍布全国与全球
             </h2>
-            <p class="subtitle">为客户、行业与社会持续创造环保价值</p>
-            <div class="value-modules dx-card-grid">
-              <article class="module-item dx-card">
-                <div class="dx-card__media-wrap">
-                  <div class="dx-card__icon-circle">
-                    <span class="dx-card__icon-emoji">🤝</span>
-                  </div>
-                </div>
-                <div class="module-item__body dx-card__body">
-                  <h3>客户满意</h3>
-                  <p>以工程效果与长期稳定运行为核心，从设计、施工到运维全程保障，以交付质量与响应速度赢得客户信赖。</p>
-                </div>
+            <p class="about-block__lead">在中国，我们做了很多很多的项目；在全世界，我们也落地了相当数量的标杆工程。用实绩说话。</p>
+            <div class="about-block__cards">
+              <article class="about-card">
+                <div class="about-card__number">全国</div>
+                <h3 class="about-card__title">深耕中国</h3>
+                <p class="about-card__text">在多个重点省份设有服务团队与网点，形成快速响应与属地化服务能力，全国项目经验丰富。</p>
               </article>
-              <article class="module-item dx-card">
-                <div class="dx-card__media-wrap">
-                  <div class="dx-card__icon-circle">
-                    <span class="dx-card__icon-emoji">🌱</span>
-                  </div>
-                </div>
-                <div class="module-item__body dx-card__body">
-                  <h3>环境效益</h3>
-                  <p>通过系统性治理与高效装备，显著降低污染物排放与能耗水平，为业主创造合规、节能、可持续的运营环境。</p>
-                </div>
+              <article class="about-card">
+                <div class="about-card__number">全球</div>
+                <h3 class="about-card__title">海外布局</h3>
+                <p class="about-card__text">服务亚洲、欧洲、非洲、美洲等多地客户，将中国技术与国际标准结合，树立海外标杆项目。</p>
               </article>
-              <article class="module-item dx-card">
-                <div class="dx-card__media-wrap">
-                  <div class="dx-card__icon-circle">
-                    <span class="dx-card__icon-emoji">❤️</span>
-                  </div>
-                </div>
-                <div class="module-item__body dx-card__body">
-                  <h3>社会责任</h3>
-                  <p>积极参与行业标准制定与公益环保项目，推动冶炼与大气治理行业规范发展，践行企业环保责任。</p>
-                </div>
+              <article class="about-card">
+                <div class="about-card__number">全流程</div>
+                <h3 class="about-card__title">从设计到运维</h3>
+                <p class="about-card__text">深度服务冶金、化工、电力等行业，从可研设计、施工建设到运维保障，一站式交付。</p>
               </article>
             </div>
           </div>
-        </div>
+        </section>
+
+        <div class="about-divider" aria-hidden="true"></div>
+
+        <!-- 第四块：价值与承诺 -->
+        <section class="about-block about-block--white">
+          <div class="about-block__inner">
+            <h2 class="about-block__title">
+              <span class="about-block__keyword">价值</span>，与客户共同创造
+            </h2>
+            <p class="about-block__lead">用技术说话，用交付赢得信任。为客户、行业与社会持续创造环保价值。</p>
+            <div class="about-block__cards">
+              <article class="about-card">
+                <div class="about-card__icon-wrap">
+                  <span class="about-card__icon" aria-hidden="true">信赖</span>
+                </div>
+                <h3 class="about-card__title">客户信赖</h3>
+                <p class="about-card__text">以工程效果与长期稳定运行为核心，从设计、施工到运维全程保障，以质量与速度赢得口碑。</p>
+              </article>
+              <article class="about-card">
+                <div class="about-card__icon-wrap">
+                  <span class="about-card__icon" aria-hidden="true">绿色</span>
+                </div>
+                <h3 class="about-card__title">环保效益</h3>
+                <p class="about-card__text">通过系统性治理与高效装备，显著降低污染物排放与能耗，为业主创造合规、节能、可持续的运营环境。</p>
+              </article>
+              <article class="about-card">
+                <div class="about-card__icon-wrap">
+                  <span class="about-card__icon" aria-hidden="true">责任</span>
+                </div>
+                <h3 class="about-card__title">持续创新</h3>
+                <p class="about-card__text">持续投入研发与工艺升级，与高校、科研院所合作，推动冶炼与大气治理技术的成果转化与行业规范。</p>
+              </article>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   </div>
@@ -1400,14 +1344,131 @@ const initializeAnimationTriggers = world => {
   border: none;
 }
 
-/* 企业使命上方的灰色遮罩过渡层 - 添加真正的渐变效果 */
-/* 段落分割线 */
-.section-divider {
-  height: 13px;
+/* ---------- 关于我们内容区：苹果风格 ---------- */
+.about-block {
+  width: 100%;
+  padding: 5rem 1.5rem 5.5rem;
+  box-sizing: border-box;
+}
+
+.about-block--light {
+  background: #f5f5f7;
+}
+
+.about-block--white {
   background: #ffffff;
-  width: 90%;
+}
+
+.about-block__inner {
+  max-width: 1100px;
   margin: 0 auto;
-  opacity: 1;
+  text-align: center;
+}
+
+.about-block__title {
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: #1d1d1f;
+  margin: 0 0 0.6rem;
+  line-height: 1.15;
+}
+
+.about-block__keyword {
+  color: #0071e3;
+  font-weight: 600;
+}
+
+.about-block__lead {
+  font-size: 1.25rem;
+  line-height: 1.5;
+  color: #6e6e73;
+  max-width: 640px;
+  margin: 0 auto 3rem;
+  font-weight: 400;
+}
+
+.about-block__cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  text-align: left;
+  margin-top: 0.5rem;
+}
+
+.about-card {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 2rem 1.75rem;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.about-block--light .about-card {
+  background: #ffffff;
+}
+
+.about-block--white .about-card {
+  background: #f5f5f7;
+  border-color: rgba(0, 0, 0, 0.04);
+}
+
+.about-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
+}
+
+.about-card__icon-wrap {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: rgba(0, 113, 227, 0.12);
+  color: #0071e3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.about-card__icon-wrap--accent {
+  background: linear-gradient(135deg, rgba(0, 113, 227, 0.15), rgba(88, 86, 214, 0.12));
+  color: #0071e3;
+}
+
+.about-card__number {
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #0071e3;
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+}
+
+.about-card__title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1d1d1f;
+  margin: 0 0 0.5rem;
+  letter-spacing: -0.02em;
+}
+
+.about-card__text {
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: #6e6e73;
+  margin: 0;
+}
+
+.about-divider {
+  height: 1px;
+  background: rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
 /* 卡片初始隐藏状态 */
@@ -1916,6 +1977,32 @@ p {
 }
 
 @media (max-width: 768px) {
+  .about-block {
+    padding: 3.5rem 1.25rem 4rem;
+  }
+
+  .about-block__title {
+    font-size: 1.75rem;
+  }
+
+  .about-block__lead {
+    font-size: 1.1rem;
+    margin-bottom: 2.25rem;
+  }
+
+  .about-block__cards {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .about-card {
+    padding: 1.5rem 1.35rem;
+  }
+
+  .about-card__number {
+    font-size: 1.5rem;
+  }
+
   .dx-card-grid,
   .company-modules,
   .strength-modules,

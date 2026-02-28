@@ -52,12 +52,47 @@ dongxiong-website/
 └── README.md
 ```
 
-## 后续可做
+## 部署到 GitHub Pages
 
-1. **内容**：在对应组件里替换公司名称、业务描述、真实地址/电话/邮箱。
-2. **图片**：在 `public/` 放 logo、首屏大图等，在组件中用 `/图片名.jpg` 引用。
-3. **多页**：若需“产品详情”“案例”等独立页，可加 Vue Router，仍用 Vite 做静态构建。
-4. **部署**：将 `npm run build` 生成的 `dist/` 上传到托管即可。
+### 自动部署（推荐）
+
+1. **运行部署脚本**：
+   ```bash
+   deploy.bat
+   ```
+
+2. **手动部署步骤**：
+   ```bash
+   # 构建项目
+   npm run build
+   
+   # 创建并切换到gh-pages分支
+   git checkout -b gh-pages
+   
+   # 提交构建文件
+   git add dist -f
+   git commit -m "Deploy to GitHub Pages"
+   
+   # 推送到GitHub
+   git subtree push --prefix dist origin gh-pages
+   
+   # 切换回主分支
+   git checkout main
+   ```
+
+3. **在GitHub上配置Pages**：
+   - 进入仓库 Settings → Pages
+   - Source 选择 `gh-pages` 分支
+   - 保存设置
+
+4. **访问网站**：
+   网站将在几分钟后可通过 `https://[您的用户名].github.io/dongxiong-website/` 访问
+
+### 其他部署选项
+
+- **Vercel**：导入GitHub仓库，自动部署
+- **Netlify**：拖拽 `dist` 文件夹或连接Git
+- **阿里云OSS**：上传 `dist` 目录内容
 
 ## 设计说明
 
