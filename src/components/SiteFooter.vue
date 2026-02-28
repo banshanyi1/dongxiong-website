@@ -2,18 +2,18 @@
   <footer class="site-footer">
     <div class="container">
       <div class="footer-top">
-        <RouterLink to="/" class="footer-logo">东雄环保</RouterLink>
+        <RouterLink to="/" class="footer-logo">{{ t('common.logo') }}</RouterLink>
         <nav class="footer-nav">
-          <RouterLink to="/about">关于我们</RouterLink>
-          <RouterLink to="/services">业务范围</RouterLink>
-          <RouterLink to="/solutions">解决方案</RouterLink>
-          <RouterLink to="/cases">工程案例</RouterLink>
-          <RouterLink to="/contact">联系我们</RouterLink>
+          <RouterLink to="/about">{{ t('nav.about') }}</RouterLink>
+          <RouterLink to="/services">{{ t('nav.services') }}</RouterLink>
+          <RouterLink to="/solutions">{{ t('nav.solutions') }}</RouterLink>
+          <RouterLink to="/cases">{{ t('nav.cases') }}</RouterLink>
+          <RouterLink to="/contact">{{ t('nav.contact') }}</RouterLink>
         </nav>
       </div>
       <div class="footer-bottom">
         <p class="footer-copy">
-          © {{ new Date().getFullYear() }} 东雄环保 版权所有 · 大气环保与有色金属冶炼
+          {{ t('footer.copy', { year: new Date().getFullYear() }) }}
         </p>
       </div>
     </div>
@@ -21,6 +21,9 @@
 </template>
 
 <script setup>
+import { useI18n } from '../composables/useI18n'
+
+const { t } = useI18n()
 </script>
 
 <style scoped>

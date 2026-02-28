@@ -4,23 +4,23 @@
       <div class="page-hero-bg" style="background-image: url(https://images.unsplash.com/photo-1567767292278-a4f21aa2d36e?w=1920&q=80)"></div>
       <div class="page-hero-overlay"></div>
       <div class="container page-hero-inner">
-        <h1 class="page-hero-title">解决方案</h1>
-        <p class="page-hero-lead">为行业量身定制的环保升级与运维方案</p>
+        <h1 class="page-hero-title">{{ t('solutions.heroTitle') }}</h1>
+        <p class="page-hero-lead">{{ t('solutions.heroLead') }}</p>
       </div>
     </section>
     <section class="page-body">
       <div class="container container--wide">
-        <p class="page-eyebrow">方案概览</p>
-        <h2 class="section-title">典型解决方案</h2>
+        <p class="page-eyebrow">{{ t('solutions.eyebrow') }}</p>
+        <h2 class="section-title">{{ t('solutions.title') }}</h2>
         <p class="section-lead page-intro">
-          针对有色金属冶炼与工业大气排放的典型场景，提供可复制、可扩展的解决方案。
+          {{ t('solutions.lead') }}
         </p>
         <div class="solutions-list">
-          <div v-for="(item, i) in items" :key="item.title" class="solution-item">
+          <div v-for="(item, i) in items" :key="item.titleKey" class="solution-item">
             <span class="solution-num">0{{ i + 1 }}</span>
             <div>
-              <h3 class="solution-title">{{ item.title }}</h3>
-              <p class="solution-desc">{{ item.desc }}</p>
+              <h3 class="solution-title">{{ t(item.titleKey) }}</h3>
+              <p class="solution-desc">{{ t(item.descKey) }}</p>
             </div>
           </div>
         </div>
@@ -30,10 +30,14 @@
 </template>
 
 <script setup>
+import { useI18n } from '../composables/useI18n'
+
+const { t } = useI18n()
+
 const items = [
-  { title: '冶炼烟气综合治理', desc: '脱硫、脱硝、除尘一体化设计与设备选型，满足超低排放与地方特别排放限值要求。' },
-  { title: '有色冶炼环保升级', desc: '现有产线环保改造、工艺优化与智能控制，在保证产能的前提下实现减排与节能。' },
-  { title: '运维与达标保障', desc: '长期运营维护、在线监测与数据分析，确保设施稳定运行与持续达标。' },
+  { titleKey: 'solutions.item1', descKey: 'solutions.item1Desc' },
+  { titleKey: 'solutions.item2', descKey: 'solutions.item2Desc' },
+  { titleKey: 'solutions.item3', descKey: 'solutions.item3Desc' },
 ]
 </script>
 

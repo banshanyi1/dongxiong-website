@@ -7,14 +7,14 @@
     <div class="content">
       <!-- 面包屑导航 -->
       <div class="breadcrumb">
-        <router-link to="/">首页</router-link> / 
-        <router-link to="/cases">工程案例</router-link> / {{ currentCase.breadcrumb }}
+        <router-link to="/">{{ t('caseDetail.home') }}</router-link> / 
+        <router-link to="/cases">{{ t('caseDetail.cases') }}</router-link> / {{ displayCase.breadcrumb }}
       </div>
 
       <!-- 顶部标题区 -->
       <section class="section hero-section">
-        <h1 class="hero-title">{{ currentCase.title }}</h1>
-        <p class="hero-sub">{{ currentCase.subtitle }}</p>
+        <h1 class="hero-title">{{ displayCase.title }}</h1>
+        <p class="hero-sub">{{ displayCase.subtitle }}</p>
       </section>
 
       <!-- Apple风格5屏内容区 -->
@@ -22,13 +22,13 @@
         <!-- 2. 规模屏 -->
         <section class="apple-screen scale-screen" ref="screen2">
           <div class="screen-content">
-            <h2 class="screen-title">处理规模</h2>
+            <h2 class="screen-title">{{ t('caseDetail.scaleTitle') }}</h2>
             <div class="data-grid">
               <div class="data-item">
                 <div class="number" :data-target="currentCase.scale">0</div>
-                <div class="unit">万吨/年</div>
-                <div class="desc">含锌废料综合处置能力</div>
-                <div class="sub-desc">▸ 年处理含锌废料和含锌物料{{ currentCase.scale }}万吨</div>
+                <div class="unit">{{ t('caseDetail.scaleUnit') }}</div>
+                <div class="desc">{{ t('caseDetail.scaleDesc') }}</div>
+                <div class="sub-desc">▸ {{ t('caseDetail.scaleSubDesc', { scale: currentCase.scale }) }}</div>
               </div>
             </div>
           </div>
@@ -37,10 +37,10 @@
         <!-- 3. 产品屏 -->
         <section class="apple-screen product-screen" ref="screen3">
           <div class="screen-content">
-            <h2 class="screen-title">产品矩阵</h2>
+            <h2 class="screen-title">{{ t('caseDetail.productTitle') }}</h2>
             <div class="product-grid">
               <div 
-                v-for="(product, index) in currentCase.products" 
+                v-for="(product, index) in displayCaseFull.products" 
                 :key="index" 
                 class="product-item"
               >
@@ -55,10 +55,10 @@
         <!-- 4. 技术屏 -->
         <section class="apple-screen tech-screen" ref="screen4">
           <div class="screen-content">
-            <h2 class="screen-title">资源效率</h2>
+            <h2 class="screen-title">{{ t('caseDetail.techTitle') }}</h2>
             <div class="tech-grid">
               <div 
-                v-for="(tech, index) in currentCase.efficiency" 
+                v-for="(tech, index) in displayCaseFull.efficiency" 
                 :key="index" 
                 class="tech-item"
                 :class="{ 'highlight': tech.highlight }"
@@ -74,10 +74,10 @@
         <!-- 5. 经济屏 -->
         <section class="apple-screen economy-screen" ref="screen5">
           <div class="screen-content">
-            <h2 class="screen-title">经济效益</h2>
+            <h2 class="screen-title">{{ t('caseDetail.economyTitle') }}</h2>
             <div class="economy-grid">
               <div 
-                v-for="(eco, index) in currentCase.economy" 
+                v-for="(eco, index) in displayCaseFull.economy" 
                 :key="index" 
                 class="economy-item"
               >
@@ -88,7 +88,7 @@
             </div>
             <div class="social-value">
               <div 
-                v-for="(value, index) in currentCase.socialValue" 
+                v-for="(value, index) in displayCaseFull.socialValue" 
                 :key="index" 
                 class="value-item"
               >
@@ -101,22 +101,22 @@
         <!-- 6. 社会价值屏 -->
         <section class="apple-screen social-screen" ref="screen6">
           <div class="screen-content">
-            <h2 class="screen-title">社会价值</h2>
+            <h2 class="screen-title">{{ t('caseDetail.socialTitle') }}</h2>
             <div class="social-grid">
               <div class="social-item">
-                <div class="social-number">{{ currentCase.economy[0].value }}</div>
-                <div class="social-unit">{{ currentCase.economy[0].unit.replace('亿元', '') }}</div>
-                <div class="social-label">{{ currentCase.economy[0].name }}</div>
+                <div class="social-number">{{ displayCaseFull.economy[0]?.value }}</div>
+                <div class="social-unit">{{ (displayCaseFull.economy[0]?.unit || '').replace(/亿元|100M yuan/gi, '') }}</div>
+                <div class="social-label">{{ displayCaseFull.economy[0]?.name }}</div>
               </div>
               <div class="social-item">
-                <div class="social-number">{{ currentCase.economy[1].value }}</div>
-                <div class="social-unit">{{ currentCase.economy[1].unit.replace('亿元', '') }}</div>
-                <div class="social-label">{{ currentCase.economy[1].name }}</div>
+                <div class="social-number">{{ displayCaseFull.economy[1]?.value }}</div>
+                <div class="social-unit">{{ (displayCaseFull.economy[1]?.unit || '').replace(/亿元|100M yuan/gi, '') }}</div>
+                <div class="social-label">{{ displayCaseFull.economy[1]?.name }}</div>
               </div>
               <div class="social-item">
-                <div class="social-number">{{ currentCase.economy[2].value }}</div>
-                <div class="social-unit">{{ currentCase.economy[2].unit.replace('年', '') }}</div>
-                <div class="social-label">{{ currentCase.economy[2].name }}</div>
+                <div class="social-number">{{ displayCaseFull.economy[2]?.value }}</div>
+                <div class="social-unit">{{ (displayCaseFull.economy[2]?.unit || '').replace(/年|years/gi, '') }}</div>
+                <div class="social-label">{{ displayCaseFull.economy[2]?.name }}</div>
               </div>
             </div>
           </div>
@@ -125,7 +125,7 @@
 
       <!-- 项目照片展示区 -->
       <section class="section photos-section">
-        <h2 class="section-title">项目实拍</h2>
+        <h2 class="section-title">{{ t('caseDetail.photosTitle') }}</h2>
         <div class="photo-carousel-container">
           <button class="carousel-btn prev-btn" @click="scrollPhotos('prev')">
             <i class="fas fa-chevron-left"></i>
@@ -138,7 +138,7 @@
               :style="{ transform: `translateX(${scrollPosition}px)` }"
             >
               <div 
-                v-for="(photo, index) in currentCase.photos" 
+                v-for="(photo, index) in displayCaseFull.photos" 
                 :key="index" 
                 class="photo-item"
                 :class="[
@@ -154,7 +154,7 @@
                   <div class="diagonal-overlay">
                     <div class="overlay-content">
                       <h3 class="photo-title">{{ photo.caption }}</h3>
-                      <p class="photo-desc">{{ photo.description || '项目现场实拍照片' }}</p>
+                      <p class="photo-desc">{{ photo.description || t('caseDetail.photoDefaultDesc') }}</p>
                     </div>
                   </div>
                 </div>
@@ -172,9 +172,9 @@
       <section class="section tech-section">
         <div class="split-layout">
           <div class="split-left">
-            <div class="eyebrow">技术亮点</div>
-            <h2 class="tech-title">含锌废料资源化综合利用</h2>
-            <p class="tech-description">{{ currentCase.techHighlights }}</p>
+            <div class="eyebrow">{{ t('caseDetail.techHighlight') }}</div>
+            <h2 class="tech-title">{{ t('caseDetail.techResource') }}</h2>
+            <p class="tech-description">{{ displayCaseFull.techHighlights }}</p>
           </div>
           <div class="split-right">
             <div class="tech-icon">
@@ -187,8 +187,8 @@
       <!-- 客户评价区 -->
       <section class="section testimonial-section">
         <div class="testimonial">
-          <p class="testimonial-quote">"该项目实现了固危废的资源化利用，创造了显著的经济效益和社会价值。"</p>
-          <p class="testimonial-author">—— {{ currentCase.customer }}</p>
+          <p class="testimonial-quote">{{ t('caseDetail.testimonial') }}</p>
+          <p class="testimonial-author">—— {{ displayCaseFull.customer }}</p>
         </div>
       </section>
 
@@ -197,7 +197,7 @@
         <div class="bottom-nav">
           <router-link to="/cases" class="btn btn-primary">
             <i class="fas fa-th-large"></i>
-            返回所有案例
+            {{ t('caseDetail.backCases') }}
           </router-link>
         </div>
       </section>
@@ -208,10 +208,11 @@
 <script setup>
 import { ref, onMounted, nextTick, computed } from 'vue'
 import { useRoute } from 'vue-router'
+import { useI18n } from '../composables/useI18n'
 
-// 静态资源基础路径（适配部署子路径）
 const publicBase = import.meta.env.BASE_URL || '/'
 const route = useRoute()
+const { t, locale } = useI18n()
 
 
 // 获取案例ID列表并排序
@@ -667,6 +668,42 @@ const caseDataMap = {
 const currentCase = computed(() => {
   const caseId = route.params.id || '1'
   return caseDataMap[caseId] || caseDataMap['1']
+})
+
+// 显示用案例数据（含 i18n 的 title/subtitle/breadcrumb）
+const displayCase = computed(() => {
+  const base = currentCase.value
+  const id = route.params.id || '1'
+  const localeData = t(`caseData.${id}`)
+  if (localeData && typeof localeData === 'object' && localeData.title) {
+    return { ...base, title: localeData.title, subtitle: localeData.subtitle || base.subtitle, breadcrumb: localeData.breadcrumb || base.breadcrumb }
+  }
+  return base
+})
+
+// 显示用完整案例数据（含产品名、照片标题、技术亮点等 i18n）
+const displayCaseFull = computed(() => {
+  locale.value // 依赖 locale 以在切换语言时重新计算
+  const base = currentCase.value
+  const id = route.params.id || '1'
+  const content = t(`caseDetailContent.${id}`)
+  if (!content || typeof content !== 'object') return base
+  const result = { ...base }
+  if (content.products?.length) {
+    result.products = base.products?.map((p, i) => ({ ...p, name: content.products[i]?.name ?? p.name, unit: content.products[i]?.unit ?? p.unit })) ?? base.products
+  }
+  if (content.efficiency?.length) {
+    result.efficiency = base.efficiency?.map((e, i) => ({ ...e, name: content.efficiency[i]?.name ?? e.name })) ?? base.efficiency
+  }
+  if (content.economy?.length) {
+    result.economy = base.economy?.map((e, i) => ({ ...e, name: content.economy[i]?.name ?? e.name, unit: content.economy[i]?.unit ?? e.unit })) ?? base.economy
+  }
+  if (content.socialValue?.length) result.socialValue = content.socialValue
+  if (content.techHighlights) result.techHighlights = content.techHighlights
+  if (content.photos?.length) {
+    result.photos = base.photos?.map((p, i) => ({ ...p, caption: content.photos[i]?.caption ?? p.caption, description: content.photos[i]?.description ?? p.description })) ?? base.photos
+  }
+  return result
 })
 
 // 项目实拍照片（动态获取当前案例数据）

@@ -6,8 +6,8 @@
     @mouseleave="handleHeaderMouseLeave()"
   >
     <div class="container header-inner">
-      <RouterLink to="/" class="logo" aria-label="东雄环保 首页">
-        <span class="logo-text">东雄环保</span>
+      <RouterLink to="/" class="logo" :aria-label="t('common.logo') + ' ' + t('nav.home')">
+        <span class="logo-text">{{ t('common.logo') }}</span>
       </RouterLink>
       <nav class="nav" aria-label="主导航">
         <div
@@ -29,9 +29,19 @@
           </RouterLink>
         </div>
       </nav>
-      <button type="button" class="menu-btn" aria-label="打开菜单" @click="mobileOpen = !mobileOpen">
-        <span class="menu-icon" :class="{ open: mobileOpen }"></span>
-      </button>
+      <div class="header-right">
+        <button 
+          type="button" 
+          class="lang-switcher" 
+          :title="locale === 'zh-CN' ? 'Switch to English' : '切换到中文'"
+          @click="toggleLocale"
+        >
+          {{ locale === 'zh-CN' ? 'EN' : '中文' }}
+        </button>
+        <button type="button" class="menu-btn" :aria-label="t('nav.openMenu')" @click="mobileOpen = !mobileOpen">
+          <span class="menu-icon" :class="{ open: mobileOpen }"></span>
+        </button>
+      </div>
     </div>
 
     <!-- 下拉面板：悬停时显示当前导航的子页面 -->
@@ -102,72 +112,79 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useRoute } from 'vue-router'
+import { useI18n } from '../composables/useI18n'
 
 const emits = defineEmits(['blur-change'])
-
 const route = useRoute()
+const { t, locale, setLocale } = useI18n()
+
+function toggleLocale() {
+  setLocale(locale.value === 'zh-CN' ? 'en' : 'zh-CN')
+}
 
 // 全屏模糊状态
 const isFullscreenBlur = ref(false)
 
-const navItems = [
+const navItems = computed(() => {
+  locale.value // 依赖 locale 以在切换语言时重新计算
+  return [
   {
     id: 'home',
-    label: '首页',
+    label: t('nav.home'),
     path: '/',
     children: [],
   },
   {
     id: 'about',
-    label: '关于我们',
+    label: t('nav.about'),
     path: '/about',
     children: [
-      { path: '/about', label: '公司简介', desc: '企业愿景与实力' },
-      { path: '/about#history', label: '发展历程', desc: '里程碑与成长' },
-      { path: '/about#honor', label: '资质荣誉', desc: '认证与奖项' },
+      { path: '/about', label: t('nav.aboutIntro'), desc: t('nav.aboutIntroDesc') },
+      { path: '/about#history', label: t('nav.history'), desc: t('nav.historyDesc') },
+      { path: '/about#honor', label: t('nav.honor'), desc: t('nav.honorDesc') },
     ],
   },
   {
     id: 'services',
-    label: '业务范围',
+    label: t('nav.services'),
     path: '/services',
     children: [
-      { path: '/services#design', label: '工程设计咨询', desc: '可研与设计' },
-      { path: '/services#smelting', label: '有色金属冶炼', desc: '先进系统工艺技术' },
-      { path: '/services', label: '大气污染治理', desc: '脱硫脱硝、除尘、VOCs' },
-      { path: '/services#equipment', label: '设备与运维', desc: '设备与运维服务' },
+      { path: '/services#design', label: t('nav.designConsult'), desc: t('nav.designConsultDesc') },
+      { path: '/services#smelting', label: t('nav.smelting'), desc: t('nav.smeltingDesc') },
+      { path: '/services', label: t('nav.airControl'), desc: t('nav.airControlDesc') },
+      { path: '/services#equipment', label: t('nav.equipment'), desc: t('nav.equipmentDesc') },
     ],
   },
   {
     id: 'solutions',
-    label: '解决方案',
+    label: t('nav.solutions'),
     path: '/solutions',
     children: [
-      { path: '/solutions', label: '冶炼烟气综合治理', desc: '一体化脱硫脱硝除尘' },
-      { path: '/solutions#upgrade', label: '有色冶炼环保升级', desc: '产线改造与优化' },
-      { path: '/solutions#operation', label: '运维与达标保障', desc: '长期运维与监测' },
+      { path: '/solutions', label: t('nav.smokeSolution'), desc: t('nav.smokeSolutionDesc') },
+      { path: '/solutions#upgrade', label: t('nav.upgradeSolution'), desc: t('nav.upgradeSolutionDesc') },
+      { path: '/solutions#operation', label: t('nav.operationSolution'), desc: t('nav.operationSolutionDesc') },
     ],
   },
   {
     id: 'cases',
-    label: '工程案例',
+    label: t('nav.cases'),
     path: '/cases',
     children: [
-      { path: '/cases', label: '案例总览', desc: '全部工程案例' },
-      { path: '/cases#metallurgy', label: '冶金行业', desc: '有色冶炼项目' },
-      { path: '/cases#industry', label: '工业大气治理', desc: '烟气治理项目' },
+      { path: '/cases', label: t('nav.caseOverview'), desc: t('nav.caseOverviewDesc') },
+      { path: '/cases#metallurgy', label: t('nav.metallurgy'), desc: t('nav.metallurgyDesc') },
+      { path: '/cases#industry', label: t('nav.industryAir'), desc: t('nav.industryAirDesc') },
     ],
   },
   {
     id: 'contact',
-    label: '联系我们',
+    label: t('nav.contact'),
     path: '/contact',
     children: [],
   },
-
 ]
+})
 
 const scrolled = ref(false)
 const mobileOpen = ref(false)
@@ -329,6 +346,30 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.lang-switcher {
+  padding: 0.35rem 0.65rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--color-text);
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-out);
+}
+
+.lang-switcher:hover {
+  color: var(--color-industry);
+  border-color: var(--color-industry);
+  background: rgba(10, 126, 164, 0.08);
 }
 
 .logo {

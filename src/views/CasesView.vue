@@ -4,23 +4,21 @@
       <div class="page-hero-bg" style="background-image: url(https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1920&q=80)"></div>
       <div class="page-hero-overlay"></div>
       <div class="container page-hero-inner">
-        <h1 class="page-hero-title">工程案例</h1>
-        <p class="page-hero-lead">数百个成功项目，遍布全国，可参观考察</p>
+        <h1 class="page-hero-title">{{ t('cases.heroTitle') }}</h1>
+        <p class="page-hero-lead">{{ t('cases.heroLead') }}</p>
       </div>
     </section>
     
     <section class="page-body">
       <div class="container container--wide">
-        <!-- 标题部分 -->
         <div class="section-header text-center">
-          <p class="page-eyebrow">案例展示</p>
-          <h2 class="section-title">典型工程案例</h2>
+          <p class="page-eyebrow">{{ t('cases.eyebrow') }}</p>
+          <h2 class="section-title">{{ t('cases.title') }}</h2>
           <p class="section-lead">
-            脱硫脱硝、除尘与冶炼环保项目经验丰富，以下为部分案例（可替换为真实项目信息）。
+            {{ t('cases.lead') }}
           </p>
         </div>
         
-        <!-- 案例列表 -->
         <div class="cases-container">
           <article 
             v-for="(caseItem, index) in cases" 
@@ -30,7 +28,6 @@
             @click="handleCardClick(caseItem.id)"
           >
             <div class="case-content">
-              <!-- 图片区域 -->
               <div class="case-image-section">
                 <div 
                   class="case-image" 
@@ -38,13 +35,12 @@
                 ></div>
               </div>
               
-              <!-- 信息区域 -->
               <div class="case-info-section">
-                <span class="case-category">{{ caseItem.tag }}</span>
-                <h3 class="case-title">{{ caseItem.title }}</h3>
-                <p class="case-description">{{ caseItem.desc }}</p>
+                <span class="case-category">{{ t(caseItem.tagKey) }}</span>
+                <h3 class="case-title">{{ t(caseItem.titleKey) }}</h3>
+                <p class="case-description">{{ t(caseItem.descKey) }}</p>
                 <div class="case-action">
-                  <span class="case-link">了解详情 →</span>
+                  <span class="case-link">{{ t('cases.knowMore') }} →</span>
                 </div>
               </div>
             </div>
@@ -57,50 +53,21 @@
 
 <script setup>
 import { useRouter } from 'vue-router'
+import { useI18n } from '../composables/useI18n'
 
 const router = useRouter()
+const { t } = useI18n()
 
 const handleCardClick = (id) => {
-  console.log('点击卡片:', id)
   router.push(`/cases/${id}`)
 }
 
 const cases = [
-  {
-    id: '1',
-    tag: '冶金行业',
-    title: '三十万吨含锌固（危）废综合利用项目【在建项目】',
-    desc: '30万吨/年含锌固（危）废综合处置能力，一般固废10万吨 + 危险废物20万吨，锌回收率>92%，年产值15.2亿。',
-    image: '/dongxiong-website/cases/case1-horizontal-1.jpg',
-  },
-  {
-    id: '5',
-    tag: '金属废料处理',
-    title: '年处置16.5万吨除尘灰项目',
-    desc: '年处置除尘灰16.5万吨，总投资1.45亿元，实现钢铁产业配套循环经济。',
-    image: '/dongxiong-website/cases/自动化控制.jpg',
-  },
-  {
-    id: '3',
-    tag: '危险废物治理',
-    title: '工业固体废弃物环保治理及资源化利用项目',
-    desc: '年处理含锌危险废物15万吨，年产次氧化锌4.5万吨（锌含量≥60.3%），总投资1.2亿元。',
-    image: '/dongxiong-website/cases/cases-3-全景图.jpg',
-  },
-  {
-    id: '4',
-    tag: '生态保护治理',
-    title: '渤海新区新建除尘灰综合利用项目（一期）',
-    desc: '年处置固体废物20万吨，主产品：次氧化锌2.4万吨、还原铁粉2万吨，总投资3.1亿元。',
-    image: '/dongxiong-website/cases/cases-4-湖心工岛.jpg',
-  },
-  {
-    id: '2',
-    tag: '有色金属冶炼',
-    title: '30万吨/年含锌废料处置利用项目',
-    desc: '年处理含锌废料和含锌物料30万吨，主产品：次氧化锌、锌焙砂、一水硫酸锌，副产品：还原铁粉、炭精粉。',
-    image: '/dongxiong-website/cases/case-2-冷却器.jpg',
-  },
+  { id: '1', tagKey: 'cases.metallurgy', titleKey: 'caseData.1.title', descKey: 'caseData.1.desc', image: '/dongxiong-website/cases/case1-horizontal-1.jpg' },
+  { id: '5', tagKey: 'cases.metalRecycle', titleKey: 'caseData.5.title', descKey: 'caseData.5.desc', image: '/dongxiong-website/cases/自动化控制.jpg' },
+  { id: '3', tagKey: 'cases.hazardousWaste', titleKey: 'caseData.3.title', descKey: 'caseData.3.desc', image: '/dongxiong-website/cases/cases-3-全景图.jpg' },
+  { id: '4', tagKey: 'cases.ecoProtection', titleKey: 'caseData.4.title', descKey: 'caseData.4.desc', image: '/dongxiong-website/cases/cases-4-湖心工岛.jpg' },
+  { id: '2', tagKey: 'cases.nonferrousSmelt', titleKey: 'caseData.2.title', descKey: 'caseData.2.desc', image: '/dongxiong-website/cases/case-2-冷却器.jpg' },
 ]
 </script>
 

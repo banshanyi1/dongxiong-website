@@ -10,8 +10,8 @@
     >
       <div class="loading-content">
         <div class="loading-spinner"></div>
-        <h2 class="loading-text">正在加载地球数据...</h2>
-        <p class="loading-subtext">请稍候，精彩即将呈现</p>
+        <h2 class="loading-text">{{ t('about.loading') }}</h2>
+        <p class="loading-subtext">{{ t('about.loadingSub') }}</p>
       </div>
     </div>
     
@@ -25,34 +25,33 @@
           <div class="content-layout">
             <!-- 左侧公司信息 -->
             <div class="company-info fullscreen-card" :class="{ 'slide-in-left': !isLoading }">
-              <h1 class="hero-title animate-in">东雄环保</h1>
+              <h1 class="hero-title animate-in">{{ t('common.logo') }}</h1>
               <div class="hero-subtitle animate-in delay-1">
-                <span class="tag">全球布局</span>
+                <span class="tag">{{ t('about.tag1') }}</span>
                 <span class="separator">|</span>
-                <span class="tag">本土深耕</span>
+                <span class="tag">{{ t('about.tag2') }}</span>
                 <span class="separator">|</span>
-                <span class="tag">技术引领</span>
+                <span class="tag">{{ t('about.tag3') }}</span>
               </div>
-              <p class="animate-in delay-1">有色金属冶炼与大气环保专业服务商</p>
+              <p class="animate-in delay-1">{{ t('about.subtitle') }}</p>
               
-              <!-- 全球业务数据卡片 -->
               <div class="global-stats animate-in delay-2">
                 <div class="stat-card">
                   <div class="stat-number">20+</div>
-                  <div class="stat-label">服务国家</div>
+                  <div class="stat-label">{{ t('about.statCountries') }}</div>
                 </div>
                 <div class="stat-card">
                   <div class="stat-number">30+</div>
-                  <div class="stat-label">覆盖省份</div>
+                  <div class="stat-label">{{ t('about.statProvinces') }}</div>
                 </div>
                 <div class="stat-card">
                   <div class="stat-number">500+</div>
-                  <div class="stat-label">工程项目</div>
+                  <div class="stat-label">{{ t('about.statProjects') }}</div>
                 </div>
               </div>
               
-              <div class="scroll-hint animate-in delay-3">向下滚动探索我们的全球足迹 ↓</div>
-                            <div class="scroll-instruction" v-if="!showEarthCenter">滚动查看完整地球</div>
+              <div class="scroll-hint animate-in delay-3">{{ t('about.scrollHint') }}</div>
+              <div class="scroll-instruction" v-if="!showEarthCenter">{{ t('about.scrollInstruction') }}</div>
             </div>
             
             <!-- 右侧留空给地球 -->
@@ -63,8 +62,8 @@
         <!-- 第二屏：亚洲展示 -->
         <div class="scroll-section section-2" data-section-index="1">
           <div class="content-box glass">
-            <h2>服务亚洲</h2>
-            <p>我们在亚洲多个国家开展环保项目。</p>
+            <h2>{{ t('about.asiaTitle') }}</h2>
+            <p>{{ t('about.asiaDesc') }}</p>
             <div class="countries-grid">
               <div
                 v-for="country in asiaCountries"
@@ -85,8 +84,8 @@
         <!-- 第三屏：欧洲展示 -->
         <div class="scroll-section section-3" data-section-index="2">
           <div class="content-box glass">
-            <h2>服务欧洲</h2>
-            <p>我们在欧洲多个国家开展环保项目。</p>
+            <h2>{{ t('about.europeTitle') }}</h2>
+            <p>{{ t('about.europeDesc') }}</p>
             <div class="countries-grid">
               <div
                 v-for="country in europeCountries"
@@ -107,8 +106,8 @@
         <!-- 第四屏：非洲展示 -->
                 <div class="scroll-section section-4" data-section-index="3">
                   <div class="content-box glass">
-                    <h2>服务非洲</h2>
-                    <p>我们在非洲多个国家开展环保项目。</p>
+                    <h2>{{ t('about.africaTitle') }}</h2>
+                    <p>{{ t('about.africaDesc') }}</p>
                     <div class="countries-grid">
                       <div
                         v-for="country in africaCountries"
@@ -129,8 +128,8 @@
                 <!-- 第五屏：美洲展示 -->
         <div class="scroll-section section-5" data-section-index="4">
           <div class="content-box glass">
-            <h2>服务美洲</h2>
-            <p>我们在美洲多个国家开展环保项目。</p>
+            <h2>{{ t('about.americasTitle') }}</h2>
+            <p>{{ t('about.americasDesc') }}</p>
             <div class="countries-grid">
               <div
                 v-for="country in americasCountries"
@@ -151,8 +150,8 @@
         <!-- 第六屏：回归中国 -->
         <div class="scroll-section section-6" data-section-index="5">
           <div class="content-box glass">
-            <h2>深耕中国</h2>
-            <p>回归国内市场，专注本土环保事业。</p>
+            <h2>{{ t('about.chinaTitle') }}</h2>
+            <p>{{ t('about.chinaDesc') }}</p>
             <div class="countries-grid">
               <div
                 v-for="country in asiaCountries.filter(c => c.code === 'CN')"
@@ -173,8 +172,8 @@
         <!-- 第六屏：省份展示 -->
         <div class="scroll-section section-6" data-section-index="5">
           <div class="content-box glass">
-            <h2>服务全国</h2>
-            <p>我们在全国多个省份设有服务网点。</p>
+            <h2>{{ t('about.nationwideTitle') }}</h2>
+            <p>{{ t('about.nationwideDesc') }}</p>
 
             <div class="provinces-scroll-container">
               <!-- 上行：向左滚动 -->
@@ -276,30 +275,30 @@
         <section class="about-block about-block--light">
           <div class="about-block__inner">
             <h2 class="about-block__title">
-              <span class="about-block__keyword">专注</span>，有色金属与大气环保
+              <span class="about-block__keyword">{{ t('about.block1Keyword') }}</span>，{{ t('about.block1Title') }}
             </h2>
-            <p class="about-block__lead">一家年轻却技术过硬的环保科技企业，深耕有色金属冶炼与大气环保，用专业守护蓝天与绿色生产。</p>
+            <p class="about-block__lead">{{ t('about.block1Lead') }}</p>
             <div class="about-block__cards">
               <article class="about-card">
                 <div class="about-card__icon-wrap">
-                  <span class="about-card__icon" aria-hidden="true">冶炼</span>
+                  <span class="about-card__icon" aria-hidden="true">{{ t('about.block1Card1Icon') }}</span>
                 </div>
-                <h3 class="about-card__title">有色金属冶炼</h3>
-                <p class="about-card__text">从工艺源头到末端治理，推动冶炼行业清洁化、集约化。绿色冶炼与资源高效利用，生产与环保协同。</p>
+                <h3 class="about-card__title">{{ t('about.block1Card1Title') }}</h3>
+                <p class="about-card__text">{{ t('about.block1Card1Text') }}</p>
               </article>
               <article class="about-card">
                 <div class="about-card__icon-wrap">
-                  <span class="about-card__icon" aria-hidden="true">大气</span>
+                  <span class="about-card__icon" aria-hidden="true">{{ t('about.block1Card2Icon') }}</span>
                 </div>
-                <h3 class="about-card__title">大气环保</h3>
-                <p class="about-card__text">脱硫脱硝、除尘及 VOCs 治理等大气污染控制与资源综合利用，为业主提供可靠的技术与装备支撑。</p>
+                <h3 class="about-card__title">{{ t('about.block1Card2Title') }}</h3>
+                <p class="about-card__text">{{ t('about.block1Card2Text') }}</p>
               </article>
               <article class="about-card">
                 <div class="about-card__icon-wrap">
-                  <span class="about-card__icon" aria-hidden="true">全球</span>
+                  <span class="about-card__icon" aria-hidden="true">{{ t('about.block1Card3Icon') }}</span>
                 </div>
-                <h3 class="about-card__title">全球视野</h3>
-                <p class="about-card__text">立足中国、服务世界。将本土冶炼与环保经验与国际标准结合，在亚洲、欧洲、美洲等地落地项目。</p>
+                <h3 class="about-card__title">{{ t('about.block1Card3Title') }}</h3>
+                <p class="about-card__text">{{ t('about.block1Card3Text') }}</p>
               </article>
             </div>
           </div>
@@ -311,30 +310,30 @@
         <section class="about-block about-block--white">
           <div class="about-block__inner">
             <h2 class="about-block__title">
-              <span class="about-block__keyword">技术</span>，全球数一数二
+              <span class="about-block__keyword">{{ t('about.block2Keyword') }}</span>，{{ t('about.block2Title') }}
             </h2>
-            <p class="about-block__lead">初创不初。东雄虽成立不久，技术实力却堪称一流，在有色金属冶炼与大气环保领域位居全球前列。</p>
+            <p class="about-block__lead">{{ t('about.block2Lead') }}</p>
             <div class="about-block__cards">
               <article class="about-card">
                 <div class="about-card__icon-wrap about-card__icon-wrap--accent">
-                  <span class="about-card__icon" aria-hidden="true">工艺</span>
+                  <span class="about-card__icon" aria-hidden="true">{{ t('about.block2Card1Icon') }}</span>
                 </div>
-                <h3 class="about-card__title">工艺与装备</h3>
-                <p class="about-card__text">核心工艺与装备技术持续迭代，覆盖除尘、脱硫脱硝及冶炼全流程，为工程设计提供可靠保障。</p>
+                <h3 class="about-card__title">{{ t('about.block2Card1Title') }}</h3>
+                <p class="about-card__text">{{ t('about.block2Card1Text') }}</p>
               </article>
               <article class="about-card">
                 <div class="about-card__icon-wrap about-card__icon-wrap--accent">
-                  <span class="about-card__icon" aria-hidden="true">治理</span>
+                  <span class="about-card__icon" aria-hidden="true">{{ t('about.block2Card2Icon') }}</span>
                 </div>
-                <h3 class="about-card__title">脱硫脱硝与除尘</h3>
-                <p class="about-card__text">大气污染控制与资源综合利用的成熟方案，从可研设计到施工运维，全流程落地交付。</p>
+                <h3 class="about-card__title">{{ t('about.block2Card2Title') }}</h3>
+                <p class="about-card__text">{{ t('about.block2Card2Text') }}</p>
               </article>
               <article class="about-card">
                 <div class="about-card__icon-wrap about-card__icon-wrap--accent">
-                  <span class="about-card__icon" aria-hidden="true">交付</span>
+                  <span class="about-card__icon" aria-hidden="true">{{ t('about.block2Card3Icon') }}</span>
                 </div>
-                <h3 class="about-card__title">工程落地能力</h3>
-                <p class="about-card__text">多学科工程技术团队，从方案设计到现场实施形成闭环，以交付质量与响应速度赢得信赖。</p>
+                <h3 class="about-card__title">{{ t('about.block2Card3Title') }}</h3>
+                <p class="about-card__text">{{ t('about.block2Card3Text') }}</p>
               </article>
             </div>
           </div>
@@ -346,24 +345,24 @@
         <section class="about-block about-block--light">
           <div class="about-block__inner">
             <h2 class="about-block__title">
-              <span class="about-block__keyword">项目</span>，遍布全国与全球
+              <span class="about-block__keyword">{{ t('about.block3Keyword') }}</span>，{{ t('about.block3Title') }}
             </h2>
-            <p class="about-block__lead">在中国，我们做了很多很多的项目；在全世界，我们也落地了相当数量的标杆工程。用实绩说话。</p>
+            <p class="about-block__lead">{{ t('about.block3Lead') }}</p>
             <div class="about-block__cards">
               <article class="about-card">
-                <div class="about-card__number">全国</div>
-                <h3 class="about-card__title">深耕中国</h3>
-                <p class="about-card__text">在多个重点省份设有服务团队与网点，形成快速响应与属地化服务能力，全国项目经验丰富。</p>
+                <div class="about-card__number">{{ t('about.block3Card1Num') }}</div>
+                <h3 class="about-card__title">{{ t('about.block3Card1Title') }}</h3>
+                <p class="about-card__text">{{ t('about.block3Card1Text') }}</p>
               </article>
               <article class="about-card">
-                <div class="about-card__number">全球</div>
-                <h3 class="about-card__title">海外布局</h3>
-                <p class="about-card__text">服务亚洲、欧洲、非洲、美洲等多地客户，将中国技术与国际标准结合，树立海外标杆项目。</p>
+                <div class="about-card__number">{{ t('about.block3Card2Num') }}</div>
+                <h3 class="about-card__title">{{ t('about.block3Card2Title') }}</h3>
+                <p class="about-card__text">{{ t('about.block3Card2Text') }}</p>
               </article>
               <article class="about-card">
-                <div class="about-card__number">全流程</div>
-                <h3 class="about-card__title">从设计到运维</h3>
-                <p class="about-card__text">深度服务冶金、化工、电力等行业，从可研设计、施工建设到运维保障，一站式交付。</p>
+                <div class="about-card__number">{{ t('about.block3Card3Num') }}</div>
+                <h3 class="about-card__title">{{ t('about.block3Card3Title') }}</h3>
+                <p class="about-card__text">{{ t('about.block3Card3Text') }}</p>
               </article>
             </div>
           </div>
@@ -375,30 +374,30 @@
         <section class="about-block about-block--white">
           <div class="about-block__inner">
             <h2 class="about-block__title">
-              <span class="about-block__keyword">价值</span>，与客户共同创造
+              <span class="about-block__keyword">{{ t('about.block4Keyword') }}</span>，{{ t('about.block4Title') }}
             </h2>
-            <p class="about-block__lead">用技术说话，用交付赢得信任。为客户、行业与社会持续创造环保价值。</p>
+            <p class="about-block__lead">{{ t('about.block4Lead') }}</p>
             <div class="about-block__cards">
               <article class="about-card">
                 <div class="about-card__icon-wrap">
-                  <span class="about-card__icon" aria-hidden="true">信赖</span>
+                  <span class="about-card__icon" aria-hidden="true">{{ t('about.block4Card1Icon') }}</span>
                 </div>
-                <h3 class="about-card__title">客户信赖</h3>
-                <p class="about-card__text">以工程效果与长期稳定运行为核心，从设计、施工到运维全程保障，以质量与速度赢得口碑。</p>
+                <h3 class="about-card__title">{{ t('about.block4Card1Title') }}</h3>
+                <p class="about-card__text">{{ t('about.block4Card1Text') }}</p>
               </article>
               <article class="about-card">
                 <div class="about-card__icon-wrap">
-                  <span class="about-card__icon" aria-hidden="true">绿色</span>
+                  <span class="about-card__icon" aria-hidden="true">{{ t('about.block4Card2Icon') }}</span>
                 </div>
-                <h3 class="about-card__title">环保效益</h3>
-                <p class="about-card__text">通过系统性治理与高效装备，显著降低污染物排放与能耗，为业主创造合规、节能、可持续的运营环境。</p>
+                <h3 class="about-card__title">{{ t('about.block4Card2Title') }}</h3>
+                <p class="about-card__text">{{ t('about.block4Card2Text') }}</p>
               </article>
               <article class="about-card">
                 <div class="about-card__icon-wrap">
-                  <span class="about-card__icon" aria-hidden="true">责任</span>
+                  <span class="about-card__icon" aria-hidden="true">{{ t('about.block4Card3Icon') }}</span>
                 </div>
-                <h3 class="about-card__title">持续创新</h3>
-                <p class="about-card__text">持续投入研发与工艺升级，与高校、科研院所合作，推动冶炼与大气治理技术的成果转化与行业规范。</p>
+                <h3 class="about-card__title">{{ t('about.block4Card3Title') }}</h3>
+                <p class="about-card__text">{{ t('about.block4Card3Text') }}</p>
               </article>
             </div>
           </div>
@@ -412,6 +411,9 @@
 import { onMounted, ref, onUnmounted, computed } from 'vue'
 import Globe from 'globe.gl'
 import SiteHeader from '../components/SiteHeader.vue'
+import { useI18n } from '../composables/useI18n'
+
+const { t } = useI18n()
 
 // 导入本地地球背景图片
 import earthBackground from '../assets/globe/earth-blue-marble.jpg'

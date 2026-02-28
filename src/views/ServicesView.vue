@@ -4,21 +4,21 @@
       <div class="page-hero-bg" style="background-image: url(https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=1920&q=80)"></div>
       <div class="page-hero-overlay"></div>
       <div class="container page-hero-inner">
-        <h1 class="page-hero-title">业务范围</h1>
-        <p class="page-hero-lead">覆盖大气环保与有色金属冶炼全产业链关键环节</p>
+        <h1 class="page-hero-title">{{ t('services.heroTitle') }}</h1>
+        <p class="page-hero-lead">{{ t('services.heroLead') }}</p>
       </div>
     </section>
     <section class="page-body">
       <div class="container-full">
-        <p class="page-eyebrow">核心业务</p>
-        <h2 class="section-title">四大业务板块</h2>
+        <p class="page-eyebrow">{{ t('services.eyebrow') }}</p>
+        <h2 class="section-title">{{ t('services.title') }}</h2>
         <p class="section-lead page-intro">
-          为客户提供合规、高效、可持续的解决方案。
+          {{ t('services.lead') }}
         </p>
         <div class="dx-card-grid">
           <article 
             v-for="(card, index) in cards" 
-            :key="card.title" 
+            :key="card.titleKey" 
             class="dx-card"
             @click="openDetail(index)"
           >
@@ -27,23 +27,20 @@
                 <img
                   class="dx-card__img"
                   :src="card.background"
-                  :alt="card.title"
-                  @error="console.log('图片加载失败:', card.background)"
-                  @load="console.log('图片加载成功:', card.background)"
+                  :alt="t(card.titleKey)"
                 />
               </div>
             </div>
             <div class="dx-card__body">
-              <h3 class="dx-card__title">{{ card.title }}</h3>
-              <p class="dx-card__desc">{{ card.desc }}</p>
-              <span class="dx-card__link">点击查看详情 →</span>
+              <h3 class="dx-card__title">{{ t(card.titleKey) }}</h3>
+              <p class="dx-card__desc">{{ t(card.descKey) }}</p>
+              <span class="dx-card__link">{{ t('common.clickForDetails') }}</span>
             </div>
           </article>
         </div>
       </div>
     </section>
     
-    <!-- 业务详情展开面板：苹果风格，模糊层 100% 覆盖 -->
     <Teleport to="body">
       <div class="service-detail-container" v-if="activeCardIndex !== null">
         <Transition name="slide-fade">
@@ -56,26 +53,25 @@
             :style="getPanelStyle()"
             @click.stop
           >
-            <!-- 全幅模糊层：覆盖整张卡片 100% -->
             <div class="service-detail-panel__overlay" aria-hidden="true"></div>
-            <button type="button" class="detail-close-btn" @click="closeDetail" aria-label="关闭">×</button>
+            <button type="button" class="detail-close-btn" @click="closeDetail" :aria-label="t('common.close')">×</button>
             <div class="detail-content">
               <header class="detail-header">
                 <span class="detail-icon">{{ cards[activeCardIndex]?.icon }}</span>
-                <h2 class="detail-title">{{ cards[activeCardIndex]?.title }}</h2>
-                <p class="detail-lead">{{ cards[activeCardIndex]?.fullDesc }}</p>
+                <h2 class="detail-title">{{ t(cards[activeCardIndex]?.titleKey) }}</h2>
+                <p class="detail-lead">{{ t(cards[activeCardIndex]?.fullDescKey) }}</p>
               </header>
               <div class="detail-body">
-                <section v-if="cards[activeCardIndex]?.features?.length" class="detail-section">
-                  <h3 class="detail-section__title">核心优势</h3>
+                <section v-if="getCardFeatures(activeCardIndex)?.length" class="detail-section">
+                  <h3 class="detail-section__title">{{ t('services.coreAdvantage') }}</h3>
                   <ul class="detail-list detail-list--rows">
-                    <li v-for="feature in cards[activeCardIndex].features" :key="feature">{{ feature }}</li>
+                    <li v-for="feature in getCardFeatures(activeCardIndex)" :key="feature">{{ feature }}</li>
                   </ul>
                 </section>
-                <section v-if="cards[activeCardIndex]?.process?.length" class="detail-section">
-                  <h3 class="detail-section__title">服务流程</h3>
+                <section v-if="getCardProcess(activeCardIndex)?.length" class="detail-section">
+                  <h3 class="detail-section__title">{{ t('services.serviceProcess') }}</h3>
                   <ol class="detail-list detail-list--numbered detail-list--rows">
-                    <li v-for="(step, i) in cards[activeCardIndex].process" :key="step">
+                    <li v-for="(step, i) in getCardProcess(activeCardIndex)" :key="step">
                       <span class="detail-list__num">{{ i + 1 }}</span>
                       <span>{{ step }}</span>
                     </li>
@@ -83,9 +79,9 @@
                 </section>
               </div>
               <footer class="detail-footer">
-                <RouterLink to="/contact" class="detail-cta">立即咨询</RouterLink>
+                <RouterLink to="/contact" class="detail-cta">{{ t('services.consultNow') }}</RouterLink>
               </footer>
-              <p class="detail-scroll-hint" v-if="hasScrollableContent">向下滚动查看更多</p>
+              <p class="detail-scroll-hint" v-if="hasScrollableContent">{{ t('services.scrollMore') }}</p>
             </div>
           </div>
         </Transition>
@@ -96,104 +92,39 @@
 
 <script setup>
 import { ref, computed, nextTick, onUnmounted } from 'vue'
+import { useI18n } from '../composables/useI18n'
 
+const { t } = useI18n()
 const activeCardIndex = ref(null)
 const publicBase = import.meta.env.BASE_URL || '/'
 
+const cards = [
+  { icon: '📐', titleKey: 'services.design', descKey: 'services.designDesc', fullDescKey: 'services.designFullDesc', featuresKey: 'services.designFeatures', processKey: 'services.designProcess', background: '/dongxiong-website/service-design.jpg' },
+  { icon: '🔥', titleKey: 'services.smelting', descKey: 'services.smeltingDesc', fullDescKey: 'services.smeltingFullDesc', featuresKey: 'services.smeltingFeatures', processKey: 'services.smeltingProcess', background: '/dongxiong-website/service-metals.jpg' },
+  { icon: '🌫️', titleKey: 'services.airControl', descKey: 'services.airControlDesc', fullDescKey: 'services.airFullDesc', featuresKey: 'services.airFeatures', processKey: 'services.airProcess', background: '/dongxiong-website/service-environment.jpg' },
+  { icon: '🔧', titleKey: 'services.equipment', descKey: 'services.equipmentDesc', fullDescKey: 'services.equipmentFullDesc', featuresKey: 'services.equipmentFeatures', processKey: 'services.equipmentProcess', background: '/dongxiong-website/service-maintenance.jpg' },
+]
+
+function getCardFeatures(index) {
+  if (index === null || index === undefined) return []
+  const key = cards[index]?.featuresKey
+  const val = key ? t(key) : null
+  return Array.isArray(val) ? val : []
+}
+
+function getCardProcess(index) {
+  if (index === null || index === undefined) return []
+  const key = cards[index]?.processKey
+  const val = key ? t(key) : null
+  return Array.isArray(val) ? val : []
+}
+
 const hasScrollableContent = computed(() => {
   if (activeCardIndex.value === null) return false
-  const card = cards[activeCardIndex.value]
-  if (!card) return false
-  const total = (card.features?.length || 0) + (card.process?.length || 0)
-  return total > 8
+  const features = getCardFeatures(activeCardIndex.value)
+  const process = getCardProcess(activeCardIndex.value)
+  return (features?.length || 0) + (process?.length || 0) > 8
 })
-
-const cards = [
-  {
-    icon: '📐',
-    title: '工程设计咨询',
-    desc: '可研与设计',
-    fullDesc: '从项目可行性研究、工艺设计到详细工程设计的全流程咨询服务，确保技术可行性与经济合理性，为冶金、化工、环保等项目提供从可研到施工图的一站式设计支持。',
-    background: '/dongxiong-website/service-design.jpg',
-    features: [
-      '项目可行性研究报告编制与评审',
-      '工艺流程设计与多方案比选优化',
-      '设备选型、配置方案与总图布置',
-      '投资估算、经济分析与节能评估',
-      '初步设计、施工图设计及设计变更',
-      '设计交底、现场配合与竣工验收'
-    ],
-    process: [
-      '项目需求调研与边界条件确认',
-      '技术路线与工艺方案设计',
-      '专业计算与图纸绘制、审核',
-      '设计交底与施工阶段现场服务'
-    ]
-  },
-  {
-    icon: '🔥',
-    title: '有色金属冶炼',
-    desc: '先进系统工艺技术',
-    fullDesc: '专注锌、铜、铅等有色金属的提取与精炼，提供氧压浸出、电积、湿法冶炼等成熟工艺技术，高效节能、清洁生产，服务国内外冶炼与资源综合利用项目。',
-    background: '/dongxiong-website/service-metals.jpg',
-    features: [
-      '氧压浸出提锌工艺及装备集成',
-      '电积锌、电积铜等电解沉积技术',
-      '铜铅分离、多金属协同提取',
-      '稀贵金属综合回收与有价组分利用',
-      '冶炼渣资源化与废水处理工艺',
-      '自动化控制与能效优化方案'
-    ],
-    process: [
-      '原料预处理与配料优化',
-      '浸出、净化与溶液制备',
-      '电解沉积与产品成型',
-      '产品精制、包装与仓储'
-    ]
-  },
-  {
-    icon: '🌫️',
-    title: '大气污染治理',
-    desc: '脱硫脱硝、除尘、VOCs',
-    fullDesc: '覆盖烟气治理全流程：从高效除尘、脱硫脱硝到 VOCs 治理，提供核心过滤材料、成套净化装备及智能控制系统，满足冶金、电力、化工等工业排放控制与超低排放要求。',
-    background: '/dongxiong-website/service-environment.jpg',
-    features: [
-      '袋式除尘、电袋复合除尘及超低排放改造',
-      '脱硫脱硝一体化及 SCR/SNCR 技术',
-      'VOCs 吸附浓缩、催化燃烧与 RTO/RCO',
-      '烟气在线监测与 CEMS 数据管理',
-      '智能控制系统与运行优化',
-      '滤料、催化剂等关键材料选型与供应'
-    ],
-    process: [
-      '工况参数采集与排放诊断',
-      '治理方案设计与设备选型',
-      '设备制造、集成与出厂检验',
-      '现场安装、调试与性能验收'
-    ]
-  },
-  {
-    icon: '🔧',
-    title: '设备与运维',
-    desc: '设备与运维服务',
-    fullDesc: '提供环保与冶炼设备的定期巡检、预防性维护、故障诊断与应急抢修，以及备件供应与运行优化，保障设施长期稳定、高效运行，为客户创造持续价值。',
-    background: '/dongxiong-website/service-maintenance.jpg',
-    features: [
-      '定期巡检、预防性维护与状态评估',
-      '故障诊断、应急抢修与备件供应',
-      '运行数据分析与能效优化建议',
-      '设备改造、技改与延寿方案',
-      '操作培训与运维管理制度建设',
-      '长协运维与托管运营服务'
-    ],
-    process: [
-      '设备状态监测与劣化趋势分析',
-      '维护计划制定与工单管理',
-      '现场检修、更换与调试',
-      '运行报表与持续改进'
-    ]
-  }
-]
 
 async function openDetail(index) {
   // 先清空当前状态，确保动画能正确触发

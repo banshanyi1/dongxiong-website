@@ -13,12 +13,12 @@
           <div class="hero-overlay"></div>
           <div class="hero-content container">
             <div class="hero-text">
-              <p class="hero-eyebrow">{{ slide.eyebrow }}</p>
-              <h1 class="hero-title">{{ slide.title }}</h1>
-              <p class="hero-description">{{ slide.description }}</p>
+              <p class="hero-eyebrow">{{ t(slide.eyebrowKey) }}</p>
+              <h1 class="hero-title">{{ t(slide.titleKey) }}</h1>
+              <p class="hero-description">{{ t(slide.descKey) }}</p>
               <div class="hero-buttons">
-                <RouterLink :to="slide.primaryLink" class="btn btn-primary">{{ slide.primaryText }}</RouterLink>
-                <RouterLink :to="slide.secondaryLink" class="btn btn-outline">{{ slide.secondaryText }}</RouterLink>
+                <RouterLink :to="slide.primaryLink" class="btn btn-primary">{{ t(slide.primaryKey) }}</RouterLink>
+                <RouterLink :to="slide.secondaryLink" class="btn btn-outline">{{ t(slide.secondaryKey) }}</RouterLink>
               </div>
             </div>
           </div>
@@ -38,7 +38,7 @@
       
       <!-- 向下滚动提示 -->
       <div class="scroll-down" @click="scrollToNext">
-        <span class="scroll-text">向下浏览</span>
+        <span class="scroll-text">{{ t('common.scrollDown') }}</span>
         <div class="scroll-arrow">↓</div>
       </div>
     </section>
@@ -60,27 +60,26 @@
         <div class="video-overlay"></div>
         <div class="video-content container">
           <div class="video-text">
-            <span class="section-eyebrow">关于我们</span>
-            <h2 class="section-title">专注大气环保与有色金属冶炼</h2>
+            <span class="section-eyebrow">{{ t('home.about.eyebrow') }}</span>
+            <h2 class="section-title">{{ t('home.about.title') }}</h2>
             <p class="section-description">
-              东雄环保致力于提供全产业链的环保解决方案，从技术研发到工程实施，
-              为客户提供专业的大气污染治理和有色金属冶炼环保服务。
+              {{ t('home.about.desc') }}
             </p>
             <div class="video-stats">
               <div class="video-stat">
                 <span class="stat-number">500+</span>
-                <span class="stat-label">工程项目</span>
+                <span class="stat-label">{{ t('home.about.projects') }}</span>
               </div>
               <div class="video-stat">
                 <span class="stat-number">15+</span>
-                <span class="stat-label">服务国家</span>
+                <span class="stat-label">{{ t('home.about.countries') }}</span>
               </div>
               <div class="video-stat">
-                <span class="stat-number">30年</span>
-                <span class="stat-label">行业经验</span>
+                <span class="stat-number">30{{ t('home.about.years') }}</span>
+                <span class="stat-label">{{ t('home.about.experience') }}</span>
               </div>
             </div>
-            <RouterLink to="/about" class="btn btn-primary">了解更多</RouterLink>
+            <RouterLink to="/about" class="btn btn-primary">{{ t('common.more') }}</RouterLink>
           </div>
         </div>
       </div>
@@ -89,15 +88,15 @@
     <!-- 第三屏：业务范围 -->
     <section class="section services-section" ref="servicesSection">
       <div class="container-full">
-        <p class="page-eyebrow">核心业务</p>
-        <h2 class="section-title">四大业务板块</h2>
+        <p class="page-eyebrow">{{ t('home.services.eyebrow') }}</p>
+        <h2 class="section-title">{{ t('home.services.title') }}</h2>
         <p class="section-lead page-intro">
-          为客户提供合规、高效、可持续的解决方案。
+          {{ t('home.services.lead') }}
         </p>
         <div class="dx-card-grid">
           <article 
             v-for="(card, index) in serviceCards" 
-            :key="card.title" 
+            :key="card.titleKey" 
             class="dx-card"
             @click="openServiceDetail(index)"
           >
@@ -106,14 +105,14 @@
                 <img
                   class="dx-card__img"
                   :src="serviceImages[index]"
-                  :alt="card.title"
+                  :alt="t(card.titleKey)"
                 />
               </div>
             </div>
             <div class="dx-card__body">
-              <h3 class="dx-card__title">{{ card.title }}</h3>
-              <p class="dx-card__desc">{{ card.description }}</p>
-              <span class="dx-card__link">点击查看详情 →</span>
+              <h3 class="dx-card__title">{{ t(card.titleKey) }}</h3>
+              <p class="dx-card__desc">{{ t(card.descKey) }}</p>
+              <span class="dx-card__link">{{ t('common.clickForDetails') }}</span>
             </div>
           </article>
         </div>
@@ -134,13 +133,13 @@
         <button class="modal-close" @click="closeServiceDetail">×</button>
         <div class="modal-content">
           <div class="modal-header">
-            <h2>{{ serviceCards[activeCardIndex].title }}</h2>
-            <p>{{ serviceCards[activeCardIndex].description }}</p>
+            <h2>{{ t(serviceCards[activeCardIndex].titleKey) }}</h2>
+            <p>{{ t(serviceCards[activeCardIndex].descKey) }}</p>
           </div>
           <div class="modal-body">
             <div class="service-details">
               <div class="detail-item">
-                <h3>服务内容</h3>
+                <h3>{{ t('home.services.serviceContent') }}</h3>
                 <ul>
                   <li v-for="item in getServiceDetails(activeCardIndex)" :key="item">
                     {{ item }}
@@ -161,27 +160,26 @@
             <img :src="casesImage" alt="工程案例">
           </div>
           <div class="section-text">
-            <span class="section-eyebrow">工程案例</span>
-            <h2 class="section-title">数百个成功项目，遍布全国</h2>
+            <span class="section-eyebrow">{{ t('home.cases.eyebrow') }}</span>
+            <h2 class="section-title">{{ t('home.cases.title') }}</h2>
             <p class="section-description">
-              我们已完成数百个环保工程项目，涵盖冶金、化工、电力等多个行业，
-              项目遍布全国各地，积累了丰富的实践经验。
+              {{ t('home.cases.desc') }}
             </p>
             <div class="stats">
               <div class="stat-item">
                 <span class="stat-number">500+</span>
-                <span class="stat-label">成功项目</span>
+                <span class="stat-label">{{ t('home.cases.projects') }}</span>
               </div>
               <div class="stat-item">
                 <span class="stat-number">20+</span>
-                <span class="stat-label">服务行业</span>
+                <span class="stat-label">{{ t('home.cases.industries') }}</span>
               </div>
               <div class="stat-item">
                 <span class="stat-number">15</span>
-                <span class="stat-label">年经验</span>
+                <span class="stat-label">{{ t('home.cases.experience') }}</span>
               </div>
             </div>
-            <RouterLink to="/cases" class="btn btn-primary">查看案例</RouterLink>
+            <RouterLink to="/cases" class="btn btn-primary">{{ t('home.cases.viewCases') }}</RouterLink>
           </div>
         </div>
       </div>
@@ -191,10 +189,10 @@
     <section class="section contact-section" ref="contactSection">
       <div class="container-full">
         <div class="section-header text-left">
-          <span class="section-eyebrow">联系我们</span>
-          <h2 class="section-title">携手共创绿色未来</h2>
+          <span class="section-eyebrow">{{ t('home.contact.eyebrow') }}</span>
+          <h2 class="section-title">{{ t('home.contact.title') }}</h2>
           <p class="section-description">
-            欢迎咨询与合作，让我们一起为环境保护贡献力量
+            {{ t('home.contact.desc') }}
           </p>
         </div>
         <div class="contact-content">
@@ -202,26 +200,26 @@
             <div class="contact-item">
               <div class="contact-icon">📍</div>
               <div>
-                <h4>公司地址</h4>
-                <p>安徽省合肥市蜀山区耕耘路多伦多花园443号</p>
+                <h4>{{ t('home.contact.address') }}</h4>
+                <p>{{ t('home.contact.addressValue') }}</p>
               </div>
             </div>
             <div class="contact-item">
               <div class="contact-icon">📞</div>
               <div>
-                <h4>联系电话</h4>
+                <h4>{{ t('home.contact.phone') }}</h4>
                 <p>18269751880</p>
               </div>
             </div>
             <div class="contact-item">
               <div class="contact-icon">✉️</div>
               <div>
-                <h4>电子邮箱</h4>
+                <h4>{{ t('home.contact.email') }}</h4>
                 <p>754815750@qq.com</p>
               </div>
             </div>
           </div>
-          <RouterLink to="/contact" class="btn btn-primary btn-large">立即联系</RouterLink>
+          <RouterLink to="/contact" class="btn btn-primary btn-large">{{ t('home.contact.cta') }}</RouterLink>
         </div>
       </div>
     </section>
@@ -231,6 +229,7 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
+import { useI18n } from '../composables/useI18n'
 import heroSlide1 from '../assets/images/hero-slide-1.png'
 import heroSlide2 from '../assets/images/hero-slide-2.jpg'
 import heroSlide3 from '../assets/images/hero-slide-3.jpg'
@@ -238,39 +237,40 @@ import aboutVideoSrc from '../assets/videos/about-video.mp4'
 
 const publicBase = import.meta.env.BASE_URL || '/'
 const router = useRouter()
+const { t } = useI18n()
 
-// 轮播图数据
+// 轮播图数据（使用翻译 key）
 const heroSlides = [
   {
     image: heroSlide1,
-    eyebrow: '东雄环保',
-    title: '东雄环保-安徽',
-    description: '专注于有色金属冶炼与大气污染治理的技术研发',
+    eyebrowKey: 'home.hero.eyebrow1',
+    titleKey: 'home.hero.title1',
+    descKey: 'home.hero.desc1',
     primaryLink: '/services',
-    primaryText: '了解业务',
+    primaryKey: 'home.hero.primary1',
     secondaryLink: '/contact',
-    secondaryText: '联系我们'
+    secondaryKey: 'home.hero.secondary1',
   },
   {
     image: heroSlide2,
-    eyebrow: '技术创新',
-    title: '顶尖氧化锌工艺技术',
-    description: '自主研发的氧化锌高纯度生产工艺技术，效果显著',
+    eyebrowKey: 'home.hero.eyebrow2',
+    titleKey: 'home.hero.title2',
+    descKey: 'home.hero.desc2',
     primaryLink: '/solutions',
-    primaryText: '技术优势',
+    primaryKey: 'home.hero.primary2',
     secondaryLink: '/cases',
-    secondaryText: '成功案例'
+    secondaryKey: 'home.hero.secondary2',
   },
   {
     image: heroSlide3,
-    eyebrow: '品质保证',
-    title: '全流程服务保障',
-    description: '从方案设计到施工运维，提供全流程一站式服务',
+    eyebrowKey: 'home.hero.eyebrow3',
+    titleKey: 'home.hero.title3',
+    descKey: 'home.hero.desc3',
     primaryLink: '/about',
-    primaryText: '公司介绍',
+    primaryKey: 'home.hero.primary3',
     secondaryLink: '/contact',
-    secondaryText: '获取报价'
-  }
+    secondaryKey: 'home.hero.secondary3',
+  },
 ]
 
 // 图片资源
@@ -301,28 +301,12 @@ const services = [
   }
 ]
 
-// 业务范围卡片数据（配图见 serviceImages，文字区透明显底层）
+// 业务范围卡片数据
 const serviceCards = [
-  { 
-    icon: '📐', 
-    title: '工程设计咨询', 
-    description: '可研与设计'
-  },
-  { 
-    icon: '🔥', 
-    title: '有色金属冶炼', 
-    description: '先进系统工艺技术'
-  },
-  { 
-    icon: '🌫️', 
-    title: '大气污染治理', 
-    description: '脱硫脱硝、除尘、VOCs'
-  },
-  { 
-    icon: '🔧', 
-    title: '设备与运维', 
-    description: '设备与运维服务'
-  }
+  { icon: '📐', titleKey: 'home.services.design', descKey: 'home.services.designDesc' },
+  { icon: '🔥', titleKey: 'home.services.smelting', descKey: 'home.services.smeltingDesc' },
+  { icon: '🌫️', titleKey: 'home.services.airControl', descKey: 'home.services.airControlDesc' },
+  { icon: '🔧', titleKey: 'home.services.equipment', descKey: 'home.services.equipmentDesc' },
 ]
 
 // 首页业务范围卡片图片（来自 public 目录）
@@ -347,39 +331,18 @@ function closeServiceDetail() {
   document.body.style.overflow = ''
 }
 
-// 获取服务详情内容
+// 获取服务详情内容（翻译后的数组）
 function getServiceDetails(index) {
-  const details = [
-    [
-      '项目可行性研究与评估',
-      '工艺流程设计与优化',
-      '设备选型与配置',
-      '施工图纸设计',
-      '技术支持与咨询服务'
-    ],
-    [
-      '铜冶炼工艺技术',
-      '铅锌冶炼系统',
-      '镍钴分离提纯',
-      '稀有金属回收',
-      '冶炼炉窑设计'
-    ],
-    [
-      '烟气脱硫系统',
-      'SCR脱硝装置',
-      '布袋除尘器',
-      'VOCs治理设备',
-      '在线监测系统'
-    ],
-    [
-      '环保设备供应',
-      '系统安装调试',
-      '定期维护保养',
-      '故障应急处理',
-      '技术升级改造'
-    ]
+  const keys = [
+    'home.services.detailDesign',
+    'home.services.detailSmelting',
+    'home.services.detailAir',
+    'home.services.detailEquipment',
   ]
-  return details[index] || []
+  const key = keys[index]
+  if (!key) return []
+  const arr = t(key)
+  return Array.isArray(arr) ? arr : []
 }
 
 // 响应式数据

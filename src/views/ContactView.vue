@@ -4,36 +4,36 @@
       <div class="page-hero-bg" style="background-image: url(https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&q=80)"></div>
       <div class="page-hero-overlay"></div>
       <div class="container page-hero-inner">
-        <h1 class="page-hero-title">联系我们</h1>
-        <p class="page-hero-lead">携手共创绿色未来，欢迎咨询与合作</p>
+        <h1 class="page-hero-title">{{ t('contact.heroTitle') }}</h1>
+        <p class="page-hero-lead">{{ t('contact.heroLead') }}</p>
       </div>
     </section>
     <section class="page-body">
       <div class="container container--wide">
         <div class="contact-layout">
           <div class="contact-info-block">
-            <h2 class="section-title">联系信息</h2>
-            <p class="section-lead">无论您有项目咨询、技术合作还是采购需求，欢迎通过以下方式与我们取得联系。</p>
+            <h2 class="section-title">{{ t('contact.title') }}</h2>
+            <p class="section-lead">{{ t('contact.lead') }}</p>
             <div class="contact-info-list">
               <div class="contact-info-item">
-                <span class="contact-label">地址</span>
-                <span>安徽省合肥市蜀山区耕耘路多伦多花园443号</span>
+                <span class="contact-label">{{ t('contact.address') }}</span>
+                <span>{{ t('home.contact.addressValue') }}</span>
               </div>
               <div class="contact-info-item">
-                <span class="contact-label">电话</span>
-                <a href="tel:400-000-0000">18269751880</a>
+                <span class="contact-label">{{ t('contact.phone') }}</span>
+                <a href="tel:18269751880">18269751880</a>
               </div>
               <div class="contact-info-item">
-                <span class="contact-label">邮箱</span>
-                <a href="mailto:contact@example.com">754815750@qq.com</a>
+                <span class="contact-label">{{ t('contact.email') }}</span>
+                <a href="mailto:754815750@qq.com">754815750@qq.com</a>
               </div>
             </div>
           </div>
           <div class="contact-cta-block">
             <div class="contact-cta-inner">
-              <p class="contact-cta-title">获取方案与报价</p>
-              <p class="contact-cta-hint">提交需求后，我们将尽快与您联系</p>
-              <a href="mailto:contact@example.com?subject=合作咨询" class="btn btn-primary btn-block">发送邮件咨询</a>
+              <p class="contact-cta-title">{{ t('contact.ctaTitle') }}</p>
+              <p class="contact-cta-hint">{{ t('contact.ctaHint') }}</p>
+              <a href="mailto:754815750@qq.com?subject=合作咨询" class="btn btn-primary btn-block">{{ t('contact.ctaButton') }}</a>
             </div>
           </div>
         </div>
@@ -43,6 +43,9 @@
 </template>
 
 <script setup>
+import { useI18n } from '../composables/useI18n'
+
+const { t } = useI18n()
 </script>
 
 <style scoped>

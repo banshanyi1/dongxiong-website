@@ -5,47 +5,44 @@ const routes = [
     path: '/',
     name: 'home',
     component: () => import('../views/HomeView.vue'),
-    meta: { title: '首页' },
+    meta: { titleKey: 'nav.home', hideBottomNav: false },
   },
-
   {
     path: '/about',
     name: 'about',
     component: () => import('../views/AboutView.vue'),
-    meta: { title: '关于我们', hideBottomNav: true },
+    meta: { titleKey: 'nav.about', hideBottomNav: true },
   },
   {
     path: '/services',
     name: 'services',
     component: () => import('../views/ServicesView.vue'),
-    meta: { title: '业务范围' },
+    meta: { titleKey: 'nav.services' },
   },
   {
     path: '/solutions',
     name: 'solutions',
     component: () => import('../views/SolutionsView.vue'),
-    meta: { title: '解决方案' },
+    meta: { titleKey: 'nav.solutions' },
   },
   {
     path: '/cases',
     name: 'cases',
     component: () => import('../views/CasesView.vue'),
-    meta: { title: '工程案例' },
+    meta: { titleKey: 'nav.cases' },
   },
-
   {
     path: '/cases/:id',
     name: 'case-detail',
     component: () => import('../views/CaseDetailView.vue'),
-    meta: { title: '案例详情' },
+    meta: { titleKey: 'caseDetail.pageTitle' },
   },
   {
     path: '/contact',
     name: 'contact',
     component: () => import('../views/ContactView.vue'),
-    meta: { title: '联系我们' },
+    meta: { titleKey: 'nav.contact' },
   },
-
 ]
 
 const router = createRouter({
@@ -58,10 +55,8 @@ const router = createRouter({
   },
 })
 
-// 添加路由守卫调试
+// 路由守卫：标题由 App.vue 根据 locale 更新
 router.beforeEach((to, from, next) => {
-  console.log('路由跳转:', from.path, '->', to.path)
-  document.title = to.meta.title ? `${to.meta.title} | 东雄环保` : '东雄环保'
   next()
 })
 
