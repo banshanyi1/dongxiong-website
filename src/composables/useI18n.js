@@ -1,6 +1,7 @@
 import { ref, computed, readonly } from 'vue'
-import zhCN from '../locales/zh-CN.js'
+
 import en from '../locales/en.js'
+import zhCN from '../locales/zh-CN.js'
 
 const STORAGE_KEY = 'dongxiong-locale'
 
@@ -36,11 +37,15 @@ export function useI18n() {
   const t = computed(() => {
     const msg = messages[locale.value] || messages['zh-CN']
     return (key, params = {}) => {
-      let val = getNestedValue(msg, key)
-      if (val == null) return key
-      if (typeof val !== 'string') return val
+      const val = getNestedValue(msg, key)
+      if (val == null) {
+        return key
+      }
+      if (typeof val !== 'string') {
+        return val
+      }
       let str = val
-      Object.keys(params).forEach((k) => {
+      Object.keys(params).forEach(k => {
         str = str.replace(new RegExp(`\\{${k}\\}`, 'g'), params[k])
       })
       return str

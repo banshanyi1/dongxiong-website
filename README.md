@@ -57,25 +57,27 @@ dongxiong-website/
 ### 自动部署（推荐）
 
 1. **运行部署脚本**：
+
    ```bash
    deploy.bat
    ```
 
 2. **手动部署步骤**：
+
    ```bash
    # 构建项目
    npm run build
-   
+
    # 创建并切换到gh-pages分支
    git checkout -b gh-pages
-   
+
    # 提交构建文件
    git add dist -f
    git commit -m "Deploy to GitHub Pages"
-   
+
    # 推送到GitHub
    git subtree push --prefix dist origin gh-pages
-   
+
    # 切换回主分支
    git checkout main
    ```

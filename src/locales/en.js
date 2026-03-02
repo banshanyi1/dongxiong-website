@@ -88,10 +88,34 @@ export default {
       equipment: 'Equipment & O&M',
       equipmentDesc: 'Equipment & Maintenance',
       serviceContent: 'Service Content',
-      detailDesign: ['Feasibility Study & Assessment', 'Process Design & Optimization', 'Equipment Selection & Configuration', 'Construction Drawing Design', 'Technical Support & Consulting'],
-      detailSmelting: ['Copper Smelting Technology', 'Lead-zinc Smelting Systems', 'Ni-Co Separation & Purification', 'Rare Metal Recovery', 'Smelting Furnace Design'],
-      detailAir: ['Flue Gas Desulfurization', 'SCR Denitrification', 'Baghouse Dust Collector', 'VOCs Treatment Equipment', 'Online Monitoring Systems'],
-      detailEquipment: ['Environmental Equipment Supply', 'System Installation & Commissioning', 'Routine Maintenance', 'Emergency Repair', 'Technical Upgrade'],
+      detailDesign: [
+        'Feasibility Study & Assessment',
+        'Process Design & Optimization',
+        'Equipment Selection & Configuration',
+        'Construction Drawing Design',
+        'Technical Support & Consulting',
+      ],
+      detailSmelting: [
+        'Copper Smelting Technology',
+        'Lead-zinc Smelting Systems',
+        'Ni-Co Separation & Purification',
+        'Rare Metal Recovery',
+        'Smelting Furnace Design',
+      ],
+      detailAir: [
+        'Flue Gas Desulfurization',
+        'SCR Denitrification',
+        'Baghouse Dust Collector',
+        'VOCs Treatment Equipment',
+        'Online Monitoring Systems',
+      ],
+      detailEquipment: [
+        'Environmental Equipment Supply',
+        'System Installation & Commissioning',
+        'Routine Maintenance',
+        'Emergency Repair',
+        'Technical Upgrade',
+      ],
     },
     cases: {
       eyebrow: 'Projects',
@@ -139,52 +163,67 @@ export default {
     nationwideDesc: 'We have service outlets across multiple provinces.',
     block1Keyword: 'Focus',
     block1Title: 'Non-ferrous Metals & Air Environmental',
-    block1Lead: 'A young yet technically strong environmental technology company, dedicated to non-ferrous smelting and air environmental protection.',
+    block1Lead:
+      'A young yet technically strong environmental technology company, dedicated to non-ferrous smelting and air environmental protection.',
     block1Card1Icon: 'Smelting',
     block1Card1Title: 'Non-ferrous Metal Smelting',
-    block1Card1Text: 'From process sources to end-of-pipe treatment, promoting clean and intensive smelting. Green smelting with efficient resource utilization.',
+    block1Card1Text:
+      'From process sources to end-of-pipe treatment, promoting clean and intensive smelting. Green smelting with efficient resource utilization.',
     block1Card2Icon: 'Air',
     block1Card2Title: 'Air Environmental',
-    block1Card2Text: 'Desulfurization, denitrification, dust removal and VOCs control. Reliable technology and equipment support for clients.',
+    block1Card2Text:
+      'Desulfurization, denitrification, dust removal and VOCs control. Reliable technology and equipment support for clients.',
     block1Card3Icon: 'Global',
     block1Card3Title: 'Global Vision',
-    block1Card3Text: 'Rooted in China, serving the world. Combining local smelting and environmental experience with international standards.',
+    block1Card3Text:
+      'Rooted in China, serving the world. Combining local smelting and environmental experience with international standards.',
     block2Keyword: 'Technology',
     block2Title: 'World-Class',
-    block2Lead: 'Young but not green. Dongxiong offers first-class technology in non-ferrous smelting and air environmental protection.',
+    block2Lead:
+      'Young but not green. Dongxiong offers first-class technology in non-ferrous smelting and air environmental protection.',
     block2Card1Icon: 'Process',
     block2Card1Title: 'Process Card',
-    block2Card1Text: 'Non-ferrous metal smelting, rare precious metal extraction, solid waste comprehensive utilization',
+    block2Card1Text:
+      'Non-ferrous metal smelting, rare precious metal extraction, solid waste comprehensive utilization',
     block2Card2Icon: 'Treatment',
     block2Card2Title: 'Treatment Card',
     block2Card2Text: 'Air pollution control, wastewater treatment, high-salt water',
     block2Card3Icon: 'Delivery',
     block2Card3Title: 'Engineering Capability',
-    block2Card3Text: 'Multi-disciplinary team delivering from design to implementation, earning trust through quality and responsiveness.',
+    block2Card3Text:
+      'Multi-disciplinary team delivering from design to implementation, earning trust through quality and responsiveness.',
     block3Keyword: 'Projects',
     block3Title: 'Across China & Worldwide',
-    block3Lead: 'Many projects in China; numerous benchmark projects worldwide. Results speak for themselves.',
+    block3Lead:
+      'Many projects in China; numerous benchmark projects worldwide. Results speak for themselves.',
     block3Card1Num: 'Nationwide',
     block3Card1Title: 'Rooted in China',
-    block3Card1Text: 'Service teams and outlets in key provinces, rapid response and local service, extensive project experience.',
+    block3Card1Text:
+      'Service teams and outlets in key provinces, rapid response and local service, extensive project experience.',
     block3Card2Num: 'Global',
     block3Card2Title: 'Overseas Presence',
-    block3Card2Text: 'Serving clients in Asia, Europe, Africa and Americas, combining Chinese technology with international standards.',
+    block3Card2Text:
+      'Serving clients in Asia, Europe, Africa and Americas, combining Chinese technology with international standards.',
     block3Card3Num: 'End-to-End',
     block3Card3Title: 'Design to O&M',
-    block3Card3Text: 'Serving metallurgy, chemical, power and other industries with feasibility, construction and O&M in one package.',
+    block3Card3Text:
+      'Serving metallurgy, chemical, power and other industries with feasibility, construction and O&M in one package.',
     block4Keyword: 'Value',
     block4Title: 'Created with Clients',
-    block4Lead: 'Technology speaks; delivery builds trust. Creating sustained environmental value for clients, industry and society.',
+    block4Lead:
+      'Technology speaks; delivery builds trust. Creating sustained environmental value for clients, industry and society.',
     block4Card1Icon: 'Trust',
     block4Card1Title: 'Client Trust',
-    block4Card1Text: 'Engineering performance and long-term stable operation. Full lifecycle support from design to O&M.',
+    block4Card1Text:
+      'Engineering performance and long-term stable operation. Full lifecycle support from design to O&M.',
     block4Card2Icon: 'Green',
     block4Card2Title: 'Environmental Benefits',
-    block4Card2Text: 'Systematic treatment and efficient equipment reduce emissions and energy consumption for compliant, sustainable operation.',
+    block4Card2Text:
+      'Systematic treatment and efficient equipment reduce emissions and energy consumption for compliant, sustainable operation.',
     block4Card3Icon: 'Innovation',
     block4Card3Title: 'Continuous Innovation',
-    block4Card3Text: 'Ongoing R&D and process upgrade, collaborating with universities and research institutes for technology transfer.',
+    block4Card3Text:
+      'Ongoing R&D and process upgrade, collaborating with universities and research institutes for technology transfer.',
   },
   services: {
     heroTitle: 'Services',
@@ -206,21 +245,100 @@ export default {
     serviceProcess: 'Service Process',
     consultNow: 'Consult Now',
     scrollMore: 'Scroll for more',
-    designFullDesc: 'End-to-end consulting from feasibility studies through process and detailed engineering design, ensuring technical feasibility and economic viability for metallurgy, chemical, and environmental projects.',
-    designFeatures: ['Feasibility study preparation & review', 'Process design & multi-option optimization', 'Equipment selection, configuration & layout', 'Investment estimation, economic analysis & energy assessment', 'Preliminary design, construction drawings & design changes', 'Design disclosure, site support & completion acceptance'],
-    designProcess: ['Project requirement survey & boundary confirmation', 'Technical route & process scheme design', 'Professional calculation, drafting & review', 'Design disclosure & construction phase site services'],
-    smeltingFullDesc: 'Focus on efficient utilization and technological innovation of zinc-iron resources, providing full-chain technical services from raw material analysis to production O&M, covering multiple core technology areas including tailings extraction, desulfurization, electrolytic zinc extraction, and waste heat utilization.',
-    smeltingFeatures: ['Zinc-iron resource comprehensive utilization technology', 'Iron tailings extraction and separation technology', 'Deep desulfurization technology for sulfur-containing materials', 'Acid electrolytic zinc extraction and ammonia electrolytic zinc extraction technology', 'High-salt water evaporation concentration and zero discharge technology', 'Rotary kiln waste heat recovery and energy cascade utilization', 'Rare precious metal comprehensive recovery and purification technology', 'Smelting slag resource utilization and recycling technology', 'Automation control systems and energy efficiency optimization solutions'],
-    smeltingProcess: ['Raw material composition analysis and process route determination', 'Production process design and auxiliary feasibility report', 'Assistance in completing environmental impact assessment', 'Process design and engineering drawing delivery', 'Custom equipment production and engineering construction', 'On-site installation, commissioning and system integration testing', 'Production O&M guidance and equipment management optimization', 'After-sales service consultation and technical support'],
-    airFullDesc: 'Full flue gas treatment chain: efficient dust removal, desulfurization, denitrification to VOCs control, with filter media, purification equipment and smart control systems for ultra-low emissions.',
-    airFeatures: ['Baghouse, hybrid dust removal & ultra-low emission retrofit', 'Integrated desulfurization & denitrification, SCR/SNCR', 'VOCs adsorption, catalytic combustion, RTO/RCO', 'Flue gas online monitoring & CEMS', 'Smart control & operation optimization', 'Filter media & catalyst selection'],
-    airProcess: ['Operating parameter collection & emission diagnosis', 'Treatment scheme design & equipment selection', 'Equipment manufacturing, integration & inspection', 'Site installation, commissioning & acceptance'],
-    equipmentFullDesc: 'Routine inspection, preventive maintenance, fault diagnosis, emergency repair, spare parts supply and operation optimization for environmental and smelting equipment.',
-    equipmentFeatures: ['Routine inspection, preventive maintenance & condition assessment', 'Fault diagnosis, emergency repair & spare parts', 'Operation data analysis & energy optimization', 'Equipment retrofit & life extension', 'Operator training & O&M system', 'Long-term O&M & hosted operation'],
-    equipmentProcess: ['Equipment condition monitoring & degradation analysis', 'Maintenance planning & work order management', 'Site repair, replacement & commissioning', 'Operation reports & continuous improvement'],
-    expansionFullDesc: 'Focus on efficient utilization and technological innovation of zinc-iron resources, providing full-chain technical services from raw material analysis to production O&M, covering multiple core technology areas including tailings extraction, desulfurization, electrolytic zinc extraction, and waste heat utilization.',
-    expansionFeatures: ['Zinc-iron resource comprehensive utilization technology', 'Iron tailings extraction and separation technology', 'Deep desulfurization technology for sulfur-containing materials', 'Acid electrolytic zinc extraction and ammonia electrolytic zinc extraction technology', 'High-salt water evaporation concentration and zero discharge technology', 'Rotary kiln waste heat recovery and energy cascade utilization', 'Rare precious metal comprehensive recovery and purification technology', 'Smelting slag resource utilization and recycling technology', 'Automation control systems and energy efficiency optimization solutions'],
-    expansionProcess: ['Raw material composition analysis and process route determination', 'Production process design and auxiliary feasibility report', 'Assistance in completing environmental impact assessment', 'Process design and engineering drawing delivery', 'Custom equipment production and engineering construction', 'On-site installation, commissioning and system integration testing', 'Production O&M guidance and equipment management optimization', 'After-sales service consultation and technical support']
+    designFullDesc:
+      'End-to-end consulting from feasibility studies through process and detailed engineering design, ensuring technical feasibility and economic viability for metallurgy, chemical, and environmental projects.',
+    designFeatures: [
+      'Feasibility study preparation & review',
+      'Process design & multi-option optimization',
+      'Equipment selection, configuration & layout',
+      'Investment estimation, economic analysis & energy assessment',
+      'Preliminary design, construction drawings & design changes',
+      'Design disclosure, site support & completion acceptance',
+    ],
+    designProcess: [
+      'Project requirement survey & boundary confirmation',
+      'Technical route & process scheme design',
+      'Professional calculation, drafting & review',
+      'Design disclosure & construction phase site services',
+    ],
+    smeltingFullDesc:
+      'Focus on efficient utilization and technological innovation of zinc-iron resources, providing full-chain technical services from raw material analysis to production O&M, covering multiple core technology areas including tailings extraction, desulfurization, electrolytic zinc extraction, and waste heat utilization.',
+    smeltingFeatures: [
+      'Zinc-iron resource comprehensive utilization technology',
+      'Iron tailings extraction and separation technology',
+      'Deep desulfurization technology for sulfur-containing materials',
+      'Acid electrolytic zinc extraction and ammonia electrolytic zinc extraction technology',
+      'High-salt water evaporation concentration and zero discharge technology',
+      'Rotary kiln waste heat recovery and energy cascade utilization',
+      'Rare precious metal comprehensive recovery and purification technology',
+      'Smelting slag resource utilization and recycling technology',
+      'Automation control systems and energy efficiency optimization solutions',
+    ],
+    smeltingProcess: [
+      'Raw material composition analysis and process route determination',
+      'Production process design and auxiliary feasibility report',
+      'Assistance in completing environmental impact assessment',
+      'Process design and engineering drawing delivery',
+      'Custom equipment production and engineering construction',
+      'On-site installation, commissioning and system integration testing',
+      'Production O&M guidance and equipment management optimization',
+      'After-sales service consultation and technical support',
+    ],
+    airFullDesc:
+      'Full flue gas treatment chain: efficient dust removal, desulfurization, denitrification to VOCs control, with filter media, purification equipment and smart control systems for ultra-low emissions.',
+    airFeatures: [
+      'Baghouse, hybrid dust removal & ultra-low emission retrofit',
+      'Integrated desulfurization & denitrification, SCR/SNCR',
+      'VOCs adsorption, catalytic combustion, RTO/RCO',
+      'Flue gas online monitoring & CEMS',
+      'Smart control & operation optimization',
+      'Filter media & catalyst selection',
+    ],
+    airProcess: [
+      'Operating parameter collection & emission diagnosis',
+      'Treatment scheme design & equipment selection',
+      'Equipment manufacturing, integration & inspection',
+      'Site installation, commissioning & acceptance',
+    ],
+    equipmentFullDesc:
+      'Routine inspection, preventive maintenance, fault diagnosis, emergency repair, spare parts supply and operation optimization for environmental and smelting equipment.',
+    equipmentFeatures: [
+      'Routine inspection, preventive maintenance & condition assessment',
+      'Fault diagnosis, emergency repair & spare parts',
+      'Operation data analysis & energy optimization',
+      'Equipment retrofit & life extension',
+      'Operator training & O&M system',
+      'Long-term O&M & hosted operation',
+    ],
+    equipmentProcess: [
+      'Equipment condition monitoring & degradation analysis',
+      'Maintenance planning & work order management',
+      'Site repair, replacement & commissioning',
+      'Operation reports & continuous improvement',
+    ],
+    expansionFullDesc:
+      'Focus on efficient utilization and technological innovation of zinc-iron resources, providing full-chain technical services from raw material analysis to production O&M, covering multiple core technology areas including tailings extraction, desulfurization, electrolytic zinc extraction, and waste heat utilization.',
+    expansionFeatures: [
+      'Zinc-iron resource comprehensive utilization technology',
+      'Iron tailings extraction and separation technology',
+      'Deep desulfurization technology for sulfur-containing materials',
+      'Acid electrolytic zinc extraction and ammonia electrolytic zinc extraction technology',
+      'High-salt water evaporation concentration and zero discharge technology',
+      'Rotary kiln waste heat recovery and energy cascade utilization',
+      'Rare precious metal comprehensive recovery and purification technology',
+      'Smelting slag resource utilization and recycling technology',
+      'Automation control systems and energy efficiency optimization solutions',
+    ],
+    expansionProcess: [
+      'Raw material composition analysis and process route determination',
+      'Production process design and auxiliary feasibility report',
+      'Assistance in completing environmental impact assessment',
+      'Process design and engineering drawing delivery',
+      'Custom equipment production and engineering construction',
+      'On-site installation, commissioning and system integration testing',
+      'Production O&M guidance and equipment management optimization',
+      'After-sales service consultation and technical support',
+    ],
   },
   solutions: {
     heroTitle: 'Solutions',
@@ -229,13 +347,17 @@ export default {
     title: 'Typical Solutions',
     lead: 'Replicable, scalable solutions for non-ferrous smelting and industrial air emissions.',
     item1: 'Customized Feasibility Solutions',
-    item1Desc: 'Provide practical, advanced and reliable feasibility solutions based on client requirements and material characteristics, ensuring optimal technical routes and maximum economic benefits.',
+    item1Desc:
+      'Provide practical, advanced and reliable feasibility solutions based on client requirements and material characteristics, ensuring optimal technical routes and maximum economic benefits.',
     item2: 'Integrated Flue Gas Treatment',
-    item2Desc: 'Integrated desulfurization, denitrification and dust removal design to meet ultra-low emission requirements.',
+    item2Desc:
+      'Integrated desulfurization, denitrification and dust removal design to meet ultra-low emission requirements.',
     item3: 'Smelting Eco-Upgrade',
-    item3Desc: 'Retrofit of existing lines with process optimization and smart control for emissions reduction and energy savings.',
+    item3Desc:
+      'Retrofit of existing lines with process optimization and smart control for emissions reduction and energy savings.',
     item4: 'O&M & Compliance',
-    item4Desc: 'Long-term operations, online monitoring and data analysis for stable operation and sustained compliance.',
+    item4Desc:
+      'Long-term operations, online monitoring and data analysis for stable operation and sustained compliance.',
   },
   cases: {
     heroTitle: 'Project Cases',
@@ -277,17 +399,37 @@ export default {
     photosTitle: 'Project Photos',
     techHighlight: 'Technical Highlights',
     techResource: 'Zinc-bearing Waste Resource Utilization',
-    testimonial: '"This project achieves resource utilization of solid/hazardous waste, creating significant economic and social value."',
+    testimonial:
+      '"This project achieves resource utilization of solid/hazardous waste, creating significant economic and social value."',
     backCases: 'Back to All Cases',
     photoDefaultDesc: 'On-site project photos',
   },
   caseDetailContent: {
-    '1': {
-      products: [{ name: 'Crude Zinc Oxide', unit: '10k tons' }, { name: 'Zinc Sand', unit: '10k t' }, { name: 'Crude Zinc Ingot', unit: '10k t' }, { name: 'Reduced Iron Powder', unit: '10k t' }, { name: 'Rare Metals (In/Ge/Ga)', unit: 't' }],
-      efficiency: [{ name: 'Zinc Recovery Rate' }, { name: 'Iron Recovery Rate' }, { name: 'Rare Metal Extraction Rate' }],
-      economy: [{ name: 'Annual Output Value', unit: '100M yuan' }, { name: 'Annual Net Profit', unit: '100M yuan' }, { name: 'Payback Period', unit: 'years' }],
-      socialValue: ['90 jobs', '¥5.85M environmental investment', '100% tailings resource utilization'],
-      techHighlights: 'Advanced pyrometallurgical process for efficient separation and recovery of zinc, iron and rare metals. 100k tons general solid waste + 200k tons hazardous waste capacity, zinc recovery >92%, iron recovery >88%.',
+    1: {
+      products: [
+        { name: 'Crude Zinc Oxide', unit: '10k tons' },
+        { name: 'Zinc Sand', unit: '10k t' },
+        { name: 'Crude Zinc Ingot', unit: '10k t' },
+        { name: 'Reduced Iron Powder', unit: '10k t' },
+        { name: 'Rare Metals (In/Ge/Ga)', unit: 't' },
+      ],
+      efficiency: [
+        { name: 'Zinc Recovery Rate' },
+        { name: 'Iron Recovery Rate' },
+        { name: 'Rare Metal Extraction Rate' },
+      ],
+      economy: [
+        { name: 'Annual Output Value', unit: '100M yuan' },
+        { name: 'Annual Net Profit', unit: '100M yuan' },
+        { name: 'Payback Period', unit: 'years' },
+      ],
+      socialValue: [
+        '90 jobs',
+        '¥5.85M environmental investment',
+        '100% tailings resource utilization',
+      ],
+      techHighlights:
+        'Advanced pyrometallurgical process for efficient separation and recovery of zinc, iron and rare metals. 100k tons general solid waste + 200k tons hazardous waste capacity, zinc recovery >92%, iron recovery >88%.',
       photos: [
         { caption: 'Kiln Head Fan Layout', description: 'Kiln head fan system installation' },
         { caption: 'Master Plan', description: 'Project master layout' },
@@ -295,14 +437,32 @@ export default {
         { caption: 'Pelletizing Room', description: 'Pelletizer room interior' },
       ],
     },
-    '2': {
-      products: [{ name: 'Crude Zinc Oxide', unit: '10k tons' }, { name: 'Zinc Calcine', unit: '10k tons' }, { name: 'Zinc Sulfate Monohydrate', unit: '10k tons' }, { name: 'Reduced Iron Powder', unit: '10k tons' }, { name: 'Carbon Concentrate', unit: '10k tons' }],
-      efficiency: [{ name: 'Zinc Recovery Rate' }, { name: 'Iron Recovery Rate' }, { name: 'Utilization Rate' }],
-      economy: [{ name: 'Annual Output Value', unit: '100M yuan' }, { name: 'Annual Net Profit', unit: '100M yuan' }, { name: 'Payback Period', unit: 'years' }],
+    2: {
+      products: [
+        { name: 'Crude Zinc Oxide', unit: '10k tons' },
+        { name: 'Zinc Calcine', unit: '10k tons' },
+        { name: 'Zinc Sulfate Monohydrate', unit: '10k tons' },
+        { name: 'Reduced Iron Powder', unit: '10k tons' },
+        { name: 'Carbon Concentrate', unit: '10k tons' },
+      ],
+      efficiency: [
+        { name: 'Zinc Recovery Rate' },
+        { name: 'Iron Recovery Rate' },
+        { name: 'Utilization Rate' },
+      ],
+      economy: [
+        { name: 'Annual Output Value', unit: '100M yuan' },
+        { name: 'Annual Net Profit', unit: '100M yuan' },
+        { name: 'Payback Period', unit: 'years' },
+      ],
       socialValue: ['120 jobs', '¥8.6M environmental investment', '90% hazardous waste reduction'],
-      techHighlights: 'Rotary kiln pyrometallurgical process. Annual treatment of 300k tons zinc-bearing waste. Main products: crude zinc oxide, zinc calcine, zinc sulfate; by-products: reduced iron powder, carbon concentrate.',
+      techHighlights:
+        'Rotary kiln pyrometallurgical process. Annual treatment of 300k tons zinc-bearing waste. Main products: crude zinc oxide, zinc calcine, zinc sulfate; by-products: reduced iron powder, carbon concentrate.',
       photos: [
-        { caption: 'Rotary Kiln System', description: 'Core equipment for pyrometallurgical recovery' },
+        {
+          caption: 'Rotary Kiln System',
+          description: 'Core equipment for pyrometallurgical recovery',
+        },
         { caption: 'Dust Collector System', description: 'High-efficiency dust removal equipment' },
         { caption: 'Dust Collector Top', description: 'Dust collector top structure' },
         { caption: 'Cooler Equipment', description: 'Product cooling equipment' },
@@ -315,12 +475,17 @@ export default {
         { caption: 'Backup Dust Collector', description: 'Backup dust collector' },
       ],
     },
-    '3': {
+    3: {
       products: [{ name: 'Crude Zinc Oxide', unit: '10k tons' }],
       efficiency: [{ name: 'Zinc Recovery Rate' }, { name: 'Resource Utilization Rate' }],
-      economy: [{ name: 'Annual Output Value', unit: '100M yuan' }, { name: 'Annual Net Profit', unit: '100M yuan' }, { name: 'Payback Period', unit: 'years' }],
+      economy: [
+        { name: 'Annual Output Value', unit: '100M yuan' },
+        { name: 'Annual Net Profit', unit: '100M yuan' },
+        { name: 'Payback Period', unit: 'years' },
+      ],
       socialValue: ['80 jobs', '¥6.5M environmental investment', '95% hazardous waste reduction'],
-      techHighlights: 'Rotary kiln pyrometallurgical process for zinc recovery. Treating six types of zinc-bearing hazardous waste: galvanizing slag, EAF dust, zinc calcine leach residue, etc.',
+      techHighlights:
+        'Rotary kiln pyrometallurgical process for zinc recovery. Treating six types of zinc-bearing hazardous waste: galvanizing slag, EAF dust, zinc calcine leach residue, etc.',
       photos: [
         { caption: 'Project Panorama', description: 'Panzhihua Hongyan project layout' },
         { caption: 'Ignition Ceremony', description: 'Project commissioning ceremony' },
@@ -335,12 +500,24 @@ export default {
         { caption: 'Rotary Kiln Head', description: 'Φ3.6m×53m kiln head' },
       ],
     },
-    '4': {
-      products: [{ name: 'Crude Zinc Oxide', unit: '10k tons' }, { name: 'Reduced Iron Powder', unit: '10k tons' }],
-      efficiency: [{ name: 'Zinc Recovery Rate' }, { name: 'Iron Recovery Rate' }, { name: 'Resource Utilization' }],
-      economy: [{ name: 'Annual Output Value', unit: '100M yuan' }, { name: 'Annual Net Profit', unit: '100M yuan' }, { name: 'Payback Period', unit: 'years' }],
+    4: {
+      products: [
+        { name: 'Crude Zinc Oxide', unit: '10k tons' },
+        { name: 'Reduced Iron Powder', unit: '10k tons' },
+      ],
+      efficiency: [
+        { name: 'Zinc Recovery Rate' },
+        { name: 'Iron Recovery Rate' },
+        { name: 'Resource Utilization' },
+      ],
+      economy: [
+        { name: 'Annual Output Value', unit: '100M yuan' },
+        { name: 'Annual Net Profit', unit: '100M yuan' },
+        { name: 'Payback Period', unit: 'years' },
+      ],
       socialValue: ['100 jobs', '¥7.8M environmental investment', '90% dust reduction'],
-      techHighlights: 'Rotary kiln roasting with iron powder separation. Processing EAF dust, BOF dust, lead slag, galvanizing slag, zinc leach residue. PNCR denitrification + baghouse + lime-gypsum desulfurization for clean production.',
+      techHighlights:
+        'Rotary kiln roasting with iron powder separation. Processing EAF dust, BOF dust, lead slag, galvanizing slag, zinc leach residue. PNCR denitrification + baghouse + lime-gypsum desulfurization for clean production.',
       photos: [
         { caption: 'Project Panorama', description: 'Bohai New Area project layout' },
         { caption: 'D4000 Rotary Kiln', description: 'D4000 kiln core equipment' },
@@ -354,12 +531,20 @@ export default {
         { caption: 'Technical Exchange', description: 'On-site technical discussion' },
       ],
     },
-    '5': {
-      products: [{ name: 'Valuable Metals', unit: '10k tons' }, { name: 'Other Products', unit: '10k tons' }],
+    5: {
+      products: [
+        { name: 'Valuable Metals', unit: '10k tons' },
+        { name: 'Other Products', unit: '10k tons' },
+      ],
       efficiency: [{ name: 'Resource Recovery Rate' }, { name: 'Utilization Rate' }],
-      economy: [{ name: 'Annual Output Value', unit: '100M yuan' }, { name: 'Annual Net Profit', unit: '100M yuan' }, { name: 'Payback Period', unit: 'years' }],
+      economy: [
+        { name: 'Annual Output Value', unit: '100M yuan' },
+        { name: 'Annual Net Profit', unit: '100M yuan' },
+        { name: 'Payback Period', unit: 'years' },
+      ],
       socialValue: ['75 jobs', '¥2M environmental investment', '85% dust reduction'],
-      techHighlights: 'Rotary kiln roasting to recover valuable metals from dust ash for steel industry circular economy. Enclosed storage, conveying and dust removal for clean production.',
+      techHighlights:
+        'Rotary kiln roasting to recover valuable metals from dust ash for steel industry circular economy. Enclosed storage, conveying and dust removal for clean production.',
       photos: [
         { caption: 'Project Panorama', description: 'Linyi Lingang project layout' },
         { caption: 'Kiln Installation', description: 'Rotary kiln installation' },
@@ -377,31 +562,32 @@ export default {
     },
   },
   caseData: {
-    '1': {
-      title: '300k tons/year Zinc-bearing Solid (Hazardous) Waste Comprehensive Utilization Project [Under Construction]',
+    1: {
+      title:
+        '300k tons/year Zinc-bearing Solid (Hazardous) Waste Comprehensive Utilization Project [Under Construction]',
       desc: '300k tons/year zinc-bearing solid (hazardous) waste treatment capacity: 100k tons general solid waste + 200k tons hazardous waste, zinc recovery rate >92%, annual output value 1.52 billion yuan.',
       subtitle: 'Hejin, Shanxi · Zhongyu (Shanxi) New Materials Co., Ltd.',
       breadcrumb: 'Hejin, Shanxi',
     },
-    '2': {
+    2: {
       title: '300k tons/year Zinc-bearing Waste Disposal & Utilization Project',
       desc: 'Annual treatment of 300k tons zinc-bearing waste. Main products: crude zinc oxide, zinc calcine, zinc sulfate monohydrate. By-products: reduced iron powder, carbon concentrate.',
       subtitle: 'Baiyin, Gansu · Baiyin Xiangyu Lushan Eco Technology Co., Ltd.',
       breadcrumb: 'Baiyin, Gansu',
     },
-    '3': {
+    3: {
       title: 'Industrial Solid Waste Environmental Treatment & Resource Utilization Project',
       desc: 'Annual treatment of 150k tons zinc-bearing hazardous waste, 45k tons crude zinc oxide (Zn≥60.3%), total investment 120 million yuan.',
       subtitle: 'Panzhihua, Sichuan · Panzhihua Hongyan Technology Co., Ltd.',
       breadcrumb: 'Panzhihua, Sichuan',
     },
-    '4': {
+    4: {
       title: 'Bohai New Area Dust Ash Comprehensive Utilization Project (Phase I)',
       desc: 'Annual disposal of 200k tons solid waste. Main products: 24k tons crude zinc oxide, 20k tons reduced iron powder. Total investment 310 million yuan.',
       subtitle: 'Bohai New Area, Cangzhou, Hebei · Hebei Yuzezhixin Eco Technology Co., Ltd.',
       breadcrumb: 'Cangzhou, Hebei',
     },
-    '5': {
+    5: {
       title: '165k tons/year Dust Ash Disposal Project',
       desc: 'Annual disposal of 165k tons dust ash, total investment 145 million yuan, supporting steel industry circular economy.',
       subtitle: 'Metal Scrap Processing',

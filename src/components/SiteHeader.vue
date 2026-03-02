@@ -1,12 +1,13 @@
 <template>
-  <header 
-    class="site-header" 
+  <header
+    class="site-header"
     :class="{ 'is-scrolled': scrolled, 'dropdown-open': activeDropdown }"
     @mouseenter="handleHeaderMouseEnter()"
     @mouseleave="handleHeaderMouseLeave()"
   >
     <div class="container header-inner">
       <RouterLink to="/" class="logo" :aria-label="t('common.logo') + ' ' + t('nav.home')">
+        <img class="logo-img" src="/brand/logo.jpg" alt="东雄环保 logo" />
         <span class="logo-text">{{ t('common.logo') }}</span>
       </RouterLink>
       <nav class="nav" aria-label="主导航">
@@ -30,15 +31,20 @@
         </div>
       </nav>
       <div class="header-right">
-        <button 
-          type="button" 
-          class="lang-switcher" 
+        <button
+          type="button"
+          class="lang-switcher"
           :title="locale === 'zh-CN' ? 'Switch to English' : '切换到中文'"
           @click="toggleLocale"
         >
           {{ locale === 'zh-CN' ? 'EN' : '中文' }}
         </button>
-        <button type="button" class="menu-btn" :aria-label="t('nav.openMenu')" @click="mobileOpen = !mobileOpen">
+        <button
+          type="button"
+          class="menu-btn"
+          :aria-label="t('nav.openMenu')"
+          @click="mobileOpen = !mobileOpen"
+        >
           <span class="menu-icon" :class="{ open: mobileOpen }"></span>
         </button>
       </div>
@@ -54,7 +60,10 @@
       >
         <div class="nav-dropdown-inner container">
           <template v-for="item in navItems" :key="item.id">
-            <div v-if="item.children?.length && activeDropdown === item.id" class="nav-dropdown-panel">
+            <div
+              v-if="item.children?.length && activeDropdown === item.id"
+              class="nav-dropdown-panel"
+            >
               <RouterLink
                 v-for="child in item.children"
                 :key="child.path"
@@ -106,14 +115,13 @@
         </template>
       </template>
     </div>
-    
-
   </header>
 </template>
 
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useRoute } from 'vue-router'
+
 import { useI18n } from '../composables/useI18n'
 
 const emits = defineEmits(['blur-change'])
@@ -130,60 +138,72 @@ const isFullscreenBlur = ref(false)
 const navItems = computed(() => {
   locale.value // 依赖 locale 以在切换语言时重新计算
   return [
-  {
-    id: 'home',
-    label: t('nav.home'),
-    path: '/',
-    children: [],
-  },
-  {
-    id: 'about',
-    label: t('nav.about'),
-    path: '/about',
-    children: [
-      { path: '/about', label: t('nav.aboutIntro'), desc: t('nav.aboutIntroDesc') },
-      { path: '/about#history', label: t('nav.history'), desc: t('nav.historyDesc') },
-      { path: '/about#honor', label: t('nav.honor'), desc: t('nav.honorDesc') },
-    ],
-  },
-  {
-    id: 'services',
-    label: t('nav.services'),
-    path: '/services',
-    children: [
-      { path: '/services#design', label: t('nav.designConsult'), desc: t('nav.designConsultDesc') },
-      { path: '/services#smelting', label: t('nav.smelting'), desc: t('nav.smeltingDesc') },
-      { path: '/services', label: t('nav.airControl'), desc: t('nav.airControlDesc') },
-      { path: '/services#equipment', label: t('nav.equipment'), desc: t('nav.equipmentDesc') },
-    ],
-  },
-  {
-    id: 'solutions',
-    label: t('nav.solutions'),
-    path: '/solutions',
-    children: [
-      { path: '/solutions', label: t('nav.smokeSolution'), desc: t('nav.smokeSolutionDesc') },
-      { path: '/solutions#upgrade', label: t('nav.upgradeSolution'), desc: t('nav.upgradeSolutionDesc') },
-      { path: '/solutions#operation', label: t('nav.operationSolution'), desc: t('nav.operationSolutionDesc') },
-    ],
-  },
-  {
-    id: 'cases',
-    label: t('nav.cases'),
-    path: '/cases',
-    children: [
-      { path: '/cases', label: t('nav.caseOverview'), desc: t('nav.caseOverviewDesc') },
-      { path: '/cases#metallurgy', label: t('nav.metallurgy'), desc: t('nav.metallurgyDesc') },
-      { path: '/cases#industry', label: t('nav.industryAir'), desc: t('nav.industryAirDesc') },
-    ],
-  },
-  {
-    id: 'contact',
-    label: t('nav.contact'),
-    path: '/contact',
-    children: [],
-  },
-]
+    {
+      id: 'home',
+      label: t('nav.home'),
+      path: '/',
+      children: [],
+    },
+    {
+      id: 'about',
+      label: t('nav.about'),
+      path: '/about',
+      children: [
+        { path: '/about', label: t('nav.aboutIntro'), desc: t('nav.aboutIntroDesc') },
+        { path: '/about#history', label: t('nav.history'), desc: t('nav.historyDesc') },
+        { path: '/about#honor', label: t('nav.honor'), desc: t('nav.honorDesc') },
+      ],
+    },
+    {
+      id: 'services',
+      label: t('nav.services'),
+      path: '/services',
+      children: [
+        {
+          path: '/services#design',
+          label: t('nav.designConsult'),
+          desc: t('nav.designConsultDesc'),
+        },
+        { path: '/services#smelting', label: t('nav.smelting'), desc: t('nav.smeltingDesc') },
+        { path: '/services', label: t('nav.airControl'), desc: t('nav.airControlDesc') },
+        { path: '/services#equipment', label: t('nav.equipment'), desc: t('nav.equipmentDesc') },
+      ],
+    },
+    {
+      id: 'solutions',
+      label: t('nav.solutions'),
+      path: '/solutions',
+      children: [
+        { path: '/solutions', label: t('nav.smokeSolution'), desc: t('nav.smokeSolutionDesc') },
+        {
+          path: '/solutions#upgrade',
+          label: t('nav.upgradeSolution'),
+          desc: t('nav.upgradeSolutionDesc'),
+        },
+        {
+          path: '/solutions#operation',
+          label: t('nav.operationSolution'),
+          desc: t('nav.operationSolutionDesc'),
+        },
+      ],
+    },
+    {
+      id: 'cases',
+      label: t('nav.cases'),
+      path: '/cases',
+      children: [
+        { path: '/cases', label: t('nav.caseOverview'), desc: t('nav.caseOverviewDesc') },
+        { path: '/cases#metallurgy', label: t('nav.metallurgy'), desc: t('nav.metallurgyDesc') },
+        { path: '/cases#industry', label: t('nav.industryAir'), desc: t('nav.industryAirDesc') },
+      ],
+    },
+    {
+      id: 'contact',
+      label: t('nav.contact'),
+      path: '/contact',
+      children: [],
+    },
+  ]
 })
 
 const scrolled = ref(false)
@@ -261,7 +281,7 @@ function handleHeaderMouseLeave() {
   isFullscreenBlur.value = false
   // 发射事件到父组件
   emits('blur-change', false)
-  
+
   // 同时关闭下拉菜单
   activeDropdown.value = null
 }
@@ -301,8 +321,12 @@ function handleMobileSubClick(event) {
 }
 
 function isActiveParent(item) {
-  if (!item.path) return false
-  if (item.path === '/') return route.path === '/'
+  if (!item.path) {
+    return false
+  }
+  if (item.path === '/') {
+    return route.path === '/'
+  }
   return route.path.startsWith(item.path)
 }
 
@@ -331,8 +355,8 @@ onUnmounted(() => {
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   border-bottom: 1px solid transparent;
   transition: background var(--duration-normal) var(--ease-out),
-              border-color var(--duration-normal) var(--ease-out),
-              padding var(--duration-normal) var(--ease-out);
+    border-color var(--duration-normal) var(--ease-out),
+    padding var(--duration-normal) var(--ease-out);
 }
 
 .site-header.is-scrolled {
@@ -373,14 +397,29 @@ onUnmounted(() => {
 }
 
 .logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
   color: var(--color-text);
   font-weight: var(--font-weight-semibold);
-  font-size: 1.5rem; /* 从1.125rem增大到1.5rem */
+  font-size: 1.5rem;
   letter-spacing: -0.01em;
 }
 
 .logo:hover {
   color: var(--color-text);
+}
+
+.logo-img {
+  height: 51px;
+  width: auto;
+  display: block;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
+.site-header.is-scrolled .logo-img {
+  height: 42px;
 }
 
 .nav {
@@ -467,7 +506,7 @@ onUnmounted(() => {
   border-radius: 8px;
   outline: none;
   transition: background var(--duration-fast) var(--ease-out),
-              color var(--duration-fast) var(--ease-out);
+    color var(--duration-fast) var(--ease-out);
 }
 
 .nav-dropdown-link:hover {
@@ -503,7 +542,7 @@ onUnmounted(() => {
 .dropdown-enter-active,
 .dropdown-leave-active {
   transition: opacity var(--duration-normal) var(--ease-out),
-              transform var(--duration-normal) var(--ease-out);
+    transform var(--duration-normal) var(--ease-out);
 }
 
 .dropdown-enter-from,
@@ -558,7 +597,7 @@ onUnmounted(() => {
   height: 2px;
   background: var(--color-text);
   transition: transform var(--duration-fast) var(--ease-out),
-              top var(--duration-fast) var(--ease-out);
+    top var(--duration-fast) var(--ease-out);
 }
 
 .menu-icon::before {
@@ -597,7 +636,7 @@ onUnmounted(() => {
   opacity: 0;
   visibility: hidden;
   transition: opacity var(--duration-normal) var(--ease-out),
-              visibility var(--duration-normal) var(--ease-out);
+    visibility var(--duration-normal) var(--ease-out);
   z-index: 190;
   overflow: auto;
 }

@@ -2,10 +2,10 @@
   <div class="globe-container" @touchstart="handleTouchStart">
     <!-- 导航栏 -->
     <SiteHeader />
-    
+
     <!-- 加载界面 -->
-    <div 
-      class="loading-overlay" 
+    <div
+      class="loading-overlay"
       :class="{ 'loading-visible': isLoading, 'loading-hidden': !isLoading }"
     >
       <div class="loading-content">
@@ -14,9 +14,16 @@
         <p class="loading-subtext">{{ t('about.loadingSub') }}</p>
       </div>
     </div>
-    
+
     <!-- 地球可视化区域 -->
-    <div ref="globeDiv" class="globe-viz" :class="{ 'globe-right': !isLoading && !showEarthCenter, 'globe-center': showEarthCenter || isLoading }"></div>
+    <div
+      ref="globeDiv"
+      class="globe-viz"
+      :class="{
+        'globe-right': !isLoading && !showEarthCenter,
+        'globe-center': showEarthCenter || isLoading,
+      }"
+    ></div>
 
     <div class="scroll-wrapper">
       <div class="scroll-content">
@@ -34,7 +41,7 @@
                 <span class="tag">{{ t('about.tag3') }}</span>
               </div>
               <p class="animate-in delay-1">{{ t('about.subtitle') }}</p>
-              
+
               <div class="global-stats animate-in delay-2">
                 <div class="stat-card">
                   <div class="stat-number">20+</div>
@@ -49,11 +56,13 @@
                   <div class="stat-label">{{ t('about.statProjects') }}</div>
                 </div>
               </div>
-              
+
               <div class="scroll-hint animate-in delay-3">{{ t('about.scrollHint') }}</div>
-              <div class="scroll-instruction" v-if="!showEarthCenter">{{ t('about.scrollInstruction') }}</div>
+              <div class="scroll-instruction" v-if="!showEarthCenter">
+                {{ t('about.scrollInstruction') }}
+              </div>
             </div>
-            
+
             <!-- 右侧留空给地球 -->
             <div class="earth-placeholder"></div>
           </div>
@@ -75,7 +84,6 @@
                 <div class="country-flag">{{ country.flag }}</div>
                 <div class="country-name-cn">{{ country.name }}</div>
                 <div class="country-name-en">{{ getFullEnglishName(country.code) }}</div>
-
               </div>
             </div>
           </div>
@@ -97,35 +105,33 @@
                 <div class="country-flag">{{ country.flag }}</div>
                 <div class="country-name-cn">{{ country.name }}</div>
                 <div class="country-name-en">{{ getFullEnglishName(country.code) }}</div>
-
               </div>
             </div>
           </div>
         </div>
 
         <!-- 第四屏：非洲展示 -->
-                <div class="scroll-section section-4" data-section-index="3">
-                  <div class="content-box glass">
-                    <h2>{{ t('about.africaTitle') }}</h2>
-                    <p>{{ t('about.africaDesc') }}</p>
-                    <div class="countries-grid">
-                      <div
-                        v-for="country in africaCountries"
-                        :key="country.code"
-                        class="country-card"
-                        :class="{ highlighted: highlightedCountries.includes(country.code) }"
-                        @click="toggleCountryHighlight(country.code)"
-                      >
-                        <div class="country-flag">{{ country.flag }}</div>
-                        <div class="country-name-cn">{{ country.name }}</div>
-                        <div class="country-name-en">{{ getFullEnglishName(country.code) }}</div>
-        
-                      </div>
-                    </div>
-                  </div>
-                </div>
-        
-                <!-- 第五屏：美洲展示 -->
+        <div class="scroll-section section-4" data-section-index="3">
+          <div class="content-box glass">
+            <h2>{{ t('about.africaTitle') }}</h2>
+            <p>{{ t('about.africaDesc') }}</p>
+            <div class="countries-grid">
+              <div
+                v-for="country in africaCountries"
+                :key="country.code"
+                class="country-card"
+                :class="{ highlighted: highlightedCountries.includes(country.code) }"
+                @click="toggleCountryHighlight(country.code)"
+              >
+                <div class="country-flag">{{ country.flag }}</div>
+                <div class="country-name-cn">{{ country.name }}</div>
+                <div class="country-name-en">{{ getFullEnglishName(country.code) }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 第五屏：美洲展示 -->
         <div class="scroll-section section-5" data-section-index="4">
           <div class="content-box glass">
             <h2>{{ t('about.americasTitle') }}</h2>
@@ -141,7 +147,6 @@
                 <div class="country-flag">{{ country.flag }}</div>
                 <div class="country-name-cn">{{ country.name }}</div>
                 <div class="country-name-en">{{ getFullEnglishName(country.code) }}</div>
-
               </div>
             </div>
           </div>
@@ -163,7 +168,6 @@
                 <div class="country-flag">{{ country.flag }}</div>
                 <div class="country-name-cn">{{ country.name }}</div>
                 <div class="country-name-en">{{ getFullEnglishName(country.code) }}</div>
-
               </div>
             </div>
           </div>
@@ -227,7 +231,7 @@
                   </div>
                 </div>
               </div>
-              
+
               <!-- 下行：向右滚动 -->
               <div class="scroll-row bottom-row">
                 <div class="infinite-content right-scroll">
@@ -264,38 +268,42 @@
                 </div>
               </div>
             </div>
-
-
           </div>
         </div>
-
 
         <!-- 关于我们内容区：苹果风格区块 -->
         <!-- 第一块：专注领域 -->
         <section class="about-block about-block--light">
           <div class="about-block__inner">
             <h2 class="about-block__title">
-              <span class="about-block__keyword">{{ t('about.block1Keyword') }}</span>，{{ t('about.block1Title') }}
+              <span class="about-block__keyword">{{ t('about.block1Keyword') }}</span
+              >，{{ t('about.block1Title') }}
             </h2>
             <p class="about-block__lead">{{ t('about.block1Lead') }}</p>
             <div class="about-block__cards">
               <article class="about-card">
                 <div class="about-card__icon-wrap">
-                  <span class="about-card__icon" aria-hidden="true">{{ t('about.block1Card1Icon') }}</span>
+                  <span class="about-card__icon" aria-hidden="true">{{
+                    t('about.block1Card1Icon')
+                  }}</span>
                 </div>
                 <h3 class="about-card__title">{{ t('about.block1Card1Title') }}</h3>
                 <p class="about-card__text">{{ t('about.block1Card1Text') }}</p>
               </article>
               <article class="about-card">
                 <div class="about-card__icon-wrap">
-                  <span class="about-card__icon" aria-hidden="true">{{ t('about.block1Card2Icon') }}</span>
+                  <span class="about-card__icon" aria-hidden="true">{{
+                    t('about.block1Card2Icon')
+                  }}</span>
                 </div>
                 <h3 class="about-card__title">{{ t('about.block1Card2Title') }}</h3>
                 <p class="about-card__text">{{ t('about.block1Card2Text') }}</p>
               </article>
               <article class="about-card">
                 <div class="about-card__icon-wrap">
-                  <span class="about-card__icon" aria-hidden="true">{{ t('about.block1Card3Icon') }}</span>
+                  <span class="about-card__icon" aria-hidden="true">{{
+                    t('about.block1Card3Icon')
+                  }}</span>
                 </div>
                 <h3 class="about-card__title">{{ t('about.block1Card3Title') }}</h3>
                 <p class="about-card__text">{{ t('about.block1Card3Text') }}</p>
@@ -310,27 +318,34 @@
         <section class="about-block about-block--white">
           <div class="about-block__inner">
             <h2 class="about-block__title">
-              <span class="about-block__keyword">{{ t('about.block2Keyword') }}</span>，{{ t('about.block2Title') }}
+              <span class="about-block__keyword">{{ t('about.block2Keyword') }}</span
+              >，{{ t('about.block2Title') }}
             </h2>
             <p class="about-block__lead">{{ t('about.block2Lead') }}</p>
             <div class="about-block__cards">
               <article class="about-card">
                 <div class="about-card__icon-wrap about-card__icon-wrap--accent">
-                  <span class="about-card__icon" aria-hidden="true">{{ t('about.block2Card1Icon') }}</span>
+                  <span class="about-card__icon" aria-hidden="true">{{
+                    t('about.block2Card1Icon')
+                  }}</span>
                 </div>
                 <h3 class="about-card__title">{{ t('about.block2Card1Title') }}</h3>
                 <p class="about-card__text">{{ t('about.block2Card1Text') }}</p>
               </article>
               <article class="about-card">
                 <div class="about-card__icon-wrap about-card__icon-wrap--accent">
-                  <span class="about-card__icon" aria-hidden="true">{{ t('about.block2Card2Icon') }}</span>
+                  <span class="about-card__icon" aria-hidden="true">{{
+                    t('about.block2Card2Icon')
+                  }}</span>
                 </div>
                 <h3 class="about-card__title">{{ t('about.block2Card2Title') }}</h3>
                 <p class="about-card__text">{{ t('about.block2Card2Text') }}</p>
               </article>
               <article class="about-card">
                 <div class="about-card__icon-wrap about-card__icon-wrap--accent">
-                  <span class="about-card__icon" aria-hidden="true">{{ t('about.block2Card3Icon') }}</span>
+                  <span class="about-card__icon" aria-hidden="true">{{
+                    t('about.block2Card3Icon')
+                  }}</span>
                 </div>
                 <h3 class="about-card__title">{{ t('about.block2Card3Title') }}</h3>
                 <p class="about-card__text">{{ t('about.block2Card3Text') }}</p>
@@ -345,7 +360,8 @@
         <section class="about-block about-block--light">
           <div class="about-block__inner">
             <h2 class="about-block__title">
-              <span class="about-block__keyword">{{ t('about.block3Keyword') }}</span>，{{ t('about.block3Title') }}
+              <span class="about-block__keyword">{{ t('about.block3Keyword') }}</span
+              >，{{ t('about.block3Title') }}
             </h2>
             <p class="about-block__lead">{{ t('about.block3Lead') }}</p>
             <div class="about-block__cards">
@@ -374,27 +390,34 @@
         <section class="about-block about-block--white">
           <div class="about-block__inner">
             <h2 class="about-block__title">
-              <span class="about-block__keyword">{{ t('about.block4Keyword') }}</span>，{{ t('about.block4Title') }}
+              <span class="about-block__keyword">{{ t('about.block4Keyword') }}</span
+              >，{{ t('about.block4Title') }}
             </h2>
             <p class="about-block__lead">{{ t('about.block4Lead') }}</p>
             <div class="about-block__cards">
               <article class="about-card">
                 <div class="about-card__icon-wrap">
-                  <span class="about-card__icon" aria-hidden="true">{{ t('about.block4Card1Icon') }}</span>
+                  <span class="about-card__icon" aria-hidden="true">{{
+                    t('about.block4Card1Icon')
+                  }}</span>
                 </div>
                 <h3 class="about-card__title">{{ t('about.block4Card1Title') }}</h3>
                 <p class="about-card__text">{{ t('about.block4Card1Text') }}</p>
               </article>
               <article class="about-card">
                 <div class="about-card__icon-wrap">
-                  <span class="about-card__icon" aria-hidden="true">{{ t('about.block4Card2Icon') }}</span>
+                  <span class="about-card__icon" aria-hidden="true">{{
+                    t('about.block4Card2Icon')
+                  }}</span>
                 </div>
                 <h3 class="about-card__title">{{ t('about.block4Card2Title') }}</h3>
                 <p class="about-card__text">{{ t('about.block4Card2Text') }}</p>
               </article>
               <article class="about-card">
                 <div class="about-card__icon-wrap">
-                  <span class="about-card__icon" aria-hidden="true">{{ t('about.block4Card3Icon') }}</span>
+                  <span class="about-card__icon" aria-hidden="true">{{
+                    t('about.block4Card3Icon')
+                  }}</span>
                 </div>
                 <h3 class="about-card__title">{{ t('about.block4Card3Title') }}</h3>
                 <p class="about-card__text">{{ t('about.block4Card3Text') }}</p>
@@ -408,56 +431,37 @@
 </template>
 
 <script setup>
-import { onMounted, ref, onUnmounted, computed } from 'vue'
 import Globe from 'globe.gl'
+import { onMounted, ref, onUnmounted, computed } from 'vue'
+
 import SiteHeader from '../components/SiteHeader.vue'
 import { useI18n } from '../composables/useI18n'
+import { COUNTRIES, GLOBE_CONFIG, GLOBE_VIEWS, ANIMATION_CONFIG } from '../utils/constants'
+import { debounce, throttle } from '../utils/helpers'
 
 const { t } = useI18n()
 
 // 导入本地地球背景图片
 import earthBackground from '../assets/globe/earth-blue-marble.jpg'
 
+// 响应式数据
 const globeDiv = ref(null)
 const globeInstance = ref(null)
 const isLoading = ref(true)
 const chinaCount = ref(8)
-const isGlobeRotating = ref(true) // 控制地球是否旋转
-const rotationInterval = ref(null) // 旋转定时器
-const showEarthCenter = ref(false) // 控制地球是否回到中心
-const scrollThreshold = ref(50) // 滚动阈值，降低触发点
-const animatedSections = ref(new Set()) // 记录已经触发动画的区块
+const isGlobeRotating = ref(true)
+const rotationInterval = ref(null)
+const showEarthCenter = ref(false)
+const scrollThreshold = ref(50)
+const animatedSections = ref(new Set())
+const currentCardIndex = ref(0)
+const isAnimating = ref(false)
 
-// 亚洲国家
-const asiaCountries = [
-  { code: 'CN', name: '中国', flag: '🇨🇳🇹🇼' },
-  { code: 'OM', name: '阿曼', flag: '🇴🇲' },
-  { code: 'MY', name: '马来西亚', flag: '🇲🇾' },
-  { code: 'ID', name: '印度尼西亚', flag: '🇮🇩' },
-  { code: 'IN', name: '印度', flag: '🇮🇳' },
-  { code: 'VN', name: '越南', flag: '🇻🇳' },
-  { code: 'JP', name: '日本', flag: '🇯🇵' },
-  { code: 'AE', name: '阿联酋', flag: '🇦🇪' },
-  { code: 'SA', name: '沙特阿拉伯', flag: '🇸🇦' },
-]
-
-// 欧洲国家
-const europeCountries = [
-  { code: 'DE', name: '德国', flag: '🇩🇪' },
-  { code: 'GB', name: '英国', flag: '🇬🇧' },
-  { code: 'RU', name: '俄罗斯', flag: '🇷🇺' },
-]
-
-// 非洲国家
-const africaCountries = [
-  { code: 'ZM', name: '赞比亚', flag: '🇿🇲' },
-  { code: 'EG', name: '埃及', flag: '🇪🇬' },
-]
-
-// 美洲国家
-const americasCountries = [
-  { code: 'PE', name: '秘鲁', flag: '🇵🇪' },
-]
+// 国家数据（从常量文件导入）
+const asiaCountries = COUNTRIES.asia
+const europeCountries = COUNTRIES.europe
+const africaCountries = COUNTRIES.africa
+const americasCountries = COUNTRIES.americas
 
 // 重点省份（用于高亮）
 const activeProvinces = [
@@ -547,44 +551,42 @@ const toggleProvinceHighlight = code => {
 }
 
 // 获取国家英文全称
-const getFullEnglishName = (code) => {
+const getFullEnglishName = code => {
   const englishNames = {
-    'CN': 'China',
-    'OM': 'Oman',
-    'MY': 'Malaysia',
-    'ID': 'Indonesia',
-    'IN': 'India',
-    'VN': 'Vietnam',
-    'JP': 'Japan',
-    'AE': 'United Arab Emirates',
-    'SA': 'Saudi Arabia',
-    'DE': 'Germany',
-    'GB': 'United Kingdom',
-    'RU': 'Russia',
-    'ZM': 'Zambia',
-    'EG': 'Egypt',
-    'PE': 'Peru'
+    CN: 'China',
+    OM: 'Oman',
+    MY: 'Malaysia',
+    ID: 'Indonesia',
+    IN: 'India',
+    VN: 'Vietnam',
+    JP: 'Japan',
+    AE: 'United Arab Emirates',
+    SA: 'Saudi Arabia',
+    DE: 'Germany',
+    GB: 'United Kingdom',
+    RU: 'Russia',
+    ZM: 'Zambia',
+    EG: 'Egypt',
+    PE: 'Peru',
   }
   return englishNames[code] || code
 }
 
-
 let cleanupFunction = null
-let currentCardIndex = 0
-let isAnimating = false
 
 // 地球自旋转函数
-const startGlobeRotation = (world) => {
-  if (rotationInterval.value) return // 如果已经在旋转则不重复启动
-  
+const startGlobeRotation = world => {
+  if (rotationInterval.value) {
+    return
+  }
+
   rotationInterval.value = setInterval(() => {
     if (isGlobeRotating.value && world) {
       const currentView = world.pointOfView()
-      // 缓慢向西旋转（经度减少）- 符合地球实际自转方向
       const newLng = (currentView.lng - 0.1 + 360) % 360
-      world.pointOfView({ ...currentView, lng: newLng }, 0) // 0表示立即更新，无动画
+      world.pointOfView({ ...currentView, lng: newLng }, 0)
     }
-  }, 50) // 每50ms更新一次，营造缓慢旋转效果
+  }, 50)
 }
 
 // 停止地球旋转
@@ -596,34 +598,21 @@ const stopGlobeRotation = () => {
   isGlobeRotating.value = false
 }
 
-// 处理触摸开始事件，解决移动端滚动问题
-const handleTouchStart = (event) => {
-  // 确保滚动容器能够正常响应触摸事件
+// 处理触摸开始事件
+const handleTouchStart = event => {
   const scrollWrapper = document.querySelector('.scroll-wrapper')
   if (scrollWrapper) {
-    // 强制启用滚动
     scrollWrapper.style.overflowY = 'auto'
     scrollWrapper.style.webkitOverflowScrolling = 'touch'
-    
-    // 触发一次滚动事件确保激活
+
     setTimeout(() => {
       scrollWrapper.scrollTop = scrollWrapper.scrollTop
     }, 100)
   }
-  
-  // 阻止默认行为可能会干扰滚动，所以不阻止
-  // event.preventDefault() 
 }
 
-// 地球视角配置：按 section 顺序（0=首屏, 1=亚洲, 2=欧洲, ... 6=省份）
-const globeTargetViews = [
-  { lat: 35, lng: 105, altitude: 1.2 },  // 0 首屏 & 1 亚洲 - 中国区域
-  { lat: 50, lng: 15, altitude: 1.5 },   // 2 欧洲
-  { lat: -10, lng: 20, altitude: 1.5 },  // 3 非洲
-  { lat: 20, lng: -90, altitude: 1.5 },  // 4 美洲
-  { lat: 35, lng: 105, altitude: 1.0 },  // 5 回到中国
-  { lat: 35, lng: 105, altitude: 0.7 },  // 6 省份展示
-]
+// 使用常量配置
+const globeTargetViews = GLOBE_VIEWS
 
 // 根据当前滚动位置计算「当前激活的 section」：仅当该 section 已进入视窗上方约 25% 时才切换（延后触发，避免过早）
 function getActiveSectionIndex(scrollTop, sectionCount, viewportHeight) {
@@ -635,14 +624,18 @@ function getActiveSectionIndex(scrollTop, sectionCount, viewportHeight) {
 
 // section 索引 → 地球视角索引（首屏和亚洲共用视角 0）
 function sectionToViewIndex(sectionIndex) {
-  if (sectionIndex <= 1) return 0
+  if (sectionIndex <= 1) {
+    return 0
+  }
   return Math.min(sectionIndex - 1, globeTargetViews.length - 1)
 }
 
 // 统一的滚动处理函数（基于 section 位置，不再用固定像素）
 const handleScroll = () => {
   const scrollWrapper = document.querySelector('.scroll-wrapper')
-  if (!scrollWrapper) return
+  if (!scrollWrapper) {
+    return
+  }
 
   const scrollTop = scrollWrapper.scrollTop
   const viewportHeight = window.innerHeight
@@ -677,9 +670,9 @@ const handleScroll = () => {
   const activeSectionIndex = getActiveSectionIndex(scrollTop, sectionCount, viewportHeight)
   const viewIndex = sectionToViewIndex(activeSectionIndex)
 
-  if (activeSectionIndex !== currentCardIndex && !isAnimating) {
-    currentCardIndex = activeSectionIndex
-    isAnimating = true
+  if (activeSectionIndex !== currentCardIndex.value && !isAnimating.value) {
+    currentCardIndex.value = activeSectionIndex
+    isAnimating.value = true
 
     if (viewIndex >= 5) {
       stopGlobeRotation()
@@ -692,21 +685,21 @@ const handleScroll = () => {
     }
 
     setTimeout(() => {
-      isAnimating = false
+      isAnimating.value = false
     }, 850)
   }
 }
 
 onMounted(() => {
   initGlobe()
-  
+
   // 添加滚动监听，并同步一次当前滚动位置对应的 section/高亮
   const scrollWrapper = document.querySelector('.scroll-wrapper')
   if (scrollWrapper) {
     scrollWrapper.addEventListener('scroll', handleScroll)
     setTimeout(() => handleScroll(), 100)
   }
-  
+
   // 添加加载超时保护
   setTimeout(() => {
     if (isLoading.value) {
@@ -716,14 +709,14 @@ onMounted(() => {
       showEarthCenter.value = false
     }
   }, 3000) // 超时保护
-  
+
   // 页面加载完成后主动激活滚动
   setTimeout(() => {
     if (scrollWrapper) {
       // 确保滚动属性正确设置
       scrollWrapper.style.overflowY = 'auto'
       scrollWrapper.style.webkitOverflowScrolling = 'touch'
-      
+
       // 触发一次微小的滚动来激活滚动机制
       const currentScroll = scrollWrapper.scrollTop
       scrollWrapper.scrollTop = currentScroll + 1
@@ -742,7 +735,7 @@ onUnmounted(() => {
   if (globeInstance.value && globeInstance.value._destructor) {
     globeInstance.value._destructor()
   }
-  
+
   // 清理滚动监听
   const scrollWrapper = document.querySelector('.scroll-wrapper')
   if (scrollWrapper) {
@@ -771,7 +764,9 @@ const initGlobe = () => {
     { timeout: 3000 } // 3秒超时
   )
     .then(res => {
-      if (!res.ok) throw new Error('Network response was not ok')
+      if (!res.ok) {
+        throw new Error('Network response was not ok')
+      }
       return res.json()
     })
     .then(countries => {
@@ -822,7 +817,7 @@ const initGlobe = () => {
 
 const setupScrollAnimation = world => {
   cleanupFunction = initializeAnimationTriggers(world)
-  
+
   // 设置合理的加载时间
   setTimeout(() => {
     isLoading.value = false
@@ -830,15 +825,19 @@ const setupScrollAnimation = world => {
     showEarthCenter.value = false
     console.log('加载完成，地球移至左侧')
   }, 500) // 等待0.5秒加载界面消失
-  
+
   return cleanupFunction
 }
 
 // 根据高亮状态更新地图
 const updateMapDisplay = world => {
-  if (!world || !world.polygonsData) return
+  if (!world || !world.polygonsData) {
+    return
+  }
   const currentData = world.polygonsData()
-  if (!currentData || !currentData.length) return
+  if (!currentData || !currentData.length) {
+    return
+  }
 
   world
     .polygonCapColor(d => {
@@ -943,38 +942,42 @@ const updateHighlightedCountries = sectionIndex => {
 // 基于像素位置的触发（兜底方案）
 const setupPixelBasedTrigger = world => {
   const scrollWrapper = document.querySelector('.scroll-wrapper')
-  if (!scrollWrapper) return
+  if (!scrollWrapper) {
+    return
+  }
 
   const triggerPositions = [0, 800, 1600, 2400, 3200, 4000]
 
   const targetViews = [
-    { lat: 35, lng: 105, altitude: 1.2 },  // 亚洲 - 中国区域
-    { lat: 50, lng: 15, altitude: 1.5 },   // 欧洲 - 欧洲大陆
-    { lat: -10, lng: 20, altitude: 1.5 },  // 非洲 - 非洲大陆
-    { lat: 20, lng: -90, altitude: 1.5 },  // 美洲 - 南美区域
-    { lat: 35, lng: 105, altitude: 1.0 },  // 回到中国
-    { lat: 35, lng: 105, altitude: 0.7 },  // 省份展示
+    { lat: 35, lng: 105, altitude: 1.2 }, // 亚洲 - 中国区域
+    { lat: 50, lng: 15, altitude: 1.5 }, // 欧洲 - 欧洲大陆
+    { lat: -10, lng: 20, altitude: 1.5 }, // 非洲 - 非洲大陆
+    { lat: 20, lng: -90, altitude: 1.5 }, // 美洲 - 南美区域
+    { lat: 35, lng: 105, altitude: 1.0 }, // 回到中国
+    { lat: 35, lng: 105, altitude: 0.7 }, // 省份展示
   ]
-
 }
 
 // 基于 section 位置的智能触发
 const setupSmartPixelTrigger = world => {
   const scrollWrapper = document.querySelector('.scroll-wrapper')
-  if (!scrollWrapper) return
+  if (!scrollWrapper) {
+    return
+  }
 
   const scrollSections = document.querySelectorAll('.scroll-section')
-  if (!scrollSections.length) return
+  if (!scrollSections.length) {
+    return
+  }
 
   const targetViews = [
-    { lat: 35, lng: 105, altitude: 1.2 },  // 亚洲 - 中国区域
-    { lat: 50, lng: 15, altitude: 1.5 },   // 欧洲 - 欧洲大陆
-    { lat: -10, lng: 20, altitude: 1.5 },  // 非洲 - 非洲大陆
-    { lat: 20, lng: -90, altitude: 1.5 },  // 美洲 - 南美区域
-    { lat: 35, lng: 105, altitude: 1.0 },  // 回到中国
-    { lat: 35, lng: 105, altitude: 0.7 },  // 省份展示
+    { lat: 35, lng: 105, altitude: 1.2 }, // 亚洲 - 中国区域
+    { lat: 50, lng: 15, altitude: 1.5 }, // 欧洲 - 欧洲大陆
+    { lat: -10, lng: 20, altitude: 1.5 }, // 非洲 - 非洲大陆
+    { lat: 20, lng: -90, altitude: 1.5 }, // 美洲 - 南美区域
+    { lat: 35, lng: 105, altitude: 1.0 }, // 回到中国
+    { lat: 35, lng: 105, altitude: 0.7 }, // 省份展示
   ]
-
 }
 
 // 统一入口：优先使用智能触发，失败则使用固定像素触发
@@ -1081,8 +1084,6 @@ const initializeAnimationTriggers = world => {
   opacity: 1;
 }
 
-
-
 .loading-content {
   text-align: center;
   color: #333;
@@ -1101,8 +1102,12 @@ const initializeAnimationTriggers = world => {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .loading-text {
@@ -1120,8 +1125,6 @@ const initializeAnimationTriggers = world => {
   color: #666;
   animation: fadeInOut 3s ease-in-out infinite;
 }
-
-
 
 .scroll-wrapper {
   position: relative;
@@ -1202,13 +1205,14 @@ const initializeAnimationTriggers = world => {
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at 0% 0%, 
-    rgba(135, 206, 250, 0.9) 0%, 
-    rgba(160, 210, 240, 0.75) 12%, 
-    rgba(190, 225, 245, 0.6) 25%, 
-    rgba(220, 240, 250, 0.4) 40%, 
-    rgba(240, 248, 255, 0.25) 55%, 
-    rgba(250, 255, 255, 0.1) 70%, 
+  background: radial-gradient(
+    circle at 0% 0%,
+    rgba(135, 206, 250, 0.9) 0%,
+    rgba(160, 210, 240, 0.75) 12%,
+    rgba(190, 225, 245, 0.6) 25%,
+    rgba(220, 240, 250, 0.4) 40%,
+    rgba(240, 248, 255, 0.25) 55%,
+    rgba(250, 255, 255, 0.1) 70%,
     rgba(255, 255, 255, 0) 85%
   );
   /* 扩大渐变范围至85%，过渡更自然 */
@@ -1313,7 +1317,7 @@ const initializeAnimationTriggers = world => {
 }
 
 /* 特效隐藏状态 */
-.hero-effects[style*="opacity: 0"] {
+.hero-effects[style*='opacity: 0'] {
   opacity: 0;
 }
 
@@ -1402,7 +1406,9 @@ const initializeAnimationTriggers = world => {
   background: #ffffff;
   border-radius: 18px;
   padding: 2rem 1.75rem;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
   border: 1px solid rgba(0, 0, 0, 0.06);
 }
@@ -1666,8 +1672,6 @@ p {
   box-shadow: 0 14px 32px rgba(37, 99, 235, 0.18);
 }
 
-
-
 .country-flag {
   font-size: 1.4rem;
   width: 40px;
@@ -1702,8 +1706,6 @@ p {
   color: #374151;
   font-weight: 500;
 }
-
-
 
 .provinces-scroll-container {
   margin-top: 1.5rem;
@@ -1798,7 +1800,8 @@ p {
 }
 
 @keyframes contentFloat {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0px);
   }
   50% {
@@ -1816,7 +1819,8 @@ p {
 }
 
 @keyframes fadeInOut {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 0.7;
   }
   50% {
@@ -2012,7 +2016,7 @@ p {
   .value-modules {
     grid-template-columns: 1fr;
   }
-  
+
   .module-item.dx-card {
     min-width: 0;
     max-width: 100%;
@@ -2020,7 +2024,7 @@ p {
     min-height: 420px;
     max-height: none;
   }
-  
+
   .content-box {
     max-width: 90%;
     padding: 1.6rem 1.4rem;
@@ -2049,4 +2053,3 @@ p {
   }
 }
 </style>
-

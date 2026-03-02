@@ -1,14 +1,19 @@
 <template>
   <div class="page-view">
     <section class="page-hero">
-      <div class="page-hero-bg" style="background-image: url(https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1920&q=80)"></div>
+      <div
+        class="page-hero-bg"
+        style="
+          background-image: url(https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1920&q=80);
+        "
+      ></div>
       <div class="page-hero-overlay"></div>
       <div class="container page-hero-inner">
         <h1 class="page-hero-title">{{ t('cases.heroTitle') }}</h1>
         <p class="page-hero-lead">{{ t('cases.heroLead') }}</p>
       </div>
     </section>
-    
+
     <section class="page-body">
       <div class="container container--wide">
         <div class="section-header text-center">
@@ -18,23 +23,23 @@
             {{ t('cases.lead') }}
           </p>
         </div>
-        
+
         <div class="cases-container">
-          <article 
-            v-for="(caseItem, index) in cases" 
-            :key="caseItem.id" 
+          <article
+            v-for="(caseItem, index) in cases"
+            :key="caseItem.id"
             class="case-card"
-            :class="{ 'even': index % 2 === 1 }"
+            :class="{ even: index % 2 === 1 }"
             @click="handleCardClick(caseItem.id)"
           >
             <div class="case-content">
               <div class="case-image-section">
-                <div 
-                  class="case-image" 
+                <div
+                  class="case-image"
                   :style="{ backgroundImage: `url(${caseItem.image})` }"
                 ></div>
               </div>
-              
+
               <div class="case-info-section">
                 <span class="case-category">{{ t(caseItem.tagKey) }}</span>
                 <h3 class="case-title">{{ t(caseItem.titleKey) }}</h3>
@@ -52,33 +57,59 @@
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+
 import { useI18n } from '../composables/useI18n'
+import { caseImages } from '../utils/images'
+import { casesApi } from '../api/cases'
 
 const router = useRouter()
 const { t } = useI18n()
 
-const handleCardClick = (id) => {
+const handleCardClick = id => {
   router.push(`/cases/${id}`)
 }
 
-const cases = [
-  { id: '1', tagKey: 'cases.metallurgy', titleKey: 'caseData.1.title', descKey: 'caseData.1.desc', image: '/dongxiong-website/cases/case1-horizontal-1.jpg' },
-  { id: '5', tagKey: 'cases.metalRecycle', titleKey: 'caseData.5.title', descKey: 'caseData.5.desc', image: '/dongxiong-website/cases/自动化控制.jpg' },
-  { id: '3', tagKey: 'cases.hazardousWaste', titleKey: 'caseData.3.title', descKey: 'caseData.3.desc', image: '/dongxiong-website/cases/cases-3-全景图.jpg' },
-  { id: '4', tagKey: 'cases.ecoProtection', titleKey: 'caseData.4.title', descKey: 'caseData.4.desc', image: '/dongxiong-website/cases/cases-4-湖心工岛.jpg' },
-  { id: '2', tagKey: 'cases.nonferrousSmelt', titleKey: 'caseData.2.title', descKey: 'caseData.2.desc', image: '/dongxiong-website/cases/case-2-冷却器.jpg' },
+const cases = ref([])
+
+const resolveImage = key => {
+  return key.split('.').reduce((acc, k) => (acc ? acc[k] : undefined), caseImages) || ''
+}
+
+const localFallback = [
+  { id: '1', tagKey: 'cases.metallurgy', titleKey: 'caseData.1.title', descKey: 'caseData.1.desc', imageKey: 'case1.h1' },
+  { id: '5', tagKey: 'cases.metalRecycle', titleKey: 'caseData.5.title', descKey: 'caseData.5.desc', imageKey: 'case5.automationControl' },
+  { id: '2', tagKey: 'cases.nonferrousSmelt', titleKey: 'caseData.2.title', descKey: 'caseData.2.desc', imageKey: 'case2.controlRoom' },
+  { id: '3', tagKey: 'cases.hazardousWaste', titleKey: 'caseData.3.title', descKey: 'caseData.3.desc', imageKey: 'case3.panorama' },
+  { id: '4', tagKey: 'cases.ecoProtection', titleKey: 'caseData.4.title', descKey: 'caseData.4.desc', imageKey: 'case4.storageArea' },
 ]
+
+onMounted(async () => {
+  try {
+    const data = await casesApi.list()
+    const items = data?.items || []
+    cases.value = items.map(i => ({
+      ...i,
+      image: resolveImage(i.imageKey),
+    }))
+    if (!cases.value.length) {
+      cases.value = localFallback.map(i => ({ ...i, image: resolveImage(i.imageKey) }))
+    }
+  } catch {
+    cases.value = localFallback.map(i => ({ ...i, image: resolveImage(i.imageKey) }))
+  }
+})
 </script>
 
 <style scoped>
 /* 基础布局样式 */
-.page-view { 
-  padding-top: 0; 
+.page-view {
+  padding-top: 0;
 }
 
-.page-body { 
-  padding: var(--space-section) 0; 
+.page-body {
+  padding: var(--space-section) 0;
 }
 
 /* 标题区域样式 */
@@ -236,21 +267,21 @@ const cases = [
     height: 60vh;
     min-height: 400px;
   }
-  
+
   .case-content {
     flex-direction: column;
   }
-  
+
   .case-image-section {
     height: 40%;
     min-width: 100%;
   }
-  
+
   .case-info-section {
     height: 60%;
     padding: 2rem;
   }
-  
+
   .case-title {
     font-size: 1.75rem;
   }
@@ -261,19 +292,19 @@ const cases = [
     height: 80vh;
     min-height: 350px;
   }
-  
+
   .case-info-section {
     padding: 1.5rem;
   }
-  
+
   .case-title {
     font-size: 1.5rem;
   }
-  
+
   .case-description {
     font-size: 1rem;
   }
-  
+
   .case-category {
     margin-bottom: 1rem;
   }
@@ -300,7 +331,7 @@ const cases = [
 .page-hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.5) 100%);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.5) 100%);
 }
 
 .page-hero-inner {
@@ -316,8 +347,8 @@ const cases = [
   margin-bottom: 0.5rem;
 }
 
-.page-hero-lead { 
-  font-size: var(--text-body); 
-  opacity: 0.95; 
+.page-hero-lead {
+  font-size: var(--text-body);
+  opacity: 0.95;
 }
 </style>

@@ -1,7 +1,12 @@
 <template>
   <div class="page-view">
     <section class="page-hero">
-      <div class="page-hero-bg" style="background-image: url(https://images.unsplash.com/photo-1567767292278-a4f21aa2d36e?w=1920&q=80)"></div>
+      <div
+        class="page-hero-bg"
+        style="
+          background-image: url(https://images.unsplash.com/photo-1567767292278-a4f21aa2d36e?w=1920&q=80);
+        "
+      ></div>
       <div class="page-hero-overlay"></div>
       <div class="container page-hero-inner">
         <h1 class="page-hero-title">{{ t('solutions.heroTitle') }}</h1>
@@ -43,7 +48,9 @@ const items = [
 </script>
 
 <style scoped>
-.page-view { padding-top: 0; }
+.page-view {
+  padding-top: 0;
+}
 
 .page-hero {
   position: relative;
@@ -65,7 +72,7 @@ const items = [
 .page-hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.5) 100%);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.5) 100%);
 }
 
 .page-hero-inner {
@@ -81,9 +88,14 @@ const items = [
   margin-bottom: 0.5rem;
 }
 
-.page-hero-lead { font-size: var(--text-body); opacity: 0.95; }
+.page-hero-lead {
+  font-size: var(--text-body);
+  opacity: 0.95;
+}
 
-.page-body { padding: var(--space-section) 0; }
+.page-body {
+  padding: var(--space-section) 0;
+}
 
 .page-eyebrow {
   font-size: var(--text-small);
@@ -94,9 +106,15 @@ const items = [
   margin-bottom: 0.75rem;
 }
 
-.page-intro { margin-bottom: 2rem; }
+.page-intro {
+  margin-bottom: 2rem;
+}
 
-.solutions-list { display: flex; flex-direction: column; gap: 0; }
+.solutions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
 
 .solution-item {
   display: grid;
@@ -107,7 +125,9 @@ const items = [
   align-items: start;
 }
 
-.solution-item:last-child { border-bottom: none; }
+.solution-item:last-child {
+  border-bottom: none;
+}
 
 .solution-num {
   font-size: var(--text-h2);

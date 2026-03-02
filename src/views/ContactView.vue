@@ -1,7 +1,12 @@
 <template>
   <div class="page-view">
     <section class="page-hero">
-      <div class="page-hero-bg" style="background-image: url(https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&q=80)"></div>
+      <div
+        class="page-hero-bg"
+        style="
+          background-image: url(https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&q=80);
+        "
+      ></div>
       <div class="page-hero-overlay"></div>
       <div class="container page-hero-inner">
         <h1 class="page-hero-title">{{ t('contact.heroTitle') }}</h1>
@@ -33,7 +38,11 @@
             <div class="contact-cta-inner">
               <p class="contact-cta-title">{{ t('contact.ctaTitle') }}</p>
               <p class="contact-cta-hint">{{ t('contact.ctaHint') }}</p>
-              <a href="mailto:754815750@qq.com?subject=合作咨询" class="btn btn-primary btn-block">{{ t('contact.ctaButton') }}</a>
+              <a
+                href="mailto:754815750@qq.com?subject=合作咨询"
+                class="btn btn-primary btn-block"
+                >{{ t('contact.ctaButton') }}</a
+              >
             </div>
           </div>
         </div>
@@ -49,7 +58,9 @@ const { t } = useI18n()
 </script>
 
 <style scoped>
-.page-view { padding-top: 0; }
+.page-view {
+  padding-top: 0;
+}
 
 .page-hero {
   position: relative;
@@ -71,7 +82,7 @@ const { t } = useI18n()
 .page-hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.5) 100%);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.5) 100%);
 }
 
 .page-hero-inner {
@@ -87,9 +98,14 @@ const { t } = useI18n()
   margin-bottom: 0.5rem;
 }
 
-.page-hero-lead { font-size: var(--text-body); opacity: 0.95; }
+.page-hero-lead {
+  font-size: var(--text-body);
+  opacity: 0.95;
+}
 
-.page-body { padding: var(--space-section) 0; }
+.page-body {
+  padding: var(--space-section) 0;
+}
 
 .contact-layout {
   display: grid;
@@ -99,10 +115,14 @@ const { t } = useI18n()
 }
 
 @media (max-width: 768px) {
-  .contact-layout { grid-template-columns: 1fr; }
+  .contact-layout {
+    grid-template-columns: 1fr;
+  }
 }
 
-.contact-info-block { max-width: 36em; }
+.contact-info-block {
+  max-width: 36em;
+}
 
 .contact-info-list {
   margin-top: 1.5rem;
@@ -137,7 +157,9 @@ const { t } = useI18n()
   border: 1px solid var(--color-border);
 }
 
-.contact-cta-inner { max-width: 20em; }
+.contact-cta-inner {
+  max-width: 20em;
+}
 
 .contact-cta-title {
   font-size: var(--text-h2);
@@ -159,7 +181,9 @@ const { t } = useI18n()
   font-size: var(--text-body);
   font-weight: var(--font-weight-medium);
   border-radius: 980px;
-  transition: background var(--duration-fast) var(--ease-out), color var(--duration-fast) var(--ease-out);
+  transition:
+    background var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
 }
 
 .btn-primary {
@@ -178,5 +202,7 @@ const { t } = useI18n()
   color: #fff;
 }
 
-.btn-block { width: 100%; }
+.btn-block {
+  width: 100%;
+}
 </style>

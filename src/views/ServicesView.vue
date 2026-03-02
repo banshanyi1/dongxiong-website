@@ -1,7 +1,12 @@
 <template>
   <div class="page-view">
     <section class="page-hero">
-      <div class="page-hero-bg" style="background-image: url(https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=1920&q=80)"></div>
+      <div
+        class="page-hero-bg"
+        style="
+          background-image: url(https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=1920&q=80);
+        "
+      ></div>
       <div class="page-hero-overlay"></div>
       <div class="container page-hero-inner">
         <h1 class="page-hero-title">{{ t('services.heroTitle') }}</h1>
@@ -16,9 +21,9 @@
           {{ t('services.lead') }}
         </p>
         <div class="dx-card-grid">
-          <article 
-            v-for="(card, index) in cards" 
-            :key="card.titleKey" 
+          <article
+            v-for="(card, index) in cards"
+            :key="card.titleKey"
             class="dx-card"
             @click="openDetail(index)"
           >
@@ -28,6 +33,8 @@
                   class="dx-card__img"
                   :src="card.background"
                   :alt="t(card.titleKey)"
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
             </div>
@@ -40,11 +47,15 @@
         </div>
       </div>
     </section>
-    
+
     <Teleport to="body">
       <div class="service-detail-container" v-if="activeCardIndex !== null">
         <Transition name="slide-fade">
-          <div class="service-detail-backdrop" @click="closeDetail"></div>
+          <div
+            v-if="activeCardIndex !== null"
+            class="service-detail-backdrop"
+            @click="closeDetail"
+          ></div>
         </Transition>
         <Transition name="slide-panel">
           <div
@@ -54,7 +65,14 @@
             @click.stop
           >
             <div class="service-detail-panel__overlay" aria-hidden="true"></div>
-            <button type="button" class="detail-close-btn" @click="closeDetail" :aria-label="t('common.close')">×</button>
+            <button
+              type="button"
+              class="detail-close-btn"
+              @click="closeDetail"
+              :aria-label="t('common.close')"
+            >
+              ×
+            </button>
             <div class="detail-content">
               <header class="detail-header">
                 <span class="detail-icon">{{ cards[activeCardIndex]?.icon }}</span>
@@ -65,7 +83,9 @@
                 <section v-if="getCardFeatures(activeCardIndex)?.length" class="detail-section">
                   <h3 class="detail-section__title">{{ t('services.coreAdvantage') }}</h3>
                   <ul class="detail-list detail-list--rows">
-                    <li v-for="feature in getCardFeatures(activeCardIndex)" :key="feature">{{ feature }}</li>
+                    <li v-for="feature in getCardFeatures(activeCardIndex)" :key="feature">
+                      {{ feature }}
+                    </li>
                   </ul>
                 </section>
                 <section v-if="getCardProcess(activeCardIndex)?.length" class="detail-section">
@@ -79,9 +99,13 @@
                 </section>
               </div>
               <footer class="detail-footer">
-                <RouterLink to="/contact" class="detail-cta">{{ t('services.consultNow') }}</RouterLink>
+                <RouterLink to="/contact" class="detail-cta">{{
+                  t('services.consultNow')
+                }}</RouterLink>
               </footer>
-              <p class="detail-scroll-hint" v-if="hasScrollableContent">{{ t('services.scrollMore') }}</p>
+              <p class="detail-scroll-hint" v-if="hasScrollableContent">
+                {{ t('services.scrollMore') }}
+              </p>
             </div>
           </div>
         </Transition>
@@ -92,35 +116,74 @@
 
 <script setup>
 import { ref, computed, nextTick, onUnmounted } from 'vue'
+
 import { useI18n } from '../composables/useI18n'
+import { serviceImages } from '../utils/images'
 
 const { t } = useI18n()
 const activeCardIndex = ref(null)
-const publicBase = import.meta.env.BASE_URL || '/'
 
 const cards = [
-  { icon: '📐', titleKey: 'services.design', descKey: 'services.designDesc', fullDescKey: 'services.designFullDesc', featuresKey: 'services.designFeatures', processKey: 'services.designProcess', background: '/dongxiong-website/service-design.jpg' },
-  { icon: '🔥', titleKey: 'services.smelting', descKey: 'services.smeltingDesc', fullDescKey: 'services.smeltingFullDesc', featuresKey: 'services.smeltingFeatures', processKey: 'services.smeltingProcess', background: '/dongxiong-website/service-metals.jpg' },
-  { icon: '🌫️', titleKey: 'services.airControl', descKey: 'services.airControlDesc', fullDescKey: 'services.airFullDesc', featuresKey: 'services.airFeatures', processKey: 'services.airProcess', background: '/dongxiong-website/service-environment.jpg' },
-  { icon: '🔧', titleKey: 'services.equipment', descKey: 'services.equipmentDesc', fullDescKey: 'services.equipmentFullDesc', featuresKey: 'services.equipmentFeatures', processKey: 'services.equipmentProcess', background: '/dongxiong-website/service-maintenance.jpg' },
+  {
+    icon: '📐',
+    titleKey: 'services.design',
+    descKey: 'services.designDesc',
+    fullDescKey: 'services.designFullDesc',
+    featuresKey: 'services.designFeatures',
+    processKey: 'services.designProcess',
+    background: serviceImages.design,
+  },
+  {
+    icon: '🔥',
+    titleKey: 'services.smelting',
+    descKey: 'services.smeltingDesc',
+    fullDescKey: 'services.smeltingFullDesc',
+    featuresKey: 'services.smeltingFeatures',
+    processKey: 'services.smeltingProcess',
+    background: serviceImages.metals,
+  },
+  {
+    icon: '🌫️',
+    titleKey: 'services.airControl',
+    descKey: 'services.airControlDesc',
+    fullDescKey: 'services.airFullDesc',
+    featuresKey: 'services.airFeatures',
+    processKey: 'services.airProcess',
+    background: serviceImages.environment,
+  },
+  {
+    icon: '🔧',
+    titleKey: 'services.equipment',
+    descKey: 'services.equipmentDesc',
+    fullDescKey: 'services.equipmentFullDesc',
+    featuresKey: 'services.equipmentFeatures',
+    processKey: 'services.equipmentProcess',
+    background: serviceImages.maintenance,
+  },
 ]
 
 function getCardFeatures(index) {
-  if (index === null || index === undefined) return []
+  if (index === null || index === undefined) {
+    return []
+  }
   const key = cards[index]?.featuresKey
   const val = key ? t(key) : null
   return Array.isArray(val) ? val : []
 }
 
 function getCardProcess(index) {
-  if (index === null || index === undefined) return []
+  if (index === null || index === undefined) {
+    return []
+  }
   const key = cards[index]?.processKey
   const val = key ? t(key) : null
   return Array.isArray(val) ? val : []
 }
 
 const hasScrollableContent = computed(() => {
-  if (activeCardIndex.value === null) return false
+  if (activeCardIndex.value === null) {
+    return false
+  }
   const features = getCardFeatures(activeCardIndex.value)
   const process = getCardProcess(activeCardIndex.value)
   return (features?.length || 0) + (process?.length || 0) > 8
@@ -143,14 +206,18 @@ function closeDetail() {
 }
 
 function getPanelStyle() {
-  if (activeCardIndex.value === null) return {}
+  if (activeCardIndex.value === null) {
+    return {}
+  }
   const card = cards[activeCardIndex.value]
-  if (!card?.background) return {}
+  if (!card?.background) {
+    return {}
+  }
   return {
     backgroundImage: `linear-gradient(to bottom, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.82) 25%, rgba(255,255,255,0.65) 55%, transparent 85%), url(${card.background})`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat'
+    backgroundRepeat: 'no-repeat',
   }
 }
 
@@ -161,7 +228,9 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-.page-view { padding-top: 0; }
+.page-view {
+  padding-top: 0;
+}
 
 .page-hero {
   position: relative;
@@ -183,7 +252,7 @@ onUnmounted(() => {
 .page-hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.5) 100%);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.5) 100%);
 }
 
 .page-hero-inner {
@@ -199,10 +268,13 @@ onUnmounted(() => {
   margin-bottom: 0.5rem;
 }
 
-.page-hero-lead { font-size: var(--text-body); opacity: 0.95; }
+.page-hero-lead {
+  font-size: var(--text-body);
+  opacity: 0.95;
+}
 
-.page-body { 
-  padding: var(--space-section) 0; 
+.page-body {
+  padding: var(--space-section) 0;
   background: var(--color-bg-section);
 }
 
@@ -227,8 +299,8 @@ onUnmounted(() => {
   margin-left: 0;
 }
 
-.page-intro { 
-  margin-bottom: 2rem; 
+.page-intro {
+  margin-bottom: 2rem;
   text-align: left;
   max-width: 640px;
   margin-left: 0;
@@ -239,124 +311,6 @@ section.page-body h2.section-title {
   text-align: left;
   max-width: 640px;
   margin-left: 0 !important;
-}
-
-.services-grid {
-  display: flex;
-  gap: 2rem;
-  margin: 3rem 0 0;
-  width: 100%;
-  max-width: 100%;
-  justify-content: space-between;
-}
-
-.service-card {
-  background: var(--color-bg-card);
-  border-radius: 16px;
-  padding: 2rem;
-  border: 1px solid var(--color-border);
-  transition: all var(--duration-normal) var(--ease-out);
-  cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  flex: 1;
-  min-width: 336px;
-  width: calc(35vw - 2.8rem);
-  height: calc(46.67vw - 2.8rem);
-  max-width: 392px;
-  max-height: 522px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.service-card.first {
-  padding: 2rem;
-  background: var(--color-bg-alt) url('/dongxiong-website/service-bg-design.png');
-  background-size: 80%;
-  background-position: center bottom;
-  background-repeat: no-repeat;
-  border: 1px solid #d0d0d0;
-  flex: 1;
-  min-width: 336px;
-  width: calc(35vw - 2.8rem);
-  height: calc(46.67vw - 2.8rem);
-  max-width: 392px;
-  max-height: 522px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.service-card.second {
-  background: white url('/dongxiong-website/service-bg-metals-new.png');
-  background-size: 80%;
-  background-position: center bottom;
-  background-repeat: no-repeat;
-  border: 1px solid #e0e0e0;
-  flex: 1;
-  min-width: 336px;
-  width: calc(35vw - 2.8rem);
-  height: calc(46.67vw - 2.8rem);
-  max-width: 392px;
-  max-height: 522px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.service-card.third {
-  background: white url('/dongxiong-website/service-bg-equipment.png');
-  background-size: 80%;
-  background-position: center bottom;
-  background-repeat: no-repeat;
-  border: 1px solid #e0e0e0;
-  flex: 1;
-  min-width: 336px;
-  width: calc(35vw - 2.8rem);
-  height: calc(46.67vw - 2.8rem);
-  max-width: 392px;
-  max-height: 522px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.service-card.fourth {
-  background: white url('/dongxiong-website/service-bg-operation.png');
-  background-size: 80%;
-  background-position: center bottom;
-  background-repeat: no-repeat;
-  border: 1px solid #e0e0e0;
-  flex: 1;
-  min-width: 336px;
-  width: calc(35vw - 2.8rem);
-  height: calc(46.67vw - 2.8rem);
-  max-width: 392px;
-  max-height: 522px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.service-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.12);
-  border-color: var(--color-industry);
-}
-
-.service-card-icon { font-size: 2rem; margin-bottom: 1rem; }
-
-.service-card-title {
-  font-size: 1.75rem;
-  font-weight: var(--font-weight-semibold);
-  margin-bottom: 0.5rem;
-}
-
-.service-card-desc {
-  font-size: var(--text-small);
-  color: var(--color-text-secondary);
-  line-height: 1.6;
-  margin-bottom: 1rem;
 }
 
 /* 统一业务卡片栅格（固定卡片尺寸：上图 4:3，下文为剩余区域） */
@@ -382,7 +336,6 @@ section.page-body h2.section-title {
   max-width: 470px;
   max-height: none;
 }
-
 
 /* 移除整卡动画，仅图片区悬停上浮 */
 
@@ -448,7 +401,9 @@ section.page-body h2.section-title {
   color: var(--color-primary);
 }
 
-.service-card-link:hover { color: var(--color-primary-hover); }
+.service-card-link:hover {
+  color: var(--color-primary-hover);
+}
 
 /* 激活状态卡片样式 */
 .service-card.active {
@@ -687,8 +642,13 @@ section.page-body h2.section-title {
 }
 
 @keyframes scroll-hint-pulse {
-  0%, 100% { opacity: 0.6; }
-  50% { opacity: 1; }
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
 }
 
 /* 重新设计的双层动画 */
@@ -733,7 +693,7 @@ section.page-body h2.section-title {
   .dx-card-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .dx-card {
     min-width: 0;
     max-width: 100%;
@@ -741,48 +701,48 @@ section.page-body h2.section-title {
     min-height: 420px;
     max-height: none;
   }
-  
+
   .service-detail-panel {
     width: 96%;
     max-height: 94vh;
     border-radius: 22px;
   }
-  
+
   .service-detail-panel__overlay {
     border-radius: inherit;
   }
-  
+
   .detail-content {
     padding: 3.25rem 1.75rem 2.25rem;
     padding-top: 3.5rem;
   }
-  
+
   .detail-icon {
     font-size: 3.25rem;
   }
-  
+
   .detail-title {
     font-size: 1.85rem;
   }
-  
+
   .detail-lead {
     font-size: 1.2rem;
   }
-  
+
   .detail-section__title {
     font-size: 0.95rem;
   }
-  
+
   .detail-list--rows.detail-list li {
     font-size: 1.15rem;
     padding: 0.7rem 0;
   }
-  
+
   .detail-cta {
     padding: 0.9rem 2.15rem;
     font-size: 1.1rem;
   }
-  
+
   .detail-close-btn {
     top: 18px;
     right: 18px;
@@ -790,7 +750,7 @@ section.page-body h2.section-title {
     height: 38px;
     font-size: 22px;
   }
-  
+
   .detail-scroll-hint {
     font-size: 0.85rem;
     margin-top: 1.25rem;
