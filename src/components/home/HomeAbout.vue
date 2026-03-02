@@ -82,7 +82,7 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-/* 通用区块样式 */
+/* 通用区块样式ceshi */
 .section {
   min-height: 90vh;
   display: flex;
