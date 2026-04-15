@@ -39,7 +39,7 @@ export default defineConfig({
     },
   },
 
-  base: '/dongxiong-website/',
+  base: '/',
 
   // 构建优化配置
   build: {

@@ -95,7 +95,7 @@ const { t } = useI18n()
 
 /* 联系我们区域 */
 .contact-section {
-  background: white;
+  background: rgb(245, 245, 247);
 }
 
 .contact-content {

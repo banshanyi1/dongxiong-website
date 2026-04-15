@@ -81,7 +81,6 @@
                 :class="{ highlighted: highlightedCountries.includes(country.code) }"
                 @click="toggleCountryHighlight(country.code)"
               >
-                <div class="country-flag">{{ country.flag }}</div>
                 <div class="country-name-cn">{{ country.name }}</div>
                 <div class="country-name-en">{{ getFullEnglishName(country.code) }}</div>
               </div>
@@ -102,7 +101,6 @@
                 :class="{ highlighted: highlightedCountries.includes(country.code) }"
                 @click="toggleCountryHighlight(country.code)"
               >
-                <div class="country-flag">{{ country.flag }}</div>
                 <div class="country-name-cn">{{ country.name }}</div>
                 <div class="country-name-en">{{ getFullEnglishName(country.code) }}</div>
               </div>
@@ -123,7 +121,6 @@
                 :class="{ highlighted: highlightedCountries.includes(country.code) }"
                 @click="toggleCountryHighlight(country.code)"
               >
-                <div class="country-flag">{{ country.flag }}</div>
                 <div class="country-name-cn">{{ country.name }}</div>
                 <div class="country-name-en">{{ getFullEnglishName(country.code) }}</div>
               </div>
@@ -144,7 +141,6 @@
                 :class="{ highlighted: highlightedCountries.includes(country.code) }"
                 @click="toggleCountryHighlight(country.code)"
               >
-                <div class="country-flag">{{ country.flag }}</div>
                 <div class="country-name-cn">{{ country.name }}</div>
                 <div class="country-name-en">{{ getFullEnglishName(country.code) }}</div>
               </div>
@@ -165,7 +161,6 @@
                 :class="{ highlighted: highlightedCountries.includes(country.code) }"
                 @click="toggleCountryHighlight(country.code)"
               >
-                <div class="country-flag">{{ country.flag }}</div>
                 <div class="country-name-cn">{{ country.name }}</div>
                 <div class="country-name-en">{{ getFullEnglishName(country.code) }}</div>
               </div>
@@ -312,8 +307,6 @@
           </div>
         </section>
 
-        <div class="about-divider" aria-hidden="true"></div>
-
         <!-- 第二块：技术实力 -->
         <section class="about-block about-block--white">
           <div class="about-block__inner">
@@ -354,8 +347,6 @@
           </div>
         </section>
 
-        <div class="about-divider" aria-hidden="true"></div>
-
         <!-- 第三块：项目与实践 -->
         <section class="about-block about-block--light">
           <div class="about-block__inner">
@@ -383,8 +374,6 @@
             </div>
           </div>
         </section>
-
-        <div class="about-divider" aria-hidden="true"></div>
 
         <!-- 第四块：价值与承诺 -->
         <section class="about-block about-block--white">
@@ -1208,14 +1197,14 @@ const initializeAnimationTriggers = world => {
   background: radial-gradient(
     circle at 0% 0%,
     rgba(135, 206, 250, 0.9) 0%,
-    rgba(160, 210, 240, 0.75) 12%,
-    rgba(190, 225, 245, 0.6) 25%,
-    rgba(220, 240, 250, 0.4) 40%,
-    rgba(240, 248, 255, 0.25) 55%,
-    rgba(250, 255, 255, 0.1) 70%,
-    rgba(255, 255, 255, 0) 85%
+    rgba(160, 210, 240, 0.75) 10%,
+    rgba(190, 225, 245, 0.5) 20%,
+    rgba(220, 240, 250, 0.3) 30%,
+    rgba(240, 248, 255, 0.15) 45%,
+    rgba(250, 255, 255, 0.05) 60%,
+    rgba(255, 255, 255, 0) 75%
   );
-  /* 扩大渐变范围至85%，过渡更自然 */
+  /* 渐变在 75% 处完全透明，避免右侧残留蓝色 */
   z-index: -1;
   border-radius: 0 20px 20px 0;
 }
@@ -1406,9 +1395,7 @@ const initializeAnimationTriggers = world => {
   background: #ffffff;
   border-radius: 18px;
   padding: 2rem 1.75rem;
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
   border: 1px solid rgba(0, 0, 0, 0.06);
 }
@@ -1680,7 +1667,7 @@ p {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f3f4f6;
+  background: transparent;
 }
 
 .country-name-cn {

@@ -43,6 +43,12 @@ const routes = [
     component: () => import('../views/ContactView.vue'),
     meta: { titleKey: 'nav.contact' },
   },
+  {
+    path: '/test-globe',
+    name: 'test-globe',
+    component: () => import('../views/TestGlobeWheelView.vue'),
+    meta: { title: '地球滚动测试', hideBottomNav: true },
+  },
 ]
 
 const router = createRouter({

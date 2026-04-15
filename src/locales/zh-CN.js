@@ -352,7 +352,7 @@ export default {
     heroLead: '数百个成功项目，遍布全国，可参观考察',
     eyebrow: '案例展示',
     title: '典型工程案例',
-    lead: '脱硫脱硝、除尘与冶炼环保项目经验丰富，以下为部分案例（可替换为真实项目信息）。',
+    lead: '',
     knowMore: '了解详情',
     metallurgy: '工业固危废综合利用',
     metalRecycle: '工业固危废综合利用',
